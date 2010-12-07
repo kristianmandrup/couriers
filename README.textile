@@ -29,6 +29,27 @@ Run generator
 script/rails generate rspec:install  
 </pre>  
 
+h2. CAPTCHA
+
+https://github.com/ambethia/recaptcha
+
+Get keys: http://www.google.com/recaptcha/whyrecaptcha
+
+environment.rb
+<pre>
+  recaptcha_tags :public_key => '6Lc6BAAAAAAAAChqRbQZcn_yyyyyyyyyyyyyyyyy'  
+</pre>
+
+Later in a controller... 
+
+<pre>
+  verify_recaptcha :private_key => '6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx'  
+</pre>
+
+h2. Image upload
+
+http://techblog.moviepilot.com/carrierwave-as-a-replacement-for-paperclip
+
 h2. Google Maps
 
 https://github.com/jlecour/geokit-rails3/
