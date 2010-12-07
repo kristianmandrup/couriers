@@ -17,8 +17,13 @@ group :development, :test do
   gem "rspec-rails", ">= 2.0.1"  
 end
 
+gem "mongrel", '>= 1.2.0.pre2'
+
+# gem 'json',  :branch => 'never_use_iconv', :git => 'git://github.com/sorah/json'
+
 gem "devise"
 gem "cream"
 gem "slim"
 gem "slim-rails"
 gem "haml", ">= 3.0.0"
+gem "diff-lcs"

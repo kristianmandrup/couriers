@@ -66,14 +66,14 @@ GEM
     cream (0.8.0)
       cancan (>= 1.4.0)
       cancan (>= 1.4.0)
-      cancan-permits (>= 0.3.4)
       cancan-permits (>= 0.3.2)
+      cancan-permits (>= 0.3.4)
       cancan-rest-links (>= 0.2.0)
       cancan-rest-links (>= 0.2.0)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.0)
       devise-links (~> 0.2.0)
+      devise-links (>= 0.2.0)
       logging_assist (~> 0.1.6)
       logging_assist (~> 0.1.6)
       r3_plugin_toolbox (>= 0.4.0)
@@ -95,6 +95,7 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.12)
+    daemons (1.0.10)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
@@ -115,6 +116,7 @@ GEM
       activesupport (>= 3.0.1)
       require_all (~> 1.2.0)
       rspec (>= 2.0.1)
+    gem_plugin (0.2.3)
     generator-spec (0.7.0)
       rails (>= 3.0.1)
       rails-app-spec (>= 0.3.0)
@@ -154,6 +156,9 @@ GEM
       mongo (~> 1.1)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
+    mongrel (1.2.0.pre2)
+      daemons (~> 1.0.10)
+      gem_plugin (~> 0.2.3)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     r3_plugin_toolbox (0.4.0)
@@ -250,8 +255,10 @@ DEPENDENCIES
   cream
   cucumber-rails
   devise
+  diff-lcs
   haml (>= 3.0.0)
   mongoid (>= 2.0.0.beta.19)
+  mongrel (>= 1.2.0.pre2)
   rails (= 3.0.3)
   rspec-rails (>= 2.0.1)
   slim

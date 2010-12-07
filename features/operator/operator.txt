@@ -1,0 +1,83 @@
+Roles, States and Permissions
+A profile can have one of the following roles:
+* Customer
+* Courier
+* Courier Company
+* Administrator
+* Sales
+
+Profile states
+The user profile can be in one of the following states:
+* created
+* active
+* inactive
+* deleted
+
+Any profile will on creation have the state “created”. When the profile has been confirmed (fx by activation via email), the profile changes state to “active”. Only active profiles are taken into consideration in the application. Only active profiles can modify profile data and use the site according to their role and permissions. A user can be set to “inactive” for any reason, x if the user has not paid his subscription. When the subscription is payed, the profile will be activated again.
+
+Profile operational states
+This section describes the operational states of profiles.
+User
+The User class is the top level most abstract kind of User which all other types of Profiles inherit from. The User class encapsulates all data and behavior that is common to all.
+
+Data
+-	Username
+-	Email
+-	Password
+-	Confirm password 
+
+Metadata
+-	Profile state
+Administrator
+The Administrator is a User who has access to the backend system in order to change system level data, delete or modify user accounts etc.
+Operator
+An Operator is an abstract user with state and behavior common to any User who operates on the site either in the role of a Courier or Courier company. 
+An Operator has an operational state.
+
+Operational states
+-	Operational
+-	Not operational
+
+Initial Creation
+When a User profile is created, the operational state is by default set to “not operational”. 
+
+Becoming operational
+When the user has filled in enough information on his profile, the profile becomes “ready for operation” and a button appears that lets the user change state to “operational”. 
+
+Becoming not operational
+If information is changed (deleted) so that the data is not valid for an operational user of that role, a warning should appear about this. If the data still submitted (saved), the user will be set to “not operational”. Alternatively the user can force the operational status to “not operational”. This can be used if the user for any reason will not be available, fx due to sickness, vacation, death etc.
+
+Data
+The Operator has the following data.
+
+Address
+-	Street
+-	Zip
+-	City
+-	Country
+
+Metadata
+-	operational state
+Courier
+A Courier is an abstract class that encapsulates data and behavior common for both a Single Courier and a Courier company (composite).
+
+Courier operational states
+-	Operational
+-	Not operational
+
+Initial Creation
+When a Courier profile is created, the courier operational state is by default set to “not operational”. 
+
+Making the Courier operational
+When the courier has filled in enough information on his profile, the profile becomes “ready for operation” and a button appears that lets the user change state to “operational”. 
+
+Making the Courier not operational
+If information is changed (deleted) so that the data is not valid for an operational courier, a warning should appear about this, and if still submitted, the courier will be set to “not operational”. Alternatively the Courier can force the operational status to “not operational”. This can be used if the courier for any reason will not be available, fx sickness, vacation, death etc.
+Single Courier
+A Single Courier is any freelance person who operates as his own 1-person Courier company.
+The Single Courier is a kind of Courier.
+Courier Company
+A Courier Company is a company composed of multiple couriers. 
+The Courier Company is a kind of Courier.
+Customer
+The Customer is a user who can create orders for delivery from A to B, which the Couriers act upon.
