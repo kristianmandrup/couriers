@@ -1,0 +1,19 @@
+h1. Tiramizoo web app
+
+Web application for customers to order deliveries and for various roles to sign up and maintain their profile and see stats.
+
+h2. Infrastructure
+
+* Rails 3 (web app framework)
+* Mongoid 2 (Document oriented data store)
+* Cream (Roles etc.)
+* Devise (Authentication)
+* CanCan (Authorization)
+* Slim (Template system)
+
+h2. Copyright
+
+2010 Tiramizoo.com
+
+
+
