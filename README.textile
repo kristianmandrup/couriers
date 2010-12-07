@@ -29,6 +29,57 @@ Run generator
 script/rails generate rspec:install  
 </pre>  
 
+h2. Google Maps
+
+https://github.com/jlecour/geokit-rails3/
+
+-	Distance calculations, for both flat and spherical environments. For example, given the location of two points on the earth, you can calculate the miles/Km between them.
+
+-	IP-based location lookup utilizing hostip.info. Provide an IP address, and get city name and latitude/longitude in return
+
+-	A before_filter helper to geocoder the user's location based on IP address, and retain the location in a cookie.
+
+-	Geocoding from multiple providers. It provides a fail-over mechanism, in case your input fails to geocode in one service. Geocoding is provided buy the Geokit gem, which you must have installed
+
+h3. Google Maps with Rails – How to
+
+http://www.developer.com/open/article.php/10930_3757576_1
+
+Google map directions
+
+http://code.google.com/apis/maps/documentation/javascript/v2/services.html
+
+h3. Travel Modes
+
+By default, directions are assumed to be driving directions though you may request other modes of travel by passing a GTravelMode when calling the Directions.load() method. The following travel modes are supported:
+
+*	G_TRAVEL_MODE_DRIVING indicates standard driving directions using the road network
+* G_TRAVEL_MODE_WALKING requests walking directions via pedestrian paths & sidewalks (where available.)
+
+Note: Walking directions may sometimes not include clear pedestrian paths, so walking directions are only supported if you have supplied a  in the GDirections constructor; this is used to display a warning to the user in the returned turn-by-turn textual directions. If you do not have such a , a request for walking directions will return an error.
+
+h3. Handling Returned Directions
+
+If the GDirections object was constructed with a supplied GMap2 object, then the returned directions will contain a polyline overlay. If the GDirections object was constructed with a supplied  element, then the returned directions will contain a GRoute object, containing a set of GStep objects. (If the directions consist of multi-point directions, the returned directions will contain multiple GRoute objects, each consisting of a series of GStep objects.)
+Note that the directions object is not populated with this return information immediately. For this reason, the GDirections object defines a "load" event which you can intercept to determine this state.
+
+Once directions are returned, by default, the map will display a polyline showing the route, while textual directions will display within the  supplied for that purpose. The GDirections object will also internally store results which you can retrieve using GDirections.getPolyline() and/or GDirections.getRoute(i:Number) methods. Steps within a route can be retrieved using the GRoute.getStep(i:Number) method and the HTML summary of that step can be retrieved using GStep.getDescriptionHtml(). (See Routes and Steps below.)
+
+The GDirections object also fires three events which you can intercept:
+
+*	"load": This event is triggered when a directions result successfully returns, but before any overlay elements are added to the map/panel.
+*	"addoverlay": This event is triggered after the polyline and/or textual directions components are added to the map and/or DIV elements.
+
+h3. Routes and Steps
+
+The GDirections object also supports multi-point directions, which can be constructed using the GDirections.loadFromWaypoints() method. This method takes an array of textual input addresses or textual lat/lon points. Each separate waypoint is computed as a separate route and returned in a separate GRoute object, each of which contains a series of GStep objects.
+
+GRoute objects store the number of steps (of type GStep for that route, the starting and ending geocode for that route, and other computed information such as distance, duration, and exact lat/lon of the endpoint (which may be different than the ending geocode if the geocode does not lie on a road segment). Each GStep object as well contains the description for that text (e.g. "Merge onto US-101 S via the ramp to San Jose") plus computed information including the distance, duration, and exact lat/lon as well.
+
+Example:
+
+http://code.google.com/apis/maps/documentation/javascript/v2/examples/directions-simple.html
+
 h2. Copyright
 
 2010 Tiramizoo.com
