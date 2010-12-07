@@ -14,6 +14,7 @@ gem "bson_ext"
 group :development, :test do
   gem "cucumber-rails"
   gem "capybara"
+  gem "rspec-rails", ">= 2.0.1"  
 end
 
 gem "devise"

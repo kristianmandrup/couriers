@@ -9,7 +9,25 @@ h2. Infrastructure
 * Cream (Roles etc.)
 * Devise (Authentication)
 * CanCan (Authorization)
-* Slim (Template system)
+* Slim (Template system) https://github.com/stonean/slim
+
+h2. Setup
+
+Rails Wizard (tiramizoo)
+
+http://railswizard.org/f8c0bcd629a3378401cb
+
+h3. RSpec 2 setup
+
+In Gemfile  
+<pre>
+gem "rspec-rails", ">= 2.0.1"    
+</pre>
+
+Run generator
+<pre>
+script/rails generate rspec:install  
+</pre>  
 
 h2. Copyright
 
