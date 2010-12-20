@@ -29,7 +29,8 @@ gem "slim"
 gem "slim-rails"
 gem "sass"
 gem "compass"
-gem "haml", ">= 3.0.0"
+gem 'haml-edge',   '~> 3.1.49', :require => 'haml'
+gem 'lemonade'
 
 # CAPTCHA
 gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'

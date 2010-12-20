@@ -62,7 +62,11 @@ h2. CSS with SASS
 
 Compass (with blueprint?)
 
-https://github.com/chriseppstein/compass
+https://github.com/chriseppstein/compass  
+
+Lemonade (CSS Sprites)
+
+https://github.com/hagenburger/lemonade
 
 h2. Google Maps
 
