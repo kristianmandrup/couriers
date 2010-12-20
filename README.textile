@@ -48,7 +48,21 @@ Later in a controller...
 
 h2. Image upload
 
+Carrierwave
+
 http://techblog.moviepilot.com/carrierwave-as-a-replacement-for-paperclip
+
+h2. Form builder
+
+Formtastic
+
+https://github.com/justinfrench/formtastic
+
+h2. CSS with SASS
+
+Compass (with blueprint?)
+
+https://github.com/chriseppstein/compass
 
 h2. Google Maps
 
