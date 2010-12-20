@@ -1,4 +1,5 @@
-Tiramizoo::Application.routes.draw do
+Tiramizoo::Application.routes.draw do 
+  devise_for :users, :admins
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
