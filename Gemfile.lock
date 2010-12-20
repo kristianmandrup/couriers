@@ -321,7 +321,7 @@ PLATFORMS
 DEPENDENCIES
   active_merchant
   bhm-google-maps!
-  bson_ext
+  bson_ext (>= 1.1.4)
   capybara
   carrierwave!
   compass
@@ -333,7 +333,7 @@ DEPENDENCIES
   geokit-rails3!
   haml (>= 3.0.0)
   inherited_resources
-  mongoid (>= 2.0.0.beta.19)
+  mongoid (>= 2.0.0.beta.20)
   mongrel (>= 1.2.0.pre2)
   pickle
   rails (= 3.0.3)

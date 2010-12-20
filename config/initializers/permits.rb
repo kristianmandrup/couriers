@@ -1,0 +1,1 @@
+Permits::Ability.orm = :mongoid
