@@ -33,6 +33,7 @@ gem 'inherited_resources'
 # View
 gem "slim"
 gem "slim-rails"
+gem "sass"
 gem "compass"
 gem "haml", ">= 3.0.0"
 
