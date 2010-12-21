@@ -10,9 +10,13 @@ group :development, :test do
 
   # cucumber-fm  
   gem "diff-lcs"  
-end
+end  
+
 gem "mongrel", '>= 1.2.0.pre2'
 gem 'formtastic', '>= 1.1.0'
+
+gem 'hpricot', '>= 0.8.3'
+gem 'ruby_parser'
 
 # gem 'json',  :branch => 'never_use_iconv', :git => 'git://github.com/sorah/json'
 

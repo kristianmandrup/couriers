@@ -170,6 +170,7 @@ GEM
     haml (3.0.25)
     haml-edge (3.1.79)
     has_scope (0.5.0)
+    hpricot (0.8.3)
     i18n (0.5.0)
     inherited_resources (1.1.2)
       has_scope (~> 0.5.0)
@@ -292,6 +293,8 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.3.0)
+    ruby_parser (2.0.5)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     sass (3.1.0.alpha.204)
     selenium-webdriver (0.1.1)
@@ -299,6 +302,7 @@ GEM
       ffi (~> 0.6.3)
       json_pure
       rubyzip
+    sexp_processor (3.0.5)
     slim (0.8.1)
       temple (~> 0.1.6)
       tilt (~> 1.1)
@@ -338,6 +342,7 @@ DEPENDENCIES
   formtastic (>= 1.1.0)
   geokit-rails3!
   haml-edge (~> 3.1.49)
+  hpricot (>= 0.8.3)
   inherited_resources
   lemonade
   mongoid (>= 2.0.0.beta.20)
@@ -348,6 +353,7 @@ DEPENDENCIES
   roles_mongoid (>= 0.3.6)
   rspec (>= 2.0.1)
   rspec-rails (>= 2.0.1)
+  ruby_parser
   sass
   slim
   slim-rails
