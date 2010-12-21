@@ -19,7 +19,7 @@ class Address
 
   field :country,   :type => String
   
-  embedded_in :profile, :inverse_of => :address
+  # embedded_in :profile, :inverse_of => :address
   
   validates_length_of :postnr,  :within => 5..5
   validates_length_of :zip,     :within => 6..6

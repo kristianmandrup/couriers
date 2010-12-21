@@ -9,6 +9,5 @@ class Person
 
   embeds_one :profile
 
-  embedded_in :courier, :inverse_of => :person    
-  embedded_in :user, :inverse_of => :profile
+  embedded_in :courier, :inverse_of => :person
 end

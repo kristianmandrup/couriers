@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Courier do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # courier_1 = Courier.create 
 end
