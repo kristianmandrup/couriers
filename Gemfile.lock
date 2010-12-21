@@ -99,8 +99,8 @@ GEM
     cream (0.8.3)
       cancan (>= 1.4.0)
       cancan (>= 1.4.0)
-      cancan-permits (>= 0.3.4)
       cancan-permits (>= 0.3.2)
+      cancan-permits (>= 0.3.4)
       cancan-rest-links (>= 0.2.0)
       cancan-rest-links (>= 0.2.0)
       devise (>= 1.1.5)
@@ -265,20 +265,20 @@ GEM
       rails3_artifactor (~> 0.3.1)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.0)
-    roles_mongoid (0.3.4)
+    roles_mongoid (0.3.6)
       activesupport (~> 3.0.1)
       bson (>= 1.1.1)
       bson (>= 1.1.4)
       logging_assist (~> 0.1.6)
-      mongoid (>= 2.0.0.beta.19)
+      mongoid (>= 2.0.0.beta.20)
       mongoid (~> 2.0.0.beta.19)
       rails3_artifactor (>= 0.3.1)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
-      roles_generic (>= 0.3.0)
+      roles_generic (>= 0.3.3)
       roles_generic (>= 0.3.2)
       sugar-high (>= 0.3.0)
-      sugar-high (~> 0.3.0)
+      sugar-high (~> 0.3.1)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
       rspec-expectations (~> 2.3.0)
@@ -331,9 +331,9 @@ DEPENDENCIES
   capybara
   carrierwave!
   compass
-  cream (>= 0.8.2)
+  cream (>= 0.8.3)
   cucumber-rails
-  devise (>= 1.1)
+  devise (>= 1.1.5)
   diff-lcs
   formtastic (>= 1.1.0)
   geokit-rails3!
@@ -345,7 +345,7 @@ DEPENDENCIES
   pickle
   rails (= 3.0.3)
   recaptcha!
-  roles_mongoid (>= 0.3.4)
+  roles_mongoid (>= 0.3.6)
   rspec (>= 2.0.1)
   rspec-rails (>= 2.0.1)
   sass

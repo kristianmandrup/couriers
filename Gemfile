@@ -3,10 +3,10 @@ gem 'rails', '3.0.3'
 
 group :development, :test do
   gem "cucumber-rails"
-gem "pickle"
-gem "capybara"
-gem "rspec", ">= 2.0.1"
-gem "rspec-rails", ">= 2.0.1"  
+  gem "pickle"
+  gem "capybara"
+  gem "rspec", ">= 2.0.1"
+  gem "rspec-rails", ">= 2.0.1"  
 
   # cucumber-fm  
   gem "diff-lcs"  
@@ -17,9 +17,9 @@ gem 'formtastic', '>= 1.1.0'
 # gem 'json',  :branch => 'never_use_iconv', :git => 'git://github.com/sorah/json'
 
 # Authentication, Authorization and Roles
-gem "devise", '>= 1.1'
-gem "cream", '>= 0.8.2'
-gem "roles_mongoid", '>= 0.3.4'
+gem "devise", '>= 1.1.5'
+gem "cream", '>= 0.8.3'
+gem "roles_mongoid", '>= 0.3.6'
 
 # Controller
 gem 'inherited_resources'
@@ -31,6 +31,8 @@ gem "sass"
 gem "compass"
 gem 'haml-edge',   '~> 3.1.49', :require => 'haml'
 gem 'lemonade'
+
+# gem 'staticmatic'
 
 # CAPTCHA
 gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'
