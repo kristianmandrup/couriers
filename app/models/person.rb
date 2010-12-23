@@ -6,8 +6,24 @@ class Person
   field :last_name,   :type => String
 
   embeds_one :address
-
   embeds_one :profile
 
-  embedded_in :courier, :inverse_of => :person
+  validates_associated :address
+
+  validates :address, :presence => true
+
+  validates_with FullNameValidator  
+
+  # validates :first_name,  :presence => true, :length => {:within => 2..40},   :person_name => true
+  # validates :last_name,   :presence => true, :length => {:within => 2..40},   :person_name => true
+
+  before_validation :strip_names
+  
+  private
+  
+  def strip_names
+    self.first_name.strip!
+    self.last_name.strip!
+  end
+  
 end

@@ -29,6 +29,11 @@ Run generator
 script/rails generate rspec:install  
 </pre>  
 
+h2. Validations
+
+http://omgbloglol.com/post/392895742/improved-validations-in-rails-3
+http://lindsaar.net/2010/1/31/validates_rails_3_awesome_is_true
+
 h2. CAPTCHA
 
 https://github.com/ambethia/recaptcha
