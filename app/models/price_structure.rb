@@ -14,6 +14,17 @@ class PriceStructure
   field :unsuccessful_delivery, :type => Float # pickup or delivery could not be made
 
   field :currency,              :type => String
-  
-  embedded_in :service_provider, :inverse_of => :price_structure
+
+  validates :currency, :presence => true, :currency => true
+
+  # validates :max_weight_kg,   :numericality => {:within => 1..20000} # 20.0000 kg
+  # validates :base_price,      :numericality => {:within => 1..200}
+  # validates :km_price,        :numericality => {:within => 1..200}
+  # validates :km_point,        :numericality => {:within => 1..20}
+  # validates :cost_per_stop,   :numericality => {:within => 1..200}
+  # validates :waiting_time,    :numericality => {:within => 1..200}
+  # 
+  # validates :unsuccessful_delivery,    :numericality => {:within => 1..200}
+    
+  # embedded_in :service_provider, :inverse_of => :price_structure
 end
