@@ -1,4 +1,11 @@
 Tiramizoo::Application.routes.draw do 
+  match 'info/couriers' => 'info#couriers', :as => :couriers_info
+  match 'info/businesses' => 'info#businesses', :as => :businesses_info
+  match 'info/private' => 'info#private', :as => :private_info  
+
+#  match 'info/private' => 'info#private', :as => :new_courier_registration
+
+
   resources :profiles
 
   devise_for :users, :admins

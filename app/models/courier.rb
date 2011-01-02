@@ -1,9 +1,7 @@
 class Courier < ServiceProvider
   include Mongoid::Document
 
-  embeds_one :person 
-  
-  field :nick_name,  :type => String
+  embeds_one :person
 end
 
 # {

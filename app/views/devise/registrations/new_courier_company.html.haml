@@ -1,0 +1,13 @@
+%h2 Courier Company Registration
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = devise_error_messages!
+
+  = render :basic_user_form, :locals => {:f => f}
+
+  = render :name_form  
+  = f.input :company_name
+  = render :address_form
+
+  = form.buttons do %>
+    = form.commit_button %>  
+= render :partial => "devise/shared/links"

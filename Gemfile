@@ -5,8 +5,8 @@ group :development, :test do
   gem "cucumber-rails"
   gem "pickle"
   gem "capybara"
-  gem "rspec", ">= 2.0.1"
-  gem "rspec-rails", ">= 2.0.1"  
+  gem "rspec", "~> 2.2.0"
+  gem "rspec-rails", "~> 2.2.0"  
 
   # cucumber-fm  
   gem "diff-lcs"  
@@ -22,8 +22,8 @@ gem 'ruby_parser'
 
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
-gem "cream", '>= 0.8.3'
-gem "roles_mongoid", '>= 0.3.6'
+gem "cream", '>= 0.8.4', :path => '/Users/kristianconsult/ruby-gems/cream'
+gem "roles_mongoid", '>= 0.4.1'
 
 # Controller
 gem 'inherited_resources'

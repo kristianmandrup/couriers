@@ -7,10 +7,12 @@
           li= msg
 
   .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
+    = f.input :description
+    = f.input :webpage_url
+    = f.input :avatar
+
   .actions
     = f.submit 'Save'
+
+
+

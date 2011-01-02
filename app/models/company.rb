@@ -6,10 +6,9 @@ class Company
   embeds_one :address 
 
   embeds_one :contact
-  embeds_one :profile   
+  embeds_one :profile
 
-  field :phone, :type => String
-  field :email, :type => String 
+  embeds_one :contact_info
   
   validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true
   

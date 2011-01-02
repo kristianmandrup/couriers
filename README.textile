@@ -11,17 +11,19 @@ h2. Infrastructure
 * CanCan (Authorization)
 * Slim (Template system) https://github.com/stonean/slim
 
+"Haml to slim":https://github.com/fredwu/haml2slim
+
 h2. Setup
 
 Rails Wizard (tiramizoo)
 
-http://railswizard.org/f8c0bcd629a3378401cb
+"Rails project creation wizard":http://railswizard.org/f8c0bcd629a3378401cb
 
 h3. RSpec 2 setup
 
 In Gemfile  
 <pre>
-gem "rspec-rails", ">= 2.0.1"    
+gem "rspec-rails", ">= 2.2.0"    
 </pre>
 
 Run generator
@@ -31,12 +33,13 @@ script/rails generate rspec:install
 
 h2. Validations
 
-http://omgbloglol.com/post/392895742/improved-validations-in-rails-3
-http://lindsaar.net/2010/1/31/validates_rails_3_awesome_is_true
+"improved-validations-in-rails-3":http://omgbloglol.com/post/392895742/improved-validations-in-rails-3
+"validates_rails_3_awesome_is_true":http://lindsaar.net/2010/1/31/validates_rails_3_awesome_is_true
+"sexy-validations":http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/
 
 h2. CAPTCHA
 
-https://github.com/ambethia/recaptcha
+"recaptcha":https://github.com/ambethia/recaptcha
 
 Get keys: http://www.google.com/recaptcha/whyrecaptcha
 
@@ -61,21 +64,21 @@ h2. Form builder
 
 Formtastic
 
-https://github.com/justinfrench/formtastic
+"formtastic":https://github.com/justinfrench/formtastic
 
 h2. CSS with SASS
 
 Compass (with blueprint?)
 
-https://github.com/chriseppstein/compass  
+"compass":https://github.com/chriseppstein/compass  
 
 Lemonade (CSS Sprites)
 
-https://github.com/hagenburger/lemonade
+"lemonade":https://github.com/hagenburger/lemonade
 
 h2. Google Maps
 
-https://github.com/jlecour/geokit-rails3/
+"geokit-rails3":https://github.com/jlecour/geokit-rails3/
 
 -	Distance calculations, for both flat and spherical environments. For example, given the location of two points on the earth, you can calculate the miles/Km between them.
 
@@ -87,11 +90,11 @@ https://github.com/jlecour/geokit-rails3/
 
 h3. Google Maps with Rails – How to
 
-http://www.developer.com/open/article.php/10930_3757576_1
+"How to":http://www.developer.com/open/article.php/10930_3757576_1
 
 Google map directions
 
-http://code.google.com/apis/maps/documentation/javascript/v2/services.html
+"directions":http://code.google.com/apis/maps/documentation/javascript/v2/services.html
 
 h3. Travel Modes
 
@@ -122,7 +125,7 @@ GRoute objects store the number of steps (of type GStep for that route, the star
 
 Example:
 
-http://code.google.com/apis/maps/documentation/javascript/v2/examples/directions-simple.html
+"directions simple code example":http://code.google.com/apis/maps/documentation/javascript/v2/examples/directions-simple.html
 
 h2. Copyright
 

@@ -1,7 +1,6 @@
 class CourierCompany < ServiceProvider
   include Mongoid::Document
   
-  embeds_many :vehicles
   embeds_one  :company  
 end
    

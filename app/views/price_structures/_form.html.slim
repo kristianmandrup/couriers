@@ -1,0 +1,13 @@
+h3 Price structure 
+= f.input :bicycle, :as => :boolean
+
+= f.input :base_price
+
+= f.input :km_price
+= f.input :km_point
+
+field :cost_per_stop,         :type => Float 
+field :waiting_time,          :type => Float # every 5 min?
+field :unsuccessful_delivery, :type => Float # pickup or delivery could not be made
+
+field :currency,              :type => String

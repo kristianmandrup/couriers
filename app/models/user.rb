@@ -1,4 +1,4 @@
-use_roles_strategy :role_string
+# Professional booker: retailer, shop etc.
 
 class User
   include Mongoid::Document
@@ -13,8 +13,5 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  embeds_one :person
-  embeds_one :service_provider
-
-  field :language, :type => String
+  field :country, :type => String
 end
