@@ -10,4 +10,7 @@
     = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
+    %p 
+      = # login_or_logout
     = yield
+    = render 'shared#footer'

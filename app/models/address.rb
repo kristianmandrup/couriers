@@ -13,6 +13,26 @@ class Address
     end
   end
 
+  class << self
+    def create_from_point point
+      Address.new :street => extract_street(point), :city => extract_city(point), :zip => extract_zip(point)
+    end
+
+    # Use Geolocation service here!!!
+
+    def extract_street address
+      'Müllerstrasse 34'
+    end
+
+    def extract_zip address
+      '80469'
+    end
+
+    def extract_city address
+      'Munich'
+    end
+  end
+
   protected
   
   def set_country

@@ -1,8 +1,16 @@
 class PriceStructure
   include Mongoid::Document
 
-  field :max_weight_kg,         :type => Float
-  field :max_dimensions_cm,     :type => String
+  class << self
+    def max_weight_kg
+    end
+
+    def max_dimensions_cm
+    end
+
+    def max_km
+    end
+  end
 
   field :base_price,            :type => Float # price up to km_point
 

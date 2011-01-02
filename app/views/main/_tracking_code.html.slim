@@ -1,0 +1,9 @@
+= form_for @booking do |f|
+  -if @booking.errors.any?
+    #error_explanation
+      ul
+        - @booking.errors[:tracking_code].full_messages.each do |msg|
+          li= msg
+
+  .field
+    = f.input :tracking_code

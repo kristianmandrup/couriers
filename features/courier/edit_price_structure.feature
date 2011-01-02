@@ -36,7 +36,3 @@ Feature: Edit Courier Pricing data
     When I enter a "valid night delivery surcharge"
     And I click “save”
     Then I should see "Success"
-
-  # Scenario: Set maximum weight
-  # 
-  # Scenario: Set maximum size
