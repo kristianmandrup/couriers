@@ -104,4 +104,6 @@ h2. Searching
 Initiated from main page. Searches couriers.
 Can be used for rating etc.
 
-h3. Searching page
+h3. Searching page 
+
+profiles#search

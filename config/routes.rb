@@ -1,9 +1,23 @@
-Tiramizoo::Application.routes.draw do 
+Tiramizoo::Application.routes.draw do
+
+  # Info pages
   match 'info/couriers'   => 'info#couriers',   :as => :couriers_info
   match 'info/businesses' => 'info#businesses', :as => :businesses_info
-  match 'info/private'    => 'info#private',    :as => :private_info  
+  match 'info/private'    => 'info#private',    :as => :private_info
 
-  resources :profiles
+  # Search couriers
+  match 'search/couriers'    => 'search#couriers',  :as => :search_couriers
+
+  # list of potential types of User registrations
+  resources :registrations, :only => [:index]
+
+  # Track booking using existing booking number
+  resources :tracking,  :only => [:show]
+
+  # Booking procedure
+  resources :bookings,  :only => [:new] # updates booking session?
+  resources :schedule,  :only => [:new, :create]
+  resources :payment,   :only => [:new, :create]  
 
   devise_for :individual_couriers, :class_name => 'Courier::Individual'
   as :individual_courier do
@@ -24,8 +38,14 @@ Tiramizoo::Application.routes.draw do
   as :professional_customer do
     match "/professional_customers/sign_up" => "devise/registrations#new", :as => :professional_customer_signup
   end
-  
-  root :to => "main#index"  
+
+  # namespace :admin do
+  #   # Directs /admin/products/* to Admin::ProductsController
+  #   # (app/controllers/admin/products_controller.rb)
+  #   resources :products
+  # end
+
+  root :to => "main#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

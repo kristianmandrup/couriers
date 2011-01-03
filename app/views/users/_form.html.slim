@@ -1,0 +1,6 @@
+%h2
+= resource_name.to_s.humanize
+= semantic_form_for(resource, :as => resource_name, :url => profile_path(resource_name)) do |f|
+  = render :account_form # username, email, password
+
+  = render_user_inputs

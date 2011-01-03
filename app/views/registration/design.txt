@@ -1,0 +1,1 @@
+The RegistrationHelper is used by devise/registrations/new to decide which of the company or person partials to use for the user registration. 

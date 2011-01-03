@@ -13,4 +13,28 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
          
   field :country, :type => String
+  
+  def has_address?
+    true
+  end
+
+  def has_profile?
+    false
+  end
+
+  def has_bankaccount?
+    false
+  end
+
+  def has_vehicles?
+    false
+  end
+
+  def is_person?
+    false
+  end
+
+  def is_company?
+    false
+  end
 end
