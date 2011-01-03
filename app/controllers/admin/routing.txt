@@ -1,0 +1,5 @@
+http://stackoverflow.com/questions/4544031/ruby-on-rails-3-namespace-model-issue
+
+namespace :admin do
+  resources :listings
+end

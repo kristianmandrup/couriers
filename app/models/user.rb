@@ -1,15 +1,14 @@
-# Professional booker: retailer, shop etc.
-
 class User
   include Mongoid::Document
   include Roles::Mongoid 
 
-  strategy :role_string, :default
+  strategy :role_string
+  valid_roles_are :admin,   :guest, 
+                  :seller,  :professional, :private,
+                  :individual_courier, :courier_company
 
-  valid_roles_are :admin, :guest, :customer, :courier, :courier_company
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          

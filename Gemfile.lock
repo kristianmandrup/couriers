@@ -28,7 +28,7 @@ GIT
 PATH
   remote: /Users/kristianconsult/ruby-gems/cream
   specs:
-    cream (0.8.4)
+    cream (0.8.5)
       cancan (>= 1.4.0)
       cancan (>= 1.4.0)
       cancan-permits (>= 0.3.4)

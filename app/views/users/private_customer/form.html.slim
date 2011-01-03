@@ -1,0 +1,9 @@
+%h2 Private Customer
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  = render :account_form # username, email, password
+
+  = render :address_form
+  = render 'profile#form'
+  = render 'bank_account#form'  
+  = render 'vehicles#individual_form'

@@ -1,7 +1,7 @@
 class Contact
   include Mongoid::Document
 
-  embeds_one :name, :class => 'PersonName'
+  embeds_one :name, :class => 'Person::Name'
   embeds_one :contact_info
   
   validates_presence_of :first_name, :last_name 

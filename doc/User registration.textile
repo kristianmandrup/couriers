@@ -1,0 +1,12 @@
+h1. User Registration
+
+The Users are:
+
+- Individual Courier
+- Courier Company
+- (Courier Cluster)
+
+- Private Customer
+- Professional Customer
+- Seller
+

@@ -31,6 +31,17 @@ Run generator
 script/rails generate rspec:install  
 </pre>  
 
+"Test Devise with Rails 3 and RSpec2":https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Rails-3-and-RSpec
+
+h3. Cucumber
+
+"Test Devise with Cucumber":https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Cucumber
+
+h2. Textmate bundles
+
+"HAML":https://github.com/flov/HAML-TextMate-Bundle
+"Slim":https://github.com/fredwu/ruby-slim-textmate-bundle
+
 h2. Validations
 
 "improved-validations-in-rails-3":http://omgbloglol.com/post/392895742/improved-validations-in-rails-3

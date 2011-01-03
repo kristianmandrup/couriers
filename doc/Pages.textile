@@ -1,0 +1,107 @@
+h1. Application Pages
+
+h2. Main page (landing page)
+- main#index
+
+Get a quote     -> Booking page   (booking_path) booking#create, booking#show:id
+Start tracking  -> Tracking page  (tracking_path) tracking#show:id
+Search courier  -> Searching page (search_couriers_path) search#couriers
+Register        -> Registration Index page (registrations_path) registration#index
+
+h2. Registration
+
+Registering a specific type of User account (role) with profile info etc.
+
+h3. Registration Index page
+
+Choose type of role to register
+
+Register as Individual Courier -> Individual Courier Registration page 
+Register as Courier Company -> Courier Company Registration page
+Register as Private Customer -> Private Customer Registration page
+Register as Professional Customer -> Professional Customer Registration page
+
+h3. Individual Courier Registration page
+
+Registration form
+- location
+- company
+- first name
+- last name
+- mobile nr
+- email
+- vehicle
+- notes
+
+Register -> Registration confirmation page
+
+h3. Registration confirmation page
+
+Thank you msg and telphone call notice.
+
+Home -> Main page
+
+h2. Tracking
+
+Initiated from main page by filling out tracking code form
+- tracking code
+
+Start tracking -> Tracking page 
+
+h3. Tracking page
+- tracking#show from Main page 
+
+Using tracking code linked to booking
+
+Tracking code form
+Start tracking -> Tracking page 
+
+Book new delivery -> Main page
+
+h2. Booking
+
+Initiated from main page by filling out basic address info form:
+- pick-up point
+- drop-off point
+- mode of transportation (vehicle)
+
+Get quote -> Booking page
+
+h3. Booking page
+- booking#new from Main page 
+
+Displays a form with adress from main page (split up into its parts) and lets you fill out contact info details for pick-up and drop-off points  
+
+Schedule later & pay -> Schedule page
+Book now & pay -> 
+  - booking request sent to Couriers
+  - Modal window to await courier order confirmation 
+  - Cancel -> Booking page
+
+Scenarios:
+- Courier accepts
+  - Payment -> Payment page
+- No courier accepts
+  - Try again -> Booking page
+  - Schedule later & pay -> Schedule page
+
+h3. Schedule page
+- schedule#new from Booking page
+
+h3. Payment page
+- payment#new from Booking or Schedule page 
+
+Pay -> 
+  - execute payment via provider
+  Scenarios:
+    - Success
+      - create new tracking code on booking
+    - Failure
+      - Go back to Payment page and display error msg
+
+h2. Searching
+
+Initiated from main page. Searches couriers.
+Can be used for rating etc.
+
+h3. Searching page

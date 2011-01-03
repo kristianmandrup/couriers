@@ -1,0 +1,15 @@
+= form_for @schedule do |f|
+  -if @schedule.errors.any?
+    #error_explanation
+      ul
+        - @schedule.errors.full_messages.each do |msg|
+          li= msg
+
+  .field
+    = f.input :earliest_pickup
+    = f.input :latest_delivery
+    = f.input :expires_at
+
+  .actions
+    = f.submit 'Save'
+
