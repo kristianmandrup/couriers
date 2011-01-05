@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/YouthTree/bhm-google-maps.git
-  revision: 5b771fb70fb5046f13f44f0f6a89591067b6de6b
-  specs:
-    bhm-google-maps (0.3.0)
-
-GIT
   remote: https://github.com/davout/recaptcha.git
   revision: 2e3bfac0a0e29dcbd0e77262d54264949df1d8d6
   specs:
@@ -318,7 +312,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_merchant
-  bhm-google-maps!
   bson_ext (>= 1.1.4)
   capybara
   carrierwave!
