@@ -18,11 +18,9 @@ gem 'formtastic', '>= 1.1.0'
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 
-# gem 'json',  :branch => 'never_use_iconv', :git => 'git://github.com/sorah/json'
-
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
-gem "cream", '>= 0.8.4', :path => '/Users/kristianconsult/ruby-gems/cream'
+gem "cream", '>= 0.8.6' #, :path => '/Users/kristianconsult/ruby-gems/cream'
 gem "roles_mongoid", '>= 0.4.1'
 
 # Controller
@@ -35,8 +33,6 @@ gem "sass"
 gem "compass"
 gem 'haml-edge',   '~> 3.1.49', :require => 'haml'
 gem 'lemonade'
-
-# gem 'staticmatic'
 
 # CAPTCHA
 gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'
