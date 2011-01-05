@@ -70,8 +70,8 @@ GEM
     cancan-rest-links (0.2.1)
       cancan (~> 1.4.0)
       cancan (~> 1.4.0)
-      r3_plugin_toolbox (~> 0.4.0)
       r3_plugin_toolbox (>= 0.4.0)
+      r3_plugin_toolbox (~> 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.0)
@@ -94,8 +94,8 @@ GEM
     cream (0.8.6)
       cancan (>= 1.4.0)
       cancan (>= 1.4.0)
-      cancan-permits (>= 0.3.4)
       cancan-permits (>= 0.3.2)
+      cancan-permits (>= 0.3.4)
       cancan-rest-links (>= 0.2.0)
       cancan-rest-links (>= 0.2.0)
       devise (>= 1.1.5)
@@ -312,7 +312,7 @@ DEPENDENCIES
   capybara
   carrierwave!
   compass
-  cream (>= 0.8.4)
+  cream (>= 0.8.6)
   cucumber-rails
   devise (>= 1.1.5)
   diff-lcs
