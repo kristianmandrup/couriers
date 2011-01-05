@@ -52,7 +52,7 @@ gem "carrierwave", :git => 'https://github.com/jnicklas/carrierwave.git'
 gem "active_merchant"
 
 # Google Maps
-gem "bhm-google-maps", :git => 'https://github.com/YouthTree/bhm-google-maps.git'
+# gem "bhm-google-maps", :git => 'https://github.com/YouthTree/bhm-google-maps.git'
 gem "geokit-rails3", :git => 'https://github.com/jlecour/geokit-rails3.git'
 gem "mongoid", ">= 2.0.0.beta.20"
 gem "bson_ext", ">= 1.1.4" 

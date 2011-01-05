@@ -87,6 +87,10 @@ Lemonade (CSS Sprites)
 
 "lemonade":https://github.com/hagenburger/lemonade
 
+h2. Heroku
+
+"Heroku setup":http://blog.elctech.com/2009/05/17/heroku-0-to-60-in-15-minutes/
+
 h2. Google Maps
 
 "IP to country geocoding":http://www.rudabet.com/blog/2010/06/ip-to-country-geocoding-in-ruby-on-rails/
