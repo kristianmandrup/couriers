@@ -1,10 +1,12 @@
-module UserHelper
-  def self.type {
-    :individual_courier     => :company,
-    :courier_company        => :company,  
-    :private_customer       => :person,
-    :professional_customer  => :person
-  }
+module UsersHelper
+  def self.type 
+    {
+      :individual_courier     => :company,
+      :courier_company        => :company,  
+      :private_customer       => :person,
+      :professional_customer  => :person
+    }
+  end
   
   def render_user_inputs
     render :partial => 'address/form'  if resource.has_address?

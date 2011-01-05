@@ -8,8 +8,10 @@ p = link_to 'Benefits for Private', private_info_path
 
 p = link_to 'Registration', registrations_path
 
-= # render 'locations#form'
-= # render 'transportation_mode#form'
-= # render 'map#your_location'
-= # render :tracking_code
-= # render 'search#courier'
+p = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code 
+
+/ = render 'locations#form'
+/ = render 'transportation_mode#form'
+/ = render 'map#your_location'
+/ = render :tracking_code
+/ = render 'search#courier'

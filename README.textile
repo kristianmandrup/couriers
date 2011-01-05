@@ -89,6 +89,9 @@ Lemonade (CSS Sprites)
 
 h2. Google Maps
 
+"IP to country geocoding":http://www.rudabet.com/blog/2010/06/ip-to-country-geocoding-in-ruby-on-rails/
+"Geocoding-Users-Ip-Address-Create-User":http://efreedom.com/Question/1-1316764/Geokit-Authlogic-Geocoding-Users-Ip-Address-Create-User
+
 "geokit-rails3":https://github.com/jlecour/geokit-rails3/
 
 -	Distance calculations, for both flat and spherical environments. For example, given the location of two points on the earth, you can calculate the miles/Km between them.

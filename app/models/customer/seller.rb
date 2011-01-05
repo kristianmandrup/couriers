@@ -1,4 +1,4 @@
-class Seller < User
+class Customer::Seller < User
   include Mongoid::Document
   
   embeds_one :company
