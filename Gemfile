@@ -5,8 +5,8 @@ group :development, :test do
   gem "cucumber-rails"
   gem "pickle"
   gem "capybara"
-  gem "rspec", "~> 2.2.0"
-  gem "rspec-rails", "~> 2.2.0"  
+  gem "rspec", ">= 2.4.0"
+  gem "rspec-rails", ">= 2.4.0"  
 
   # cucumber-fm  
   gem "diff-lcs"  
@@ -20,8 +20,8 @@ gem 'ruby_parser'
 
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
-gem "cream", '>= 0.8.6' #, :path => '/Users/kristianconsult/ruby-gems/cream'
-gem "roles_mongoid", '>= 0.4.1'
+gem "cream", '>= 0.8.8', :path => '/Users/kristianconsult/ruby-gems/cream'
+gem "roles_mongoid", '>= 0.4.2'
 
 # Controller
 gem 'inherited_resources'
@@ -48,7 +48,7 @@ gem "carrierwave", :git => 'https://github.com/jnicklas/carrierwave.git'
 gem "active_merchant"
 
 # Google Maps
-# gem "bhm-google-maps", :git => 'https://github.com/YouthTree/bhm-google-maps.git'
+gem "bhm-google-maps", :git => 'https://github.com/antramm/bhm-google-maps.git'
 gem "geokit-rails3", :git => 'https://github.com/jlecour/geokit-rails3.git'
 gem "mongoid", ">= 2.0.0.beta.20"
 gem "bson_ext", ">= 1.1.4" 

@@ -12,17 +12,19 @@ Feature: Modify name
     And I fill in "last_name" with "<last_name>"
     And I press "Save"
     Then I should see "<action>"
+
     Examples:
       | first_name | last_name  |             action                |
       |            | blip 	    | see "First name can't be blank" 	|
       | blip		   |        	  | see "Last name can't be blank"    |
       | b 		     | a 	        | see "First name is too short"   	|
 
-  Scenario: Modifying address with valid data displays success
+  Scenario Outline: Modifying address with valid data displays success
     When I fill in "first_name" with "<first_name>"
     And I fill in "last_name" with "<last_name>"
     And I press "Save"
     Then I should see "<action>"
+
     Examples:
       | first_name | last_name |   action       |
       | blap       | blip 	   |  Success" 	    |

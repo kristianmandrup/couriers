@@ -50,6 +50,8 @@ h2. Validations
 
 h2. CAPTCHA
 
+"Recaptcha with Devise":https://github.com/plataformatec/devise/wiki/How-To:-Use-Recaptcha-with-Devise
+
 "recaptcha":https://github.com/ambethia/recaptcha
 
 Get keys: http://www.google.com/recaptcha/whyrecaptcha
@@ -76,6 +78,15 @@ h2. Form builder
 Formtastic
 
 "formtastic":https://github.com/justinfrench/formtastic
+
+h2. Devise Authentication
+
+"Configure full Auth/Auth setup":http://www.tonyamoyal.com/2010/07/28/rails-authentication-with-devise-and-cancan-customizing-devise-controllers/
+"Part 2":http://www.tonyamoyal.com/2010/09/29/rails-authentication-with-devise-and-cancan-part-2-restful-resources-for-administrators/
+
+"More":http://www.michaelharrison.ws/weblog/?p=349
+
+"Customizing Devise":http://asciicasts.com/episodes/210-customizing-devise
 
 h2. CSS with SASS
 

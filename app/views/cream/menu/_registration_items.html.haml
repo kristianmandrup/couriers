@@ -1,0 +1,6 @@
+- for_any_user do
+  %li
+    = link_to('Edit registration', edit_user_registration_path)
+- for_role :guest do
+  %li
+    = link_to('Register', new_user_registration_path)

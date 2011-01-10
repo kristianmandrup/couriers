@@ -1,0 +1,6 @@
+- for_role :admin do
+  %li
+    = link_to('Logout', destroy_admin_session_path)
+- not_for_role :admin do
+  %li
+    = link_to('Admin Login', new_admin_session_path)
