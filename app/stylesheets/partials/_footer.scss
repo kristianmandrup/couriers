@@ -1,0 +1,17 @@
+#footer > ul > li {
+  $footer-columns: floor($blueprint-grid-columns / 5);
+  @include column($footer-columns);
+  font-weight:bold;
+  li {
+    @include no-bullet;
+    font-weight:normal;
+  }
+}  
+
+#footer > ul {
+  @include prepend(2);
+}
+
+#footer > ul ul {
+  @include prepend(0);
+}

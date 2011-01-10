@@ -23,6 +23,8 @@
 
 body.two-col {
   #container {
+    @include showgrid;
+    
     @include container; }
   #header, #footer {
     @include column($blueprint-grid-columns); }
