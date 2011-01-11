@@ -20,7 +20,7 @@ gem 'ruby_parser'
 
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
-gem "cream", '>= 0.8.9', :path => '/Users/kristianconsult/ruby-gems/cream'
+gem "cream", '>= 0.8.9' #, :path => '/Users/kristianconsult/ruby-gems/cream'
 gem "roles_mongoid", '>= 0.4.4'
 
 # Controller
