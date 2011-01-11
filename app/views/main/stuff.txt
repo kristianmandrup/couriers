@@ -1,6 +1,4 @@
-p The main page
-
-/ = render 'locations/form'
+/= render 'quotes/quote_form'
 / = render 'transportation_mode/form'
 / = render 'map/your_location'
 / = render :tracking_code

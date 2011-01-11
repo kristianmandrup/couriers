@@ -95,6 +95,8 @@ Formtastic
 
 "formtastic":https://github.com/justinfrench/formtastic
 
+"Formtastic with mongoid tutorial":https://github.com/bowsersenior/formtastic_with_mongoid_tutorial
+
 Install:
 
 <pre>$ rails g formtastic:install</pre>

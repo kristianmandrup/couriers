@@ -10,6 +10,7 @@ Tiramizoo::Application.routes.draw do
 
   # list of potential types of User registrations
   resources :registrations, :only => [:index]
+  resources :quotes
 
   # Track booking using existing booking number
   resources :tracking,  :only => [:show]

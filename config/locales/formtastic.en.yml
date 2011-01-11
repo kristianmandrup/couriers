@@ -15,4 +15,5 @@ en:
     actions:
       create: "Create my %{model}"
       update: "Save changes"
-      login:  "Login!"
+      login:  "Login"
+      quote: "Get Quote" 

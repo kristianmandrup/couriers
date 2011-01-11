@@ -1,0 +1,7 @@
+%h3 Choose your pick-up and drop-off locations
+= semantic_form_for @quote do |f|
+  - f.inputs do
+    = f.input :pickup_point
+    = f.input :dropoff_point
+  - f.buttons do
+    = f.commit_button :quote

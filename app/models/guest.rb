@@ -1,8 +1,8 @@
 class Guest
   include Mongoid::Document  
 
-  attr_accessor :login
-  attr_accessor :password
+  field :login,     :type => String
+  field :password,  :type => String
     
   def self.create
     Guest.new
