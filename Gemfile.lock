@@ -344,7 +344,7 @@ DEPENDENCIES
   capybara
   carrierwave!
   compass
-  cream (>= 0.8.8)!
+  cream (>= 0.8.9)!
   cucumber-rails
   devise (>= 1.1.5)
   diff-lcs
@@ -360,7 +360,7 @@ DEPENDENCIES
   rails (= 3.0.3)
   recaptcha!
   remarkable_mongoid
-  roles_mongoid (>= 0.4.2)
+  roles_mongoid (>= 0.4.4)
   rspec (>= 2.4.0)
   rspec-rails (>= 2.4.0)
   ruby_parser

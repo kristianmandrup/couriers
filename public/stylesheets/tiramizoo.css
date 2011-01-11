@@ -7,3 +7,14 @@ ul.hmenu {
 ul.hmenu li {
   display: inline;  
 }
+
+div#wrapper {
+  /* insert styles common to all controllers here */
+}
+div#wrapper div.users {
+  /* insert common styles for all user actions here */
+}
+div#wrapper div.users.index {
+  /* insert users#index specific styles here */
+}
+

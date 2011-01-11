@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter :geolocation
+  
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url
@@ -13,6 +15,10 @@ class ApplicationController < ActionController::Base
   
   def login_form
     render :partial => 'users/sign_in'
+  end
+
+  def geolocation
+    @geolocation = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code
   end
 
   # http://stackoverflow.com/questions/4275058/using-devise-with-guest-users

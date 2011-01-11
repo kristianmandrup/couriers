@@ -1,4 +1,9 @@
 class Guest
+  include Mongoid::Document  
+
+  attr_accessor :login
+  attr_accessor :password
+    
   def self.create
     Guest.new
   end
@@ -16,6 +21,6 @@ class Guest
   end  
 
   def has_any_role? *roles
-    roles.flat_uniq..to_symbols.include? :guest
+    roles.flat_uniq.to_symbols.include?(:guest)
   end  
 end

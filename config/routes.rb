@@ -1,5 +1,7 @@
 Tiramizoo::Application.routes.draw do
 
+  match "/stylesheets/:package.css" => AssetsApp.action(:stylesheets), :as => 'stylesheets'
+
   # Info pages
   match 'info/couriers'   => 'info#couriers',   :as => :couriers_info
   match 'info/businesses' => 'info#businesses', :as => :businesses_info
@@ -18,6 +20,8 @@ Tiramizoo::Application.routes.draw do
   resources :bookings,  :only => [:new] # updates booking session?
   resources :schedule,  :only => [:new, :create]
   resources :payment,   :only => [:new, :create]  
+
+  resources :guests, :only => [:index]
 
   devise_for :users, :admins
 

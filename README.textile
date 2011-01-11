@@ -19,6 +19,22 @@ Rails Wizard (tiramizoo)
 
 "Rails project creation wizard":http://railswizard.org/f8c0bcd629a3378401cb
 
+h2. Mongo HQ
+
+1. Confirm your MongoHQ database settings
+
+In this example, we will assume your database is named fancy_pants and that the port that MongoHQ assigned to you when you created your database was Port 27021.
+
+2. Make sure you have a MongoHQ database user set up on your database
+
+You will need to have a database user set up on the database that you want to connect to. For this example, we will assume the username is admin and the password is sekret.
+
+<pre>
+  MongoMapper.connection = Mongo::Connection.new('hatch.local.mongohq.com', 27021, { :logger => Rails.logger })
+  MongoMapper.database = 'fancy_pants'
+  MongoMapper.database.authenticate('admin', 'sekret')  
+</pre>
+
 h3. RSpec 2 setup
 
 In Gemfile  
@@ -79,6 +95,14 @@ Formtastic
 
 "formtastic":https://github.com/justinfrench/formtastic
 
+Install:
+
+<pre>$ rails g formtastic:install</pre>
+
+Generate form for existing model
+
+<pre>rails g formtastic:form ExistingModelName [field:type field:type] --haml --partial</pre>
+
 h2. Devise Authentication
 
 "Configure full Auth/Auth setup":http://www.tonyamoyal.com/2010/07/28/rails-authentication-with-devise-and-cancan-customizing-devise-controllers/
@@ -88,7 +112,7 @@ h2. Devise Authentication
 
 "Customizing Devise":http://asciicasts.com/episodes/210-customizing-devise
 
-h2. CSS with SASS
+h2. CSS with SCSS
 
 Compass (with blueprint?)
 
@@ -97,6 +121,30 @@ Compass (with blueprint?)
 Lemonade (CSS Sprites)
 
 "lemonade":https://github.com/hagenburger/lemonade
+
+Textmate bundle for SCSS
+
+<pre>mkdir -p ~/Library/Application\ Support/TextMate/Bundles
+cd ~/Library/Application\ Support/TextMate/Bundles
+git clone git://github.com/kuroir/SCSS.tmbundle.git "SCSS.tmbundle"
+gem install nokogiri
+osascript -e 'tell app "TextMate" to reload bundles'  
+</pre> 
+
+
+"Managing Styles with Sass on Heroku":http://avandamiri.com/2010/09/15/managing-styles-with-sass-on-heroku.html  
+
+"CSS Tricks (1 of 2): First, Get Down with the OOP":http://avandamiri.com/2008/09/18/css-tricks-1-of-2-first-get-down-with-the-oop.html
+"CSS Tricks (2 of 2): Using Rails to Manage Styles":http://avandamiri.com/2008/11/19/css-tricks-2-of-2-using-rails-to-manage-styles.html
+
+h2. Blueprint CSS framework
+
+* "Blueprint CSS":http://blueprintcss.org/
+* "How to Make CSS Layouts With Blueprint, a CSS Framework ":http://www.youtube.com/watch?v=KHLrEF9tHjw
+* "Blueprint a closer look":http://net.tutsplus.com/tutorials/html-css-techniques/a-closer-look-at-the-blueprint-css-framework/
+* "Test pages":http://www.blueprintcss.org/tests/
+
+* "Inline forms":http://www.youtube.com/watch?v=MMY91V1m5ow&feature=player_embedded
 
 h2. Heroku
 

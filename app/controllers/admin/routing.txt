@@ -3,3 +3,21 @@ http://stackoverflow.com/questions/4544031/ruby-on-rails-3-namespace-model-issue
 namespace :admin do
   resources :listings
 end
+                    
+
+layout :admin
+
+render :action => "special_show" and return
+
+redirect_to photos_path
+
+* auto_discovery_link_tag
+* javascript_include_tag
+* stylesheet_link_tag
+* image_tag
+* video_tag
+* audio_tag
+
+<%= render :partial => "form", :locals => { :zone => @zone } %>
+<%= render "link_area", :layout => "graybar" %> 
+<%= render "shared/footer" %>

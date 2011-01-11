@@ -1,17 +1,7 @@
-h1 Tiramizoo
 p The main page
-p = localized_country_select(:user, :country, [], :include_blank => 'Please choose...')  
 
-p = link_to 'Benefits for Couriers', couriers_info_path
-p = link_to 'Benefits for Businesses', businesses_info_path
-p = link_to 'Benefits for Private', private_info_path
-
-p = link_to 'Registration', registrations_path
-
-p = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code 
-
-/ = render 'locations#form'
-/ = render 'transportation_mode#form'
-/ = render 'map#your_location'
+/ = render 'locations/form'
+/ = render 'transportation_mode/form'
+/ = render 'map/your_location'
 / = render :tracking_code
-/ = render 'search#courier'
+/ = render 'search/courier'

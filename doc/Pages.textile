@@ -1,12 +1,18 @@
 h1. Application Pages
 
+h2. Layout
+
+Login/Logout
+Register        -> Registration Index page (registrations_path) registration#index
+
 h2. Main page (landing page)
 - main#index
+
+Bookings#simple_form
 
 Get a quote     -> Booking page   (booking_path) booking#create, booking#show:id
 Start tracking  -> Tracking page  (tracking_path) tracking#show:id
 Search courier  -> Searching page (search_couriers_path) search#couriers
-Register        -> Registration Index page (registrations_path) registration#index
 
 h2. Registration
 

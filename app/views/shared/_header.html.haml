@@ -1,0 +1,15 @@
+#header
+  .logo
+    %a{:href => '/'}
+      = image_tag "logo.png"
+  .benefits_nav
+    %ul          
+      %li= link_to "benefits for couriers", couriers_info_path
+      %li= link_to "benefits for business", businesses_info_path
+      %li= link_to "benefits for private", private_info_path
+  .login_small
+    = render 'cream/menu/login_items'
+    %ul
+      %li= link_to "Register", registrations_path
+    %form
+      = localized_country_select(:user, :country, [], :include_blank => 'Please choose country')  
