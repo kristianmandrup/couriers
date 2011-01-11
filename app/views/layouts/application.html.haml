@@ -4,6 +4,6 @@
   %body.two-col.bp
     #container.showgrid
       = render 'shared/header'
-      #wrapper{:class => "#{@controller.controller_name} #{@controller.action_name}"} 
+      #wrapper{:class => "#{controller.controller_name} #{controller.action_name}"} 
       = yield
       = render 'shared/footer'

@@ -1,5 +1,14 @@
 class BookingsController < InheritedResources::Base
-  before_filter :authenticate_user!
+
+  def show
+    puts Booking.all.map(&:_id)
+    @booking = Booking.find params[:id]
+    
+    puts "show form for booking: #{@booking.inspect}"
+  end
+
+  def new
+  end
 
   def create
     pickup_point  = params[:pickup_point]

@@ -16,7 +16,7 @@ Tiramizoo::Application.routes.draw do
   resources :tracking,  :only => [:show]
 
   # Booking procedure
-  resources :bookings,  :only => [:new] # updates booking session?
+  resources :bookings #,  :only => [:new] # updates booking session?
   resources :schedule,  :only => [:new, :create]
   resources :payment,   :only => [:new, :create]  
 

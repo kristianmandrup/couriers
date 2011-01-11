@@ -1,8 +1,10 @@
 h2. Create Booking
 
+= @booking.inspect
+
 = form_for @booking do |f|
   = render :partial => :detail_inputs, :locals => {:f => f, :booking => @booking, :type => :pickup}
   = render :partial => :detail_inputs, :locals => {:f => f, :booking => @booking, :type => :dropoff}
       
-= render :partial => 'bookings/couriers/available'
-= render :partial => 'bookings/couriers/filter'
+/ = render :partial => 'bookings/couriers/available'
+/ = render :partial => 'bookings/couriers/filter'
