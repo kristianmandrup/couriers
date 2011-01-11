@@ -25,8 +25,9 @@ GIT
     carrierwave (0.5.1)
       activesupport (~> 3.0)
 
-PATH
-  remote: /Users/kristianconsult/ruby-gems/cream
+GIT
+  remote: https://github.com/kristianmandrup/cream.git
+  revision: 595f26cf4d482eb5e06e941251f4d1237e08d320
   specs:
     cream (0.8.9)
       cancan (>= 1.4.1)
