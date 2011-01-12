@@ -5,6 +5,19 @@ class Courier::Individual < Courier
   
   def type
     'individual'
+  end  
+
+  def name
+    person.full_name
+  end
+  
+  class << self
+    def create_from city = :munich       
+      p = Person.create_from(city)
+      co = Courier::Individual.new 
+      co.person = p
+      co 
+    end      
   end
 end
 

@@ -39,7 +39,7 @@ class Address
       }
     end
 
-    def get_random_from city = :munich
+    def create_from city = :munich
       Address.new :street => streets[city].pick_one , :city => city, :country => countries[city]
     end
 

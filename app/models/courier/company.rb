@@ -6,7 +6,16 @@ class Courier::Company < Courier
   def type
     'company'
   end
-  
+
+  def name
+    company.name
+  end
+
+  class << self
+    def create_from city = :munich
+      Courier::Company.new :company => Company.create_from(city)
+    end        
+  end
 end
    
 # {

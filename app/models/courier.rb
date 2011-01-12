@@ -8,7 +8,7 @@ class Courier < User
 
   def eta
     x = rand(3) > 1 ? rand(200) : rand(30)
-    TimePeriod.to_s rand(100) + 20 + x
+    TimePeriod.to_s rand(100) + 60 + x
   end
 
   def rating
@@ -29,17 +29,31 @@ class Courier < User
       ci
     end
 
-    def get_random_from city = :munich
-      person = Person.get_random_from :munich
-      person.address = Address.get_random_from :munich
-      courier = Courier.create_individual :person => person
-      courier
+    def create_company options = {}
+      co = Courier::Company.new
+      co.company = Company.create_from :munich
+      co
+    end
+
+    def create_from city = :munich 
+      puts "create_from: #{city}"
+      # person = Person.create_from :munich
+      # person.address = Address.get_random_from :munich
+
+      type = [:individual, :company].pick_one
+
+      case type
+      when :individual        
+        Courier::Individual.create_from city
+      when :company
+        Courier::Company.create_from city
+      end
     end
     
     def available city = :munich
       number = rand(10) +1
       number.times.inject([]) do |res, n| 
-        res << get_random_from(city)
+        res << create_from(city)
         res 
       end
     end

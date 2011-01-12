@@ -8,10 +8,25 @@ class Company
   embeds_one :contact
   embeds_one :profile
 
-  embeds_one :contact_info
+  embeds_one :contact_info, :class => 'Contact::Info'
+
+  class << self
+
+    def names
+      {
+        :munich => ['messenger', 'twister', 'courier AG']
+      }
+    end
+    
+    def create_from city = :munich
+      co = Company.new :name => names[city].pick_one
+      co.contact = Contact.create_from city
+      co.address = Address.create_from city
+      co
+    end
+  end
   
-  validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true
-  
+  validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true  
   before_validation :strip_names
   
   private 

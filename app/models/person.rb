@@ -2,8 +2,7 @@ class Person
   include Mongoid::Document
 
   # General info
-  # embeds_one :name, :class => 'Person::Name'
-  embeds_one :name #, :class => 'Person::Name'
+  embeds_one :name, :class => 'Person::Name'
 
   embeds_one :address
   embeds_one :profile
@@ -14,14 +13,18 @@ class Person
 
   class << self   
     
-    def get_random_from city = :munich
-      Person.create_with Name.create_from(:munich)
+    def create_from city = :munich  
+      p = Person.new 
+      p.name = Person::Name.create_from city
+      p.address = Address.create_from city
+      p
+      # Person.create_with Name.create_from(:munich)
     end    
     
     def create_with options = {}
        p = Person.new 
        p.address = options[:address]
-       name = Name.new :first_name => options[:first_name], :last_name => options[:last_name]
+       name = Person::Name.new :first_name => options[:first_name], :last_name => options[:last_name]
        p.name = name 
        p
     end
