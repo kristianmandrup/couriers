@@ -26,12 +26,20 @@ class Courier < User
       ci.person.address = options[:address] if options[:address]
       ci
     end
+
+    def get_random_from city = :munich
+      person = Person.get_random_from :munich
+      person.address = Address.get_random_from :munich
+      courier = Courier.create_individual :person => person
+      courier
+    end
     
-    def available
-      person = Person.create_with first_name: 'Mike', last_name: 'Loehr'
-      person.address = Address::Usa.create! street: 'sgdsgk 12', zip_code: 123456, city: 'N.Y', state: 'NY'
-      courier = Courier.create_individual :person => person #, :address => address
-      [courier, courier]
+    def available city = :munich
+      number = rand(10) +1
+      number.times.inject([]) do |res, n| 
+        res << get_random_from city
+        res 
+      end
     end
   end
 end

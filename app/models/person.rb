@@ -12,7 +12,12 @@ class Person
     name.full_name
   end
 
-  class << self
+  class << self   
+    
+    def get_random_from city = :munich
+      Person.create_with Name.create_from(:munich)
+    end    
+    
     def create_with options = {}
        p = Person.new 
        p.address = options[:address]

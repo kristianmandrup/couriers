@@ -1,0 +1,18 @@
+de:
+  formtastic:
+    titles: # title of form
+      booking_details: "Booking details"
+    labels: # left of input fields in forms
+      quote:
+        pickup_point:     "From"
+        dropoff_point:    "To"
+        vehicle:          "Vehicle"        
+      booking:
+        street:   "Strasse"
+        city:     "Stadt"
+        country:  "Land"        
+    actions: # buttons
+      create: "Create %{model}"
+      update: "Save changes"
+      login:  "Login"
+      quote:  "Get Quote" 

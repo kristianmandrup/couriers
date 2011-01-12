@@ -25,6 +25,24 @@ class Address
 
     # Use Geolocation service here!!!
 
+    def streets
+      {
+        :munich     => ['Mullerstrasse 43', 'Rosenheimerstrasse 108', 'Marienplatz 14', 'Kalzplatz 32'],
+        :vancouver  => ['Bladestreet 18', 'Grand plaza 35', 'Jenny street 23', 'Sidewalk 100']
+      }
+    end 
+
+    def countries
+      {
+        :munich     => 'Germany',
+        :vancouver  => 'Canada'
+      }
+    end
+
+    def get_random_from city = :munich
+      Address.new :street => streets(city).pick_one , :city => city, :country => countries(city)
+    end
+
     def extract_street address
       'Mullerstrasse 34'
     end
