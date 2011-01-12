@@ -11,6 +11,10 @@ class Courier::Company < Courier
     company.name
   end
 
+  def for_json
+    {:email => email, :company => company.for_json}.merge super
+  end
+
   class << self
     def create_from city = :munich
       Courier::Company.new :company => Company.create_from(city)

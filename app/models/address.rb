@@ -4,6 +4,11 @@ class Address
   field :street,    :type => String
   field :city,      :type => String
   field :country,   :type => String
+
+  def for_json
+    {:street => street, :city => city, :country => country}
+  end
+    
   
   validates_presence_of :street, :city, :country
 

@@ -3,6 +3,10 @@ class Contact::Info
   
   field :phone, :type => String
   field :email, :type => String
+
+  def for_json
+    {:phone => phone, :email => email}
+  end
   
   class << self
     

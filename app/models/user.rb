@@ -14,6 +14,11 @@ class User
          
   field :country, :type => String
 
+  def into_json
+    j = self.to_json
+    {:email => j[:email], :country => j[:country] }
+  end
+
   def self.find_recoverable_or_initialize_with_errors(required_attributes, attributes, error=:invalid)
     case_insensitive_keys.each { |k| attributes[k].try(:downcase!) }
 

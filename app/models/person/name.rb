@@ -8,6 +8,10 @@ class Person::Name
     [first_name, last_name].join(' ')
   end
 
+  def for_json
+    {:first => first_name, :last => last_name}
+  end
+
   class << self
     def first_names city = :munich
       {
@@ -24,7 +28,7 @@ class Person::Name
     end 
 
     def create_from city = :munich
-      Name.new :first_name => first_names[city].pick_one , :last_name => last_names[city].pick_one
+      Person::Name.new :first_name => first_names[city].pick_one , :last_name => last_names[city].pick_one
     end
   end
   

@@ -1,13 +1,17 @@
 class Contact
   include Mongoid::Document
 
-  embeds_one :name, :class => 'Person::Name'
+  embeds_one :name, :class => 'Name'
   embeds_one :contact_info, :class => 'Contact::Info'
+
+  def for_json
+    {:name => name.for_json, :contact_info => contact_info.for_json}
+  end
 
   class << self
     def create_from city = :munich
       co = Contact.new
-      co.name = Person::Name.create_from city
+      co.name = Name.create_from city
       # co.contact_info = Contact::Info.create_from city
       co      
     end

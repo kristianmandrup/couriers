@@ -20,6 +20,9 @@ class Courier < User
     "#{p} euro"
   end
 
+  def for_json
+    {:eta => eta, :rating => rating, :price => price}
+  end
   
   class << self
     def create_individual options = {}
@@ -51,7 +54,7 @@ class Courier < User
     end
     
     def available city = :munich
-      number = rand(10) +1
+      number = rand(5) +1
       number.times.inject([]) do |res, n| 
         res << create_from(city)
         res 

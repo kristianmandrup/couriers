@@ -10,6 +10,11 @@ class Company
 
   embeds_one :contact_info, :class => 'Contact::Info'
 
+  def for_json
+    {:name => name, :address => address.for_json, :contact => contact.for_json }
+  end
+
+
   class << self
 
     def names

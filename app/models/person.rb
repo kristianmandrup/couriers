@@ -11,11 +11,15 @@ class Person
     name.full_name
   end
 
+  def for_json
+    {:name => name.for_json, :address => address.for_json}
+  end
+
   class << self   
     
     def create_from city = :munich  
       p = Person.new 
-      p.name = Person::Name.create_from city
+      p.name = Name.create_from city
       p.address = Address.create_from city
       p
       # Person.create_with Name.create_from(:munich)

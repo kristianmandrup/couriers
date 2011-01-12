@@ -25,3 +25,11 @@
           = courier.rating
         %td 
           = courier.price
+
+%h3 
+  Couriers as JSON
+  = @available_couriers.into_json 
+
+%h3 
+  Booking as JSON
+  = @booking.into_json

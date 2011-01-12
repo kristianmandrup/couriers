@@ -10,6 +10,10 @@ class Courier::Individual < Courier
   def name
     person.full_name
   end
+
+  def for_json
+    {:email => email, :person => person.for_json}.merge super
+  end
   
   class << self
     def create_from city = :munich       
