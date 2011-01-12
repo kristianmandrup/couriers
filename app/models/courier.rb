@@ -7,15 +7,17 @@ class Courier < User
   embeds_many :vehicles  
 
   def eta
-    '20 min'
+    x = rand(3) > 1 ? rand(200) : rand(30)
+    TimePeriod.to_s rand(100) + 20 + x
   end
 
   def rating
-    '5'
+    rand(3) + rand(3) + 1    
   end
 
-  def price
-    '20 euro'
+  def price  
+    p = rand(10) + rand(6) + 5
+    "#{p} euro"
   end
 
   
@@ -37,7 +39,7 @@ class Courier < User
     def available city = :munich
       number = rand(10) +1
       number.times.inject([]) do |res, n| 
-        res << get_random_from city
+        res << get_random_from(city)
         res 
       end
     end

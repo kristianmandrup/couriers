@@ -18,6 +18,9 @@ gem 'formtastic', '>= 1.1.0'
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 
+# Time
+gem 'chronic'
+
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
 gem "cream", '>= 0.8.9', :git => 'https://github.com/kristianmandrup/cream.git'

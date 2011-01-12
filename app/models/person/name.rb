@@ -9,22 +9,22 @@ class Person::Name
   end
 
   class << self
-    def first_names
+    def first_names city = :munich
       {
         :munich     => ['Michael', 'Florian', 'Martin', 'Mathias', 'Julia', 'Lena'],
         :vancouver  => ['Mike', 'David', 'John', 'Sandy', 'Rick', 'Tracy'],
       }
     end 
 
-    def last_names
+    def last_names city = :munich
       {
         :munich     => ['Loehr', 'Walz', 'Blau', 'Schwarz'],
         :vancouver  => ['Jackson', 'Smith', 'Johnson', 'Meeker', 'Donovan', 'Gray'],
       }
     end 
 
-    def create_from city
-      Name.new :first_name => first_names(city).pick_one , :last_name => last_names(city).pick_one
+    def create_from city = :munich
+      Name.new :first_name => first_names[city].pick_one , :last_name => last_names[city].pick_one
     end
   end
   
