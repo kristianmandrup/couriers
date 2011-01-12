@@ -1,11 +1,14 @@
-class Person::Name
+class Name
   include Mongoid::Document
 
   field :first_name, :type => String
   field :last_name, :type => String  
+
+  def full_name
+    [first_name, last_name].join(' ')
+  end
   
   validates_with FullNameValidator  
-
   before_validation :strip_names
   
   private

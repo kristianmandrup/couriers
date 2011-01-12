@@ -22,6 +22,7 @@ class QuotesController < InheritedResources::Base
 
     @booking = Booking.new :city => 'Munich'
     @booking.pickup_address = pickup_address
+    @booking.dropoff_address = dropoff_address
 
     # @booking.build_pickup_address :street => pickup_address.street
 

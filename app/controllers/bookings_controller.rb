@@ -1,19 +1,18 @@
 class BookingsController < InheritedResources::Base
 
   def show
-    puts "SHOW booking"        
-
-    puts Booking.all.map(&:_id)
-    @booking = Booking.find params[:id]
-    
-    puts "show form for booking: #{@booking.inspect}"
+    # puts "SHOW booking"        
+    # 
+    # puts Booking.all.map(&:_id)
+    # @booking = Booking.find params[:id]
+    # 
+    # puts "show form for booking: #{@booking.inspect}"
   end
 
   def new
-    puts "NEW booking!"    
-    puts "NEW session[:booking]: #{session[:booking].inspect}"
     @booking = session[:booking]
-    @pa = @booking.pickup_address    
+    
+    @available_couriers = Courier.available
   end
 
   # def create

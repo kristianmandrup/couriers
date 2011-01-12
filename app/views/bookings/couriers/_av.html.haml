@@ -1,0 +1,27 @@
+%h3 List of couriers available
+
+%table
+  %tr
+    %th 
+      Name    
+    %th
+      Type
+    %th 
+      ETA              
+    %th
+      Rating
+    %th
+      Price
+      
+    - @available_couriers.each do |courier|
+      %tr
+        %td 
+          = courier.person.full_name
+        %td 
+          = courier.type
+        %td 
+          = courier.eta
+        %td 
+          = courier.rating
+        %td 
+          = courier.price

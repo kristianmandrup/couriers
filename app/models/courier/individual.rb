@@ -1,7 +1,11 @@
 class Courier::Individual < Courier
   include Mongoid::Document
 
-  embeds_one :person
+  embeds_one :person 
+  
+  def type
+    'individual'
+  end
 end
 
 # {

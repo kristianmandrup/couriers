@@ -23,6 +23,15 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   width:30%;
 }
 
+#new_booking .inputs label {
+  width: 6em;
+}
+
+#new_booking .inputs input {
+  width: 10em !important;
+}
+
+
 form.formtastic.booking input {
   width:30% !important; 
 }

@@ -2,6 +2,11 @@ class Courier::Company < Courier
   include Mongoid::Document
   
   embeds_one  :company  
+  
+  def type
+    'company'
+  end
+  
 end
    
 # {

@@ -1,11 +1,35 @@
-%h2 Create Booking
+%h2 Booking
 
-= @booking.pickup_address.inspect
+#booking_form.span-8
+  = semantic_form_for @booking do |booking_form|
+    %fieldset 
+      %b Pick-up
+      = booking_form.semantic_fields_for :pickup_address do |pickup_form| 
+        = pickup_form.inputs do
+          = pickup_form.input :street
+          = pickup_form.input :city, :input_html => { :disabled => true}
+          = pickup_form.input :zip
+          = pickup_form.semantic_fields_for :name do |name_form| 
+            = name_form.input :first_name
+            = name_form.input :last_name 
+          = pickup_form.semantic_fields_for :contact_info do |contact_form| 
+            = contact_form.input :phone
+            = contact_form.input :email
+          
+    %fieldset 
+      %b Dropoff
+      = booking_form.semantic_fields_for :dropoff_address do |dropoff_form| 
+        = dropoff_form.inputs do
+          = dropoff_form.input :street
+          = dropoff_form.input :city, :input_html => { :disabled => true}
+          = dropoff_form.input :zip
+          = dropoff_form.semantic_fields_for :name do |name_form| 
+            = name_form.input :first_name
+            = name_form.input :last_name
+          = dropoff_form.semantic_fields_for :contact_info do |contact_form| 
+            = contact_form.input :phone
+            = contact_form.input :email
 
-= semantic_form_for @booking do |booking_form|
-  = booking_form.input :city  
-  = booking_form.semantic_fields_for :pickup_address do |pickup_form| 
-    = pickup_form.inputs do
-      = pickup_form.input :street
-      = pickup_form.input :city
-      = pickup_form.input :zip
+#courier_map.span-10.last
+  = render 'map/courier_selection'
+  = render 'bookings/couriers/av'
