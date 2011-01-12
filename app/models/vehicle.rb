@@ -10,6 +10,7 @@ class Vehicle
     end
     
     def create_single name
+      raise ArgumentError, "Not a valid vehicle type - must be one of #{available_types}" if !available_types.include? name
       Vehicle.new :name => name.to_s, :count => 1
     end
     

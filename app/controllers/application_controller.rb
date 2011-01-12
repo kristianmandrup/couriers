@@ -18,7 +18,26 @@ class ApplicationController < ActionController::Base
   end
 
   def geolocation
+    @remote_ip = request.remote_ip
     @geolocation = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code
+  end
+
+  def get_geo_loc
+    cookie = true
+    if params['geo']
+      @geo_country = params['geo']
+      cookie = false
+    elsif cookies['geo_country']
+      @geo_country = cookies['geo_country']
+    else
+      @geo_country = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code
+      @geo_country = 'GB' if @geo_country == 'UK'
+    end
+    if cookie
+      cookies['geo_country'] = {:value => @geo_country, :expire =>; 30.days.from_now}
+    else
+      cookies.delete 'geo_country'
+    end
   end
 
   # http://stackoverflow.com/questions/4275058/using-devise-with-guest-users

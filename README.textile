@@ -105,6 +105,10 @@ Generate form for existing model
 
 <pre>rails g formtastic:form ExistingModelName [field:type field:type] --haml --partial</pre>
 
+h2. Mongoid
+
+"Embed one with fields for":http://groups.google.com/group/mongoid/browse_thread/thread/d45d82ac6e77bd5d
+
 h2. Devise Authentication
 
 "Configure full Auth/Auth setup":http://www.tonyamoyal.com/2010/07/28/rails-authentication-with-devise-and-cancan-customizing-devise-controllers/

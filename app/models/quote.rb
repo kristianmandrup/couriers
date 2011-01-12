@@ -7,7 +7,7 @@ class Quote
   field :pickup_point,   :type => String
   field :dropoff_point,  :type => String
 
-  field :vehicles,  :type => String
+  field :vehicle,  :type => String
 
   # embeds_one :vehicle  
   # embeds_one :vehicle

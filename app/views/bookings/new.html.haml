@@ -1,0 +1,11 @@
+%h2 Create Booking
+
+= @booking.pickup_address.inspect
+
+= semantic_form_for @booking do |booking_form|
+  = booking_form.input :city  
+  = booking_form.semantic_fields_for :pickup_address do |pickup_form| 
+    = pickup_form.inputs do
+      = pickup_form.input :street
+      = pickup_form.input :city
+      = pickup_form.input :zip
