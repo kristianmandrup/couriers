@@ -35,6 +35,12 @@ You will need to have a database user set up on the database that you want to co
   MongoMapper.database.authenticate('admin', 'sekret')  
 </pre>
 
+h2. Geocode
+
+"Geokit and Rails":http://railsmagazin.de/geokit-rails-und-google-maps-teil-1-552
+"Google maps in a Rails app":http://blog.yangtheman.com/2009/08/27/how-to-integrate-google-maps-in-a-rails-app/
+
+
 h3. RSpec 2 setup
 
 In Gemfile  

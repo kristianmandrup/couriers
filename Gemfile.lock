@@ -11,14 +11,6 @@ GIT
     recaptcha (0.2.3)
 
 GIT
-  remote: https://github.com/jlecour/geokit-rails3.git
-  revision: e7451ce3446d28af0ec871829436924f5899208c
-  specs:
-    geokit-rails3 (0.1.2)
-      geokit (~> 1.5.0)
-      rails (~> 3.0.0)
-
-GIT
   remote: https://github.com/jnicklas/carrierwave.git
   revision: 7361f97be97e5cd0986ccf41f9e96b47571f8daa
   specs:
@@ -137,6 +129,7 @@ GEM
     colorize (0.5.8)
     compass (0.10.6)
       haml (>= 3.0.4)
+    crack (0.1.8)
     cucumber (0.10.0)
       builder (>= 2.1.2)
       diff-lcs (~> 1.1.2)
@@ -168,13 +161,20 @@ GEM
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
     gem_plugin (0.2.3)
-    geokit (1.5.0)
+    geo-distance (0.1.2)
+    geo_magic (0.1.1)
+      geo-distance (>= 0.1.0)
+      geo-distance (>= 0.1.0)
+      httparty (>= 0.6.0)
+      httparty (>= 0.6.0)
     gherkin (2.3.3)
       json (~> 1.4.6)
     haml (3.0.25)
     haml-edge (3.1.79)
     has_scope (0.5.0)
     hpricot (0.8.3)
+    httparty (0.6.1)
+      crack (= 0.1.8)
     i18n (0.5.0)
     inherited_resources (1.1.2)
       has_scope (~> 0.5.0)
@@ -342,7 +342,7 @@ PLATFORMS
 DEPENDENCIES
   active_merchant
   bhm-google-maps!
-  bson_ext (>= 1.1.4)
+  bson_ext (>= 1.1.5)
   capybara
   carrierwave!
   chronic
@@ -352,12 +352,12 @@ DEPENDENCIES
   devise (>= 1.1.5)
   diff-lcs
   formtastic (>= 1.1.0)
-  geokit-rails3!
+  geo_magic
   haml-edge (~> 3.1.49)
   hpricot (>= 0.8.3)
   inherited_resources
   lemonade
-  mongoid (>= 2.0.0.beta.20)
+  mongoid (>= 2.0.0.rc.3)
   mongrel (>= 1.2.0.pre2)
   pickle
   rails (= 3.0.3)

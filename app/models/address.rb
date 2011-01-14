@@ -5,6 +5,8 @@ class Address
   field :city,      :type => String
   field :country,   :type => String
 
+  embeds_one  :location
+
   def for_json
     {:street => street, :city => city, :country => country}
   end

@@ -4,6 +4,8 @@ class Person::Name
   field :first_name, :type => String
   field :last_name, :type => String  
 
+  embedded_in :person, :inverse_of => :name
+
   def full_name
     [first_name, last_name].join(' ')
   end

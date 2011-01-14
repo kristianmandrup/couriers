@@ -17,11 +17,6 @@ class ApplicationController < ActionController::Base
     render :partial => 'users/sign_in'
   end
 
-  def geolocation
-    @remote_ip = request.remote_ip
-    @geolocation = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code
-  end
-
   def get_geo_loc
     cookie = true
     if params['geo']

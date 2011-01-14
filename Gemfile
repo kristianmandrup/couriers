@@ -18,6 +18,9 @@ gem 'formtastic', '>= 1.1.0'
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 
+# Geo libraries
+gem "geo_magic"
+
 # Time
 gem 'chronic'
 
@@ -52,7 +55,6 @@ gem "active_merchant"
 
 # Google Maps
 gem "bhm-google-maps", :git => 'https://github.com/antramm/bhm-google-maps.git'
-gem "geokit-rails3", :git => 'https://github.com/jlecour/geokit-rails3.git'
-gem "mongoid", ">= 2.0.0.beta.20"
-gem "bson_ext", ">= 1.1.4" 
+gem "mongoid", ">= 2.0.0.rc.3"
+gem "bson_ext", ">= 1.1.5" 
 gem 'remarkable_mongoid'

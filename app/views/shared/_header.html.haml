@@ -13,4 +13,4 @@
       %li= link_to "Register", registrations_path
     %form
       = localized_country_select(:user, :country, [], :include_blank => 'Please choose country')
-      = "Country code: #{@geolocation}, ip: #{@remote_ip}"
+      = "Country code: #{Location.geo.country_code}, ip: #{session[:local_ip]}"

@@ -1,8 +1,11 @@
-class Contact::Info
+class Contact::Channel
   include Mongoid::Document
   
   field :phone, :type => String
   field :email, :type => String
+
+  embedded_in :contact, :inverse_of => :channel
+  embedded_in :company, :inverse_of => :channel
 
   def for_json
     {:phone => phone, :email => email}

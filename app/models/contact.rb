@@ -2,10 +2,11 @@ class Contact
   include Mongoid::Document
 
   embeds_one :name, :class => 'Name'
-  embeds_one :contact_info, :class => 'Contact::Info'
+
+  embeds_one :channel, :class => 'Contact::Channel'
 
   def for_json
-    {:name => name.for_json, :contact_info => contact_info.for_json}
+    {:name => name.for_json, :channels => channel.for_json}
   end
 
   class << self
