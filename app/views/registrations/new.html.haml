@@ -1,0 +1,19 @@
+%h2 Registration 
+= resource_name.to_s.humanize
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |register_form|
+  = devise_error_messages!
+  = register_form.inputs do
+    = register_form.input :location, :as => select, :collection => Location.available_cities
+    = register_form.input :company_name
+
+    = register_form.semantic_fields_for :contact do |contact_form| 
+      = contact_form.inputs # first, last name, :email, phone
+
+    = register_form.semantic_fields_for :vehicle do |vehicle_form|
+      = vehicle_form.input :name, :as => :select, :collection => Vehicle.available_types
+
+    = register_form.input :notes, :as => :text_area
+    
+  = register_form.buttons
+    = register_form.commit_button :register
+

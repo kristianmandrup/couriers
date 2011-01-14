@@ -26,13 +26,13 @@ Tiramizoo::Application.routes.draw do
 
   devise_for :individual_couriers, :class_name => 'Courier::Individual'
   as :individual_courier do
-    match "/individual_couriers/sign_up" => "devise/registrations#new", :as => :courier_signup
+    match "/individual_couriers/sign_up" => "registrations#new", :as => :courier_signup
     match "/individual_couriers/sign_in" => "main#index", :as => :courier_signin
   end
 
   devise_for :courier_companies, :class_name => 'Courier::Company'
   as :courier_company do
-    match "/courier_companies/sign_up" => "devise/registrations#new", :as => :courier_company_signup
+    match "/courier_companies/sign_up" => "registrations#new", :as => :courier_company_signup
     match "/courier_companies/sign_in" => "main#index", :as => :courier_company_signin    
   end
 

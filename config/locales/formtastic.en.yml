@@ -7,7 +7,8 @@ en:
         street: "Street"
         city:   "City"
     actions:
-      create: "Create my %{model}"
-      update: "Save changes"
-      login:  "Login"
-      quote: "Get Quote" 
+      create:   "Create my %{model}"
+      update:   "Save changes"
+      login:    "Login"
+      quote:    "Get Quote" 
+      register: "Register"

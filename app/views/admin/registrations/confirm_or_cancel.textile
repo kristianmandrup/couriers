@@ -1,0 +1,5 @@
+h1. Confirm and Cancel registrations
+
+The index page list all registrations of couriers. The Admin can confirm/cancel a new registrations and disable current registrations.
+Clicking on a registration will bring up a detailed view of it. 
+

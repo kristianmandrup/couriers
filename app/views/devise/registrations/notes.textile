@@ -1,0 +1,13 @@
+h1. Registrations
+
+h2. New Registration (Courier - New)
+The courier fiils out a form with details to request registration. 
+
+h2. Registration confirmation (Admin - Confirm or Deny)
+
+Tiramizoo will then check the registration info and confirm or deny the registration.
+
+h2. Edit Registration (Courier - Edit)
+The courier fiils out a form with details for registration. 
+
+
