@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jasoncodes/hassle.git
-  revision: a61495da1957d8db509ef72fa8c5f99c562d7f42
+  revision: a61495d
   specs:
     hassle (0.0.1)
       haml
@@ -8,26 +8,26 @@ GIT
 
 GIT
   remote: https://github.com/antramm/bhm-google-maps.git
-  revision: 34b9cb597766c6b5556f1b9649452053c2db3286
+  revision: 34b9cb5
   specs:
     bhm-google-maps (0.3.1)
 
 GIT
   remote: https://github.com/davout/recaptcha.git
-  revision: 2e3bfac0a0e29dcbd0e77262d54264949df1d8d6
+  revision: 2e3bfac
   specs:
     recaptcha (0.2.3)
 
 GIT
   remote: https://github.com/jnicklas/carrierwave.git
-  revision: 7361f97be97e5cd0986ccf41f9e96b47571f8daa
+  revision: 7361f97
   specs:
     carrierwave (0.5.1)
       activesupport (~> 3.0)
 
 GIT
   remote: https://github.com/kristianmandrup/cream.git
-  revision: 6d741abba4c420c80c5e40cd15cf5d7ac7c30eb8
+  revision: 6d741ab
   specs:
     cream (0.8.9.2)
       cancan (>= 1.4.1)
@@ -40,8 +40,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.0)
       devise-links (>= 0.2.1)
+      devise-links (>= 0.2.0)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -57,7 +57,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/formtastic.git
-  revision: e5869ac25a170590423449ae96e478e7b866b6de
+  revision: e5869ac
   specs:
     formtastic (1.2.3)
       actionpack (>= 2.3.7)
@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_country_select.git
-  revision: b6ec3eb8705cb6e68d763f037a5ce9e0a953411e
+  revision: b6ec3eb
   specs:
     localized_country_select (0.1.0)
       rails (>= 2.3.5)
@@ -74,7 +74,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_language_select.git
-  revision: bc075c238800566ccf0d94f8274c2437c44aebf5
+  revision: bc075c2
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
@@ -139,8 +139,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (>= 0.4.0)
       r3_plugin_toolbox (~> 0.4.0)
+      r3_plugin_toolbox (>= 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
