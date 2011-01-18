@@ -1,6 +1,6 @@
 %h2 Booking
 
-#booking_form.span-8
+#booking_form.left
   = semantic_form_for @booking do |booking_form|
     %fieldset 
       %b Pick-up
@@ -30,6 +30,6 @@
             = contact_form.input :phone
             = contact_form.input :email
 
-#courier_map.span-10.last
+#courier_map.right
   = render 'map/courier_selection'
   = render 'bookings/couriers/av'
