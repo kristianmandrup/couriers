@@ -5,6 +5,5 @@ tmp/**/*
 tmp
 sandbox
 
-public/stylesheets/compiled
 .DS_Store
 ruby
