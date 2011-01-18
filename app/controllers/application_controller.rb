@@ -1,51 +1,46 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :geolocation
+  # before_filter :geo_location - Done by Main Controller
+  before_filter :set_locale
+
   
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url
   end
 
-  def login_or_logout
-    login_form if !user_signed_in?
-    link_to 'Logout', destroy_user_session_path if user_signed_in?
-  end
-  
-  def login_form
-    render :partial => 'users/sign_in'
+  def set_locale
+    # if params[:locale] is nil then I18n.default_locale will be used
+    I18n.locale = params[:locale] || extract_locale_from_tld
   end
 
-  def get_geo_loc
-    cookie = true
-    if params['geo']
-      @geo_country = params['geo']
-      cookie = false
-    elsif cookies['geo_country']
-      @geo_country = cookies['geo_country']
-    else
-      @geo_country = GeoKit::Geocoders::IpGeocoder.do_geocode(request.remote_ip).country_code
-      @geo_country = 'GB' if @geo_country == 'UK'
-    end
-    if cookie
-      cookies['geo_country'] = {:value => @geo_country, :expire =>; 30.days.from_now}
-    else
-      cookies.delete 'geo_country'
-    end
+  def default_url_options(options={})
+    # logger.debug "default_url_options is passed options: #{options.inspect}\n"
+    { :locale => I18n.locale }
   end
 
-  # http://stackoverflow.com/questions/4275058/using-devise-with-guest-users
+  # Get locale from top-level domain or return nil if such locale is not available
+  # You have to put something like:
+  #   127.0.0.1 application.com
+  #   127.0.0.1 application.it
+  #   127.0.0.1 application.pl
+  # in your /etc/hosts file to try this out locally
+  def extract_locale_from_tld
+    parsed_locale = request.host.split('.').last
+    I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
+  end
 
-  # def current_user
-  #   super || Guest.create # role defaults to 'guest' in the model.
-  # end
-  # 
-  # def user_signed_in?
-  #   current_user && !current_user.new_record?
-  # end
-  # 
-  # def user_session
-  #   user_signed_in? ? super : session
-  # end  
+  # USAGE
+  # link_to("Deutsch", "#{APP_CONFIG[:deutsch_website_url]}#{request.env['REQUEST_URI']}")
+  # assuming you would set APP_CONFIG[:deutsch_website_url] to some value like http://www.application.de.
+
+  # Get locale code from request subdomain (like http://it.application.local:3000)
+  # You have to put something like:
+  #   127.0.0.1 gr.application.local
+  # in your /etc/hosts file to try this out locally
+  def extract_locale_from_subdomain
+    parsed_locale = request.subdomains.first
+    I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
+  end
 end

@@ -13,7 +13,7 @@ group :development, :test do
 end  
 
 gem "mongrel", '>= 1.2.0.pre2'
-gem 'formtastic', '>= 1.1.0'
+gem 'formtastic', :path => '/Users/kristianconsult/ruby-gems/formtastic' #, '>= 1.1.0'
 
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
@@ -21,12 +21,19 @@ gem 'ruby_parser'
 # Geo libraries
 gem "geo_magic"
 
+# Language
+gem 'localized_language_select', :git => 'https://github.com/kristianmandrup/localized_language_select.git'
+
+# Country
+gem 'localized_country_select', :git => 'https://github.com/kristianmandrup/localized_country_select.git'
+
+
 # Time
 gem 'chronic'
 
 # Authentication, Authorization and Roles
 gem "devise", '>= 1.1.5'
-gem "cream", '>= 0.8.9', :git => 'https://github.com/kristianmandrup/cream.git'
+gem "cream", '>= 0.8.9.2', :git => 'https://github.com/kristianmandrup/cream.git' # , :path => '/Users/kristianconsult/ruby-gems/cream'
 gem "roles_mongoid", '>= 0.4.4'
 
 # Controller

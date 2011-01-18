@@ -12,7 +12,9 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  field :country, :type => String
+  field :country,       :type => String
+  field :country_code,  :type => String  
+  field :language,      :type => String  
 
   def into_json
     j = self.to_json

@@ -6,7 +6,7 @@ class Vehicle
   
   class << self    
     def available_types
-      [:bicycle, :motorbike, :car, :van]
+      [:bike, :cargobike, :motorbike, :car, :van]
     end
     
     def create_single name

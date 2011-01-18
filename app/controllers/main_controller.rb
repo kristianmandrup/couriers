@@ -1,33 +1,23 @@
 class MainController < InheritedResources::Base  
-  before_filter :geolocation  
+  before_filter :geo_location, :init_user
 
-  include Geokit::Geocoders
+  geo_magic :remote # include GeoMagic::Remote
   
   def index
     @location = true # geolocation here!
-    @quote = Quote.new      
-    
-    puts "Remote: #{request.env['REMOTE_ADDR']}"
-    puts "Forw: #{request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip }"
-    puts "Local: #{local_ip}"
-    session[:local_ip] ||= local_ip
+    @quote = Quote.new
+  end
+
+  def init_user
+    return if !current_user
+    current_user.country = session[:location].country.name
+    current_user.country_code = session[:location].country.code
+    current_user.language = session[:location].country.code
+    current_user.save
   end
   
-  def geolocation
-    Location.from_ip session
-  end   
-  
-  require 'socket'
-
-  def local_ip
-    orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
-
-    UDPSocket.open do |s|
-      s.connect '64.233.187.99', 1
-      s.addr.last
-    end
-  ensure
-    Socket.do_not_reverse_lookup = orig
+  def geo_location
+    session[:ip] ||= GeoMagic::Remote.my_ip
+    session[:location] ||= GeoMagic::Remote.my_location
   end
-  
 end

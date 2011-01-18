@@ -77,4 +77,14 @@
 
 # You can add custom inputs or override parts of Formtastic by subclassing SemanticFormBuilder and
 # specifying that class here.  Defaults to SemanticFormBuilder.
-# Formtastic::SemanticFormHelper.builder = MyCustomBuilder
+# Formtastic::SemanticFormHelper.builder = MyCustomBuilder      
+
+# module ActionView
+#   module Helpers
+#     module FormOptionsHelper
+#       alias :country_select :localized_country_select
+#       alias :language_select :localized_language_select      
+#     end
+#   end
+# end
+

@@ -1,4 +1,9 @@
 module ApplicationHelper
+  # def current_user
+  #   puts "app helper: current_user"
+  #   super
+  # end
+
   def login_or_logout
     login_form if !user_signed_in?
     link_to 'Logout', destroy_user_session_path if user_signed_in?

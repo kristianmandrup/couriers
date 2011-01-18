@@ -11,6 +11,7 @@
     = render 'cream/menu/login_items'
     %ul
       %li= link_to "Register", registrations_path
-    %form
-      = localized_country_select(:user, :country, [], :include_blank => 'Please choose country')
-      = "Country code: #{Location.geo.country_code}, ip: #{session[:local_ip]}"
+    = semantic_form_for current_user do |user_form|
+      / = user_form.input :language, :as => :language, :priority_languages => ['German'], :include_blank => 'Choose language'
+      = user_form.input :language, :as => :language, :priority_languages => ['German'], :include_blank => 'Choose language', :only => ['de', 'en']
+      = user_form.input :city, :as => :select, :collection => City.available, :include_blank => 'Choose city'

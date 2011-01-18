@@ -41,6 +41,67 @@ h2. Geocode
 "Google maps in a Rails app":http://blog.yangtheman.com/2009/08/27/how-to-integrate-google-maps-in-a-rails-app/
 
 
+h2. Locales
+
+See _ApplicationController_ !!!
+
+Every helper method dependent on url_for (e.g. helpers for named routes like root_path or root_url, resource routes like books_path or books_url, etc.) will now automatically include the locale in the query string, like this: http://localhost:3001/?locale=ja.
+
+You may be satisfied with this. It does impact the readability of URLs, though, when the locale “hangs” at the end of every URL in your application. Moreover, from the architectural standpoint, locale is usually hierarchically above the other parts of the application domain: and URLs should reflect this.
+
+You probably want URLs to look like this: www.example.com/en/books (which loads the English locale) and www.example.com/nl/books (which loads the Netherlands locale). This is achievable with the “over-riding default_url_options” strategy from above: you just have to set up your routes with path_prefix option in this way:
+
+# config/routes.rb
+
+<pre>
+  scope "/:locale" do
+    resources :books
+  end  
+</pre>
+
+Now, when you call the books_path method you should get "/en/books" (for the default locale). An URL like http://localhost:3001/nl/books should load the Netherlands locale, then, and following calls to books_path should return "/nl/books" (because the locale changed).
+
+If you don’t want to force the use of a locale in your routes you can use an optional path scope (donated by the use brackets) like so:
+
+# config/routes.rb
+
+<pre>
+  scope "(:locale)", :locale => /en|nl/ do
+    resources :books
+  end  
+</pre>
+
+With this approach you will not get a Routing Error when accessing your resources such as http://localhost:3001/books without a locale. This is useful for when you want to use the default locale when one is not specified.
+
+Of course, you need to take special care of the root URL (usually “homepage” or “dashboard”) of your application. An URL like http://localhost:3001/nl will not work automatically, because the root :to => "books#index" declaration in your routes.rb doesn’t take locale into account. (And rightly so: there’s only one “root” URL.)
+
+You would probably need to map URLs like these:
+# config/routes.rb
+
+@match '/:locale' => 'dashboard#index'@
+
+Do take special care about the order of your routes, so this route declaration does not “eat” other ones. (You may want to add it directly before the root :to declaration.)  
+
+Sven Fuchs’s _routing_filter_ and Raul Murciano’s _translate_routes_. See also the page How to encode the current locale in the URL in the Rails i18n Wiki.
+
+One source of client supplied information would be an Accept-Language HTTP header. People may set this in their browser or other clients (such as curl).
+
+A trivial implementation of using an Accept-Language header would be:
+
+<pre>
+  def set_locale
+    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
+    I18n.locale = extract_locale_from_accept_language_header
+    logger.debug "* Locale set to '#{I18n.locale}'"
+  end
+
+  private
+
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+  end  
+</pre>
+
 h3. RSpec 2 setup
 
 In Gemfile  

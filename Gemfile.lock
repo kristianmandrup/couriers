@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/antramm/bhm-google-maps.git
-  revision: f40b9082c771a416db74476857bef20ba13ec878
+  revision: 34b9cb597766c6b5556f1b9649452053c2db3286
   specs:
-    bhm-google-maps (0.3.0)
+    bhm-google-maps (0.3.1)
 
 GIT
   remote: https://github.com/davout/recaptcha.git
@@ -19,21 +19,21 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/cream.git
-  revision: 595f26cf4d482eb5e06e941251f4d1237e08d320
+  revision: 6d741abba4c420c80c5e40cd15cf5d7ac7c30eb8
   specs:
-    cream (0.8.9)
+    cream (0.8.9.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.0)
       cancan-permits (>= 0.3.4)
-      cancan-permits (>= 0.3.9)
+      cancan-permits (>= 0.3.10)
       cancan-rest-links (>= 0.2.0)
       cancan-rest-links (>= 0.2.1)
       colorize (>= 0.5.8)
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.1)
       devise-links (>= 0.2.0)
+      devise-links (>= 0.2.1)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -46,6 +46,30 @@ GIT
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
       sugar-high (>= 0.3.1)
+
+GIT
+  remote: https://github.com/kristianmandrup/localized_country_select.git
+  revision: b6ec3eb8705cb6e68d763f037a5ce9e0a953411e
+  specs:
+    localized_country_select (0.1.0)
+      rails (>= 2.3.5)
+      rails (>= 2.3.5)
+
+GIT
+  remote: https://github.com/kristianmandrup/localized_language_select.git
+  revision: bc075c238800566ccf0d94f8274c2437c44aebf5
+  specs:
+    localized_language_select (0.2.0)
+      rails (>= 2.3.5)
+      rails (>= 2.3.5)
+
+PATH
+  remote: /Users/kristianconsult/ruby-gems/formtastic
+  specs:
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
 
 GEM
   remote: http://rubygems.org/
@@ -80,7 +104,7 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    arel (2.0.6)
+    arel (2.0.7)
     bcrypt-ruby (2.1.4)
     bson (1.1.5)
     bson_ext (1.1.5)
@@ -106,8 +130,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (~> 0.4.0)
       r3_plugin_toolbox (>= 0.4.0)
+      r3_plugin_toolbox (~> 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
@@ -156,10 +180,6 @@ GEM
       abstract (>= 1.0.0)
     ffi (0.6.3)
       rake (>= 0.8.7)
-    formtastic (1.2.3)
-      actionpack (>= 2.3.7)
-      activesupport (>= 2.3.7)
-      i18n (~> 0.4)
     gem_plugin (0.2.3)
     geo-distance (0.1.2)
     geo_magic (0.1.1)
@@ -206,7 +226,7 @@ GEM
       rake
     mongo (1.1.5)
       bson (>= 1.1.5)
-    mongoid (2.0.0.rc.3)
+    mongoid (2.0.0.rc.5)
       activemodel (~> 3.0)
       mongo (~> 1.1.5)
       tzinfo (~> 0.3.22)
@@ -265,11 +285,16 @@ GEM
       remarkable_activemodel (>= 4.0.0.alpha2)
     require_all (1.2.0)
     responders (0.6.2)
-    roles_generic (0.3.6)
+    roles_generic (0.3.7)
       activesupport (>= 3.0.1)
-      logging_assist (>= 0.1.6)
+      activesupport (>= 3.0.1)
+      logging_assist (>= 0.2.0)
+      logging_assist (>= 0.2.0)
+      rails3_artifactor (~> 0.3.2)
       rails3_artifactor (~> 0.3.2)
       require_all (~> 1.2.0)
+      require_all (~> 1.2.0)
+      sugar-high (~> 0.3.1)
       sugar-high (~> 0.3.1)
     roles_mongoid (0.4.4)
       activesupport (~> 3.0.1)
@@ -302,7 +327,7 @@ GEM
     ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
     rubyzip (0.9.4)
-    sass (3.1.0.alpha.214)
+    sass (3.1.0.alpha.217)
     scribe (0.2.2)
       rake
       thrift_client
@@ -328,7 +353,7 @@ GEM
     tilt (1.2.1)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.23)
+    tzinfo (0.3.24)
     warden (1.0.3)
       rack (>= 1.0.0)
     will_paginate (3.0.pre2)
@@ -347,16 +372,18 @@ DEPENDENCIES
   carrierwave!
   chronic
   compass
-  cream (>= 0.8.9)!
+  cream (>= 0.8.9.2)!
   cucumber-rails
   devise (>= 1.1.5)
   diff-lcs
-  formtastic (>= 1.1.0)
+  formtastic!
   geo_magic
   haml-edge (~> 3.1.49)
   hpricot (>= 0.8.3)
   inherited_resources
   lemonade
+  localized_country_select!
+  localized_language_select!
   mongoid (>= 2.0.0.rc.3)
   mongrel (>= 1.2.0.pre2)
   pickle

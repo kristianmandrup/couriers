@@ -20,7 +20,7 @@ Tiramizoo::Application.routes.draw do
   resources :schedule,  :only => [:new, :create]
   resources :payment,   :only => [:new, :create]  
 
-  resources :guests, :only => [:index]
+  resources :guests
 
   devise_for :users, :admins
 
