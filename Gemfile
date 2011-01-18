@@ -13,7 +13,7 @@ group :development, :test do
 end  
 
 gem "mongrel", '>= 1.2.0.pre2'
-gem 'formtastic', '>= 1.1.0', https://github.com/kristianmandrup/formtastic.git' # :path => '/Users/kristianconsult/ruby-gems/formtastic' #, '>= 1.1.0'
+gem 'formtastic', '>= 1.1.0', :git => 'https://github.com/kristianmandrup/formtastic.git' # :path => '/Users/kristianconsult/ruby-gems/formtastic' #, '>= 1.1.0'
 
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
