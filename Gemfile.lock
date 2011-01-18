@@ -193,7 +193,6 @@ GEM
     haml (3.0.25)
     haml-edge (3.1.79)
     has_scope (0.5.0)
-    hpricot (0.8.3)
     httparty (0.6.1)
       crack (= 0.1.8)
     i18n (0.5.0)
@@ -342,7 +341,7 @@ GEM
       temple (~> 0.1.6)
       tilt (~> 1.1)
     slim-rails (0.1.2)
-    sugar-high (0.3.3)
+    sugar-high (0.3.4)
       mocha (>= 0.9.8)
       require_all (~> 1.2.0)
     temple (0.1.6)
@@ -380,7 +379,6 @@ DEPENDENCIES
   formtastic (>= 1.1.0)!
   geo_magic
   haml-edge (~> 3.1.49)
-  hpricot (>= 0.8.3)
   inherited_resources
   lemonade
   localized_country_select!
