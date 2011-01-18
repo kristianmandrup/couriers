@@ -1,9 +1,13 @@
 !!!
 %html
   = render 'shared/html_header'
-  %body.two-col.bp
-    #container.showgrid
+  %body.bp
+    #logo
+      %a{:href => '/'}
+        = img "logo.png"
+    #container-top
       = render 'shared/header'
-      #wrapper{:class => "#{controller.controller_name} #{controller.action_name}"} 
-      = yield
+      #maincontent
+        = yield
+    #container-bottom
       = render 'shared/footer'
