@@ -47,4 +47,9 @@ module Tiramizoo
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
   end
-end
+end       
+
+# Sass::Plugin.options[:template_location] = { 'app/stylesheets' => 'tmp/stylesheets' }
+
+
+

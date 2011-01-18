@@ -1,0 +1,34 @@
+/*.login_small input, #new_guest .inputs input {
+  width: 30%; }
+
+#new_booking .inputs {
+  label {
+    width: 6em; }
+  input {
+    width: 10em !important; } }
+
+form.formtastic {
+  &.booking input {
+    width: 30% !important; }
+  .inputs {
+    padding-top: 1em;
+    li {
+      padding-top: 0;
+      padding-bottom: 0; } } }
+
+#new_quote {
+  .inputs input {
+    width: 30%; }
+  label {
+    width: 10em; } }
+
+form.formtastic fieldset.buttons {
+  padding-left: 0; }*/
+
+#maincontent {
+  div.left {
+    input[type=text] {
+      @include column(4);
+    }
+  }
+}

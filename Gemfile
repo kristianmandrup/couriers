@@ -46,6 +46,8 @@ gem "compass"
 gem 'haml-edge',   '~> 3.1.49', :require => 'haml'
 gem 'lemonade'
 
+gem 'hassle', :git => 'git://github.com/jasoncodes/hassle.git'
+
 # CAPTCHA
 gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'
 

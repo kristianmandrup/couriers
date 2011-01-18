@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/jasoncodes/hassle.git
+  revision: a61495da1957d8db509ef72fa8c5f99c562d7f42
+  specs:
+    hassle (0.0.1)
+      haml
+      rack
+
+GIT
   remote: https://github.com/antramm/bhm-google-maps.git
   revision: 34b9cb597766c6b5556f1b9649452053c2db3286
   specs:
@@ -32,8 +40,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.0)
       devise-links (>= 0.2.1)
+      devise-links (>= 0.2.0)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -131,8 +139,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (>= 0.4.0)
       r3_plugin_toolbox (~> 0.4.0)
+      r3_plugin_toolbox (>= 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
@@ -379,6 +387,7 @@ DEPENDENCIES
   formtastic (>= 1.1.0)!
   geo_magic
   haml-edge (~> 3.1.49)
+  hassle!
   inherited_resources
   lemonade
   localized_country_select!

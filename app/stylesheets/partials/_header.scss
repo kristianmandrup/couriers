@@ -1,0 +1,57 @@
+#header {
+  padding-top:10px;
+  .benefits_nav {
+    display:none;
+  }
+  .login_small {
+    @include prepend(14);
+    @include column(10);
+    @include last;
+    label {
+      display:none;
+    }
+    form#new_guest {
+      @include clearfix;
+      @include column(10);
+      fieldset.buttons {
+        padding:0;
+        li {
+          margin:0!important;
+          padding:0!important;
+          overflow:hidden;
+        }
+        input[type=submit] {
+          @include column(2);
+          margin:0;
+        }
+      }
+      fieldset.inputs {
+        @include float-left;
+        ol {
+          @include horizontal-list-container;
+          li {
+            @include horizontal-list-item();
+            padding-left:10px;
+            input[type=text],input[type=password] {
+              @include column(3);
+            }
+          }
+        }
+      }
+
+
+    }
+    
+    ul {
+      @include horizontal-list-container;
+      text-align:right;
+      clear:both;
+      li {
+        @include horizontal-list-item(false, right);
+        @include no-bullet;
+        padding-left:10px;
+      }
+    }
+  }
+  
+}

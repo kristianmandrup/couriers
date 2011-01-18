@@ -1,0 +1,44 @@
+#logo {
+  position:absolute;
+  top:100px;
+  left:0;
+}
+
+body.bp {
+  background-color:#000;
+  #container-top {
+    text-align:left;
+    background-color:#fff;
+  }
+
+  #container-bottom {
+    text-align:left;
+  }
+
+  #header, #footer, #maincontent {
+    @include container;
+/*    @include showgrid;*/
+  }
+  
+  #maincontent {
+    padding-bottom:20px;
+    
+    position:relative;
+    
+    div.left {
+      @include prepend(3);
+      @include column(7);
+    }
+    div.right {
+      @include column(14, true);
+    }
+  }
+  
+  #footer {
+    padding-top:20px;
+    color:#fff;
+    a {
+      color:#fff;
+    }
+  }
+}
