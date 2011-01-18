@@ -221,7 +221,10 @@ h2. Blueprint CSS framework
 
 h2. Heroku
 
-"Heroku setup":http://blog.elctech.com/2009/05/17/heroku-0-to-60-in-15-minutes/
+"Heroku setup":http://blog.elctech.com/2009/05/17/heroku-0-to-60-in-15-minutes/   
+
+Setup Heroku for Rails 3 and ruby 1.9.2
+<pre>$ heroku create tiramizoo-test --stack bamboo-ree-1.9.2</pre>
 
 h2. Google Maps
 

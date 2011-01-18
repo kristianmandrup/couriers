@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_country_select.git
-  revision: b6ec3eb
+  revision: 8b4312b
   specs:
     localized_country_select (0.1.0)
       rails (>= 2.3.5)
@@ -74,7 +74,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_language_select.git
-  revision: bc075c2
+  revision: 86401eb
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
@@ -172,7 +172,6 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.14)
-    daemons (1.0.10)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
@@ -189,7 +188,6 @@ GEM
       abstract (>= 1.0.0)
     ffi (0.6.3)
       rake (>= 0.8.7)
-    gem_plugin (0.2.3)
     geo-distance (0.1.2)
     geo_magic (0.1.1)
       geo-distance (>= 0.1.0)
@@ -239,9 +237,6 @@ GEM
       mongo (~> 1.1.5)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
-    mongrel (1.2.0.pre2)
-      daemons (~> 1.0.10)
-      gem_plugin (~> 0.2.3)
     nokogiri (1.4.4)
     pickle (0.4.4)
       cucumber (>= 0.8)
@@ -358,7 +353,7 @@ GEM
     thrift (0.5.0)
     thrift_client (0.6.0)
       thrift (~> 0.5.0)
-    tilt (1.2.1)
+    tilt (1.2.2)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
@@ -393,7 +388,6 @@ DEPENDENCIES
   localized_country_select!
   localized_language_select!
   mongoid (>= 2.0.0.rc.3)
-  mongrel (>= 1.2.0.pre2)
   pickle
   rails (= 3.0.3)
   recaptcha!

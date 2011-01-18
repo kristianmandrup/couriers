@@ -3,6 +3,8 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 
+Gemfile.lock
+
 sandbox
 
 .DS_Store
