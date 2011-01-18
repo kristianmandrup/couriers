@@ -26,7 +26,14 @@ class Address
     end
 
     # create localized address based on current geolocation!? 
-    def create_from_point point
+    def create_from_point point      
+      geocoder = Graticule.service(:google).new "ABQIAAAAUzkItq4p7LYo2YIR_gtjpRTJQa0g3IQ9GZqIMmInSLzwtGDKaBSzEc8_FNxIfQLkpKOh9R4JB87Rig"
+      location.coordinates
+      location = geocoder.locate point
+      country = location.country
+      city = location.city
+      street = location.street      
+      
       Address.new :street => extract_street(point), :city => extract_city(point), :zip => extract_zip(point)
     end
 

@@ -1,0 +1,205 @@
+//Author: Abhishek Parolkar ( abhishek@parolkar.com )
+
+
+
+GeoMereLaal = function(){
+ 
+  return {
+    lat: function(){
+      return this.getCookie("latitude"); 
+      },
+    lng: function(){
+      return this.getCookie("longitude");
+      },
+    setCookie: function (c_name,value,expiredays)
+	  {
+	    var exdate=new Date();
+	    exdate.setDate(exdate.getDate()+expiredays);
+	    document.cookie=c_name+ "=" +escape(value)+
+	    ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	  },
+	getCookie: function (c_name)
+	  {
+	    if (document.cookie.length>0)
+	      {
+	        c_start=document.cookie.indexOf(c_name + "=");
+	        if (c_start!=-1)
+	          {
+	          c_start=c_start + c_name.length+1;
+	          c_end=document.cookie.indexOf(";",c_start);
+	          if (c_end==-1) c_end=document.cookie.length;
+	          return unescape(document.cookie.substring(c_start,c_end));
+	          }
+	      }
+	return "";
+	},
+	dataExpires: 1, //These are number of days
+    isBrowserCompatible: function(){   
+      var userAgent = navigator.userAgent.toLowerCase();
+	  // Figure out what browser is being used in Jquery Style
+	  this.browser = {
+		version: (userAgent.match( /.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/ ) || [0,'0'])[1],
+		safari: /webkit/.test( userAgent ),
+		opera: /opera/.test( userAgent ),
+		msie: /msie/.test( userAgent ) && !/opera/.test( userAgent ),
+		mozilla: /mozilla/.test( userAgent ) && !/(compatible|webkit)/.test( userAgent )
+	  };
+
+      if (this.browser.mozilla && navigator.geolocation) {  
+	     return true; 
+	   } else {  
+	     return false;  
+	   }
+
+      },
+    fetch: function(){
+      if(this.isBrowserCompatible())
+        { 
+
+          navigator.geolocation.getCurrentPosition(function(position) {    
+            
+	        GeoMereLaal.setCookie("latitude",position.coords.latitude,GeoMereLaal.dataExpires);
+	        GeoMereLaal.setCookie("longitude",position.coords.longitude,GeoMereLaal.dataExpires); 
+	        GeoMereLaal.successCallbacks();
+	        
+	      },GeoMereLaal.onError);
+          return true;
+
+        }else{return false;}
+      },
+    request:function(){ 
+      var lat = this.lat();
+      var lng = this.lng();
+      if(lat =='' || lng == '')
+        {
+          this.fetch();
+        }else{
+          GeoMereLaal.successCallbacks();
+        } 
+      
+      }, 
+    successCallbacks:function(){ 
+      GeoMereLaal.updateLatitude_callback();
+      GeoMereLaal.updateLongitude_callback();
+      GeoMereLaal.reverseCoderHook();
+      GeoMereLaal.onReceive();
+
+    },
+    onReceive:function(){         
+     //This is a stub to be overridden by user's code 
+    },
+    onError:function(error){         
+     //This can be overridden by user's code
+     alert("We couldn't retrieve your location "); 
+    },
+    updateLatitude_callback:function(){
+    //This is a callback stub to be overridden by user level code   
+    },
+    updateLongitude_callback:function(){
+    //This is a callback stub to be overridden by user level code   
+    },
+    reverseCoderHook:function(){         
+     //This is a stub to be overridden by GMLReverseCoder's code 
+    }
+
+}}();              
+  
+
+GMLloadGMapAPI= function(api_key){
+    document.write("<script src=\"http://maps.google.com/maps?file=api&v=2&sensor=true&key="+api_key+"\" type=\"text/javascript\"></script>");
+  }
+
+
+GMLReverseCoder =  function(){  
+  
+
+  if(typeof GClientGeocoder == "undefined"){
+    GMLloadGMapAPI("<%= GML_GMAP_APIKEY -%>")};  
+
+ 
+return {
+  request:function(gml_obj){ 
+   geocoder = new GClientGeocoder();
+   latlng = new GLatLng(parseFloat(gml_obj.lat()),parseFloat(gml_obj.lng()));
+   geocoder.getLocations(latlng, this.responseHandler);
+
+  },
+  responseHandler:function(response){
+    if (!response || response.Status.code != 200) {
+	    alert("GMLError (Unable to make GMap Request): Status Code:" + response.Status.code);
+	  } else {
+	    place = response.Placemark[0];
+	    point = new GLatLng(place.Point.coordinates[1],place.Point.coordinates[0]);
+	    
+	    
+	    try{
+	    GMLReverseCoder.updateFullAddress_callback(place.address);
+	    } catch (e) {}
+	    
+	    try{
+	    GMLReverseCoder.updateCountryCode_callback(place.AddressDetails.Country.CountryNameCode); 
+	    } catch (e) {} 
+	  
+	    try{
+	    GMLReverseCoder.updateCountryName_callback(place.AddressDetails.Country.CountryName);
+	    } catch (e) {} 
+	    
+	    try{
+	    GMLReverseCoder.updateState_callback( place.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName);
+	    } catch (e) {} 
+	
+	    try{
+	    GMLReverseCoder.updateCity_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName);   
+        } catch (e) {} 
+	    
+	    try{  
+	    GMLReverseCoder.updateLocality_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName);
+	    }catch (e) {
+	    GMLReverseCoder.updateLocality_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.DependentLocality.DependentLocalityName); 
+	    }
+	
+	    try{
+	    GMLReverseCoder.updateStreet_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.DependentLocality.Thoroughfare.ThoroughfareName);     
+	    }catch (e) {} 
+	
+	
+	    try{
+	    GMLReverseCoder.updatePostalCode_callback( place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.PostalCode.PostalCodeNumber); 
+	    }catch (e) {}
+	
+	
+	  }
+	
+
+  },
+  updateFullAddress_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },  
+  updateCountryName_callback:function(value){
+  //This is a callback stub to be overridden by user level code 
+  },
+  updateCountryCode_callback:function(value){
+  //This is a callback stub to be overridden by user level code 
+  },
+  updateState_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateCity_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateLocality_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updateStreet_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  },
+  updatePostalCode_callback:function(value){
+  //This is a callback stub to be overridden by user level code   
+  }
+  
+
+}}();
+
+
+
+

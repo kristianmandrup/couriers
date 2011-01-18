@@ -14,13 +14,14 @@ end
 
 # gem "mongrel", '>= 1.2.0.pre2'
 
-gem 'formtastic', '>= 1.1.0', :git => 'https://github.com/kristianmandrup/formtastic.git'
+gem 'formtastic', '>= 1.1.0', :path => '/Users/kristianconsult/ruby-gems/formtastic'  #, :git => 'https://github.com/kristianmandrup/formtastic.git'
 
 # gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 
 # Geo libraries
 gem "geo_magic"
+gem "graticule"
 
 # Language
 gem 'localized_language_select', :git => 'https://github.com/kristianmandrup/localized_language_select.git'

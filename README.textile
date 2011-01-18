@@ -241,6 +241,11 @@ h2. Google Maps
 
 -	Geocoding from multiple providers. It provides a fail-over mechanism, in case your input fails to geocode in one service. Geocoding is provided buy the Geokit gem, which you must have installed
 
+h3. API Keys
+
+* localhost:3000 - ABQIAAAAUzkItq4p7LYo2YIR_gtjpRTJQa0g3IQ9GZqIMmInSLzwtGDKaBSzEc8_FNxIfQLkpKOh9R4JB87Rig
+* tiramizoo-beta.heroku.com - ABQIAAAAUzkItq4p7LYo2YIR_gtjpRScPhHhTyTGueeJo8sXYsnV4VMnTBT2MqnfY3aPuvIhBjwfhTZoE2EtZA
+
 h3. Google Maps with Rails – How to
 
 "How to":http://www.developer.com/open/article.php/10930_3757576_1
@@ -248,6 +253,28 @@ h3. Google Maps with Rails – How to
 Google map directions
 
 "directions":http://code.google.com/apis/maps/documentation/javascript/v2/services.html
+
+
+h3. Geocode libraries
+
+"Geocode":https://github.com/dbrady/geocode
+
+<pre>
+  g = Geocode.new_geocoder :google, {:google_api_key => "abcd1234_SAMPLE_GOOGLE_API_KEY_etc"}
+  result1 = g.geocode "1600 Amphitheatre Parkway, Mountain View, CA"
+  result2 = g.reverse_geocode "37.421759,-122.08437"
+  
+</pre>
+
+"Graticule":https://github.com/collectiveidea/graticule/
+
+<pre>
+  require 'rubygems'
+  require 'graticule'
+  geocoder = Graticule.service(:google).new "api_key"
+  location = geocoder.locate "61 East 9th Street, Holland, MI"  
+</pre>
+
 
 h3. Travel Modes
 
