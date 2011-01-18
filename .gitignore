@@ -4,6 +4,6 @@ log/*.log
 tmp/**/*
 
 sandbox
-
+public/stylesheets/compiled
 .DS_Store
 ruby
