@@ -26,8 +26,39 @@ describe 'Address::Germany' do
   end
 
   describe 'Valid address creations' do
+    it 'should create a new German address' do
+      address_1 = Address::Germany.new street: 'sgdsgk 12', postnr: 12345, city: 'Berlin'
+      p address_1.inspect
+      address_1.street.should == 'sgdsgk 12'
+      address_1.city.should == 'Berlin'    
+    end
+
+    it 'should create a new German address via Address class method' do
+      address_1 = Address.create_germany street: 'sgdsgk 12', postnr: 12345, city: 'Berlin'
+      p address_1.inspect
+      address_1.street.should == 'sgdsgk 12'
+      address_1.city.should == 'Berlin'    
+    end
+
+    it 'should create a new German address via Address class method and unicode' do
+      address_1 = Address.create_germany *[{:street=> "M\\xC3\\xBCllerstra\\xC3\\x9Fe", :city=> "M\\xC3\\xBCnchen", :zip=> "80469", :country=> "DE"}]
+      # address_1 = Address.create_germany :street=> "M\\xC3\\xBCllerstra\\xC3\\x9Fe", :city=> "M\\xC3\\xBCnchen", :zip=> "80469", :country=> "DE"
+      # Location.new :latitude => location.latitude, :longitude => location.longitude
+      address_1.location = Location.new :latitude => "12.34", :longitude => "13.234"
+      p address_1.inspect
+      address_1.lng.should == "13.234"
+      address_1.street.should == "M\\xC3\\xBCllerstra\\xC3\\x9Fe"
+      address_1.city.should == "M\\xC3\\xBCnchen"    
+    end
+
     it 'should create a German address' do
-      address_1 = Address::Germany.create! street: 'sgdsgk 12', postnr: 123456, city: 'Berlin'
+      address_1 = Address::Germany.create street: 'sgdsgk 12', postnr: 12345, city: 'Berlin'
+      address_1.street.should == 'sgdsgk 12'
+      address_1.country.should == 'Germany'    
+    end
+
+    it 'should create a valid German address' do
+      address_1 = Address::Germany.create! street: 'sgdsgk 12', postnr: 12345, city: 'Berlin'
       address_1.street.should == 'sgdsgk 12'
       address_1.country.should == 'Germany'    
     end

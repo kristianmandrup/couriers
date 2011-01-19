@@ -1,9 +1,10 @@
 class QuotesController < InheritedResources::Base
 
-  def create
-    pickup_point  = params[:pickup_point]
-    dropoff_point = params[:dropoff_point]
-    vehicle       = params[:vehicle]
+  def create      
+    quote = params[:quote]
+    pickup_point  = quote[:pickup_point].strip
+    dropoff_point = quote[:dropoff_point].strip
+    vehicle       = quote[:vehicle]
     
     puts "pickup_point: #{pickup_point}"
     puts "dropoff_point: #{dropoff_point}"
@@ -11,8 +12,8 @@ class QuotesController < InheritedResources::Base
     pickup_address   = Address.create_from_point pickup_point
     dropoff_address  = Address.create_from_point dropoff_point
 
-    puts "pickup_address: #{pickup_address}"
-    puts "dropoff_address: #{dropoff_address}"
+    puts "pickup_address: #{pickup_address.inspect}"
+    puts "dropoff_address: #{dropoff_address.inspect}"
 
     # 
     # pickup_address   = Address::Book.get_contact_details @pickup_point

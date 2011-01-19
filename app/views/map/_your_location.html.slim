@@ -1,2 +1,6 @@
+- content_for :meta do
+  = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
+  
 h3. Your location
-  = draw_map_of Location.new("My House", 48.137035, 11.57591948.137035, :static_map => {:type => 'roadmap', :width => 400, :height => 300})
+  #map-canvas
+  / = draw_map_of @your_location, :static_map => {:type => 'roadmap', :width => 400, :height => 300}

@@ -3,7 +3,6 @@
   = f.inputs do
     = f.input :pickup_point
     = f.input :dropoff_point
-    = f.input :city, :as => :geo_city
     = f.input :vehicle, :as => :radio, :collection => Vehicle.available_types
   = f.buttons do
     = f.commit_button :quote

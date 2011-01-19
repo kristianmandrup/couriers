@@ -1,17 +1,34 @@
 class Location
-  attr_accessor :address, :lat, :lng
+  include Mongoid::Document
+  
+  # attr_accessor :address, 
+  field :latitude, :type => String
+  field :longitude, :type => String
 
-  def initialize(address, lat, lng)
-    @address = address
-    @lat = lat
-    @lng = lng
+  def move dlat, dlong
+    self.latitude = (lat + dlat.to_f).to_s
+    self.longitude = (lng + dlong.to_f).to_s
+    self    
+  end
+
+  def lat
+    latitude.to_f    
+  end
+
+  def lng
+    longitude.to_f    
   end
 
   def to_s 
-    address.to_s
+    "latitude: #{latitude}, longitude: #{longitude}"
   end
   
   class << self
+
+    # from GeoMagic location
+    def create_from geo_location
+      self.new :latitude => geo_location.latitude, :longitude => geo_location.longitude
+    end
 
     # YAML.load_file("#{Rails.root}/config/available_cities.#{locale}.yml")
     def available_cities

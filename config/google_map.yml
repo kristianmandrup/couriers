@@ -5,7 +5,8 @@ test:
     <<: *non_production_settings
 
 staging:
-    google_key: KeyForStagingDomainGoesHere
+    google_key: ABQIAAAAUzkItq4p7LYo2YIR_gtjpRScPhHhTyTGueeJo8sXYsnV4VMnTBT2MqnfY3aPuvIhBjwfhTZoE2EtZA
 
-stable:
-    google_key: KeyForStableDomainGoesHere
+production:
+    # currently uses staging key
+    google_key: ABQIAAAAUzkItq4p7LYo2YIR_gtjpRScPhHhTyTGueeJo8sXYsnV4VMnTBT2MqnfY3aPuvIhBjwfhTZoE2EtZA

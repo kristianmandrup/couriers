@@ -241,6 +241,12 @@ h2. Google Maps
 
 -	Geocoding from multiple providers. It provides a fail-over mechanism, in case your input fails to geocode in one service. Geocoding is provided buy the Geokit gem, which you must have installed
 
+h3. Bhm plugin
+
+<%= draw_map_of Location.new("My House", 12.345, 56.789) %>
+
+"bhm-google-maps":https://github.com/kristianmandrup/bhm-google-maps
+
 h3. API Keys
 
 * localhost:3000 - ABQIAAAAUzkItq4p7LYo2YIR_gtjpRTJQa0g3IQ9GZqIMmInSLzwtGDKaBSzEc8_FNxIfQLkpKOh9R4JB87Rig
@@ -272,7 +278,8 @@ h3. Geocode libraries
   require 'rubygems'
   require 'graticule'
   geocoder = Graticule.service(:google).new "api_key"
-  location = geocoder.locate "61 East 9th Street, Holland, MI"  
+  location = geocoder.locate "61 East 9th Street, Holland, MI"
+  p "zip: #{location.zip}"
 </pre>
 
 

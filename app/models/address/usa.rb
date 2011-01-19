@@ -13,6 +13,14 @@ class Address::Usa < Address
   validates_presence_of :zip_code, :state 
   
   before_validation :set_country #, :request_state_and_city_validation_based_on_zipcode
+
+  def to_s
+      %Q{#{street}
+#{zip_code} #{city}
+#{state}
+#{country}
+}
+  end
       
   private 
 

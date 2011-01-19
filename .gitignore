@@ -5,6 +5,8 @@ tmp/**/*
 
 Gemfile.lock
 
+public/stylesheets/compiled
+
 sandbox
 
 .DS_Store

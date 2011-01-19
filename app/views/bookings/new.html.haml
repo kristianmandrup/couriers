@@ -31,5 +31,5 @@
             = contact_form.input :email
 
 #courier_map.right
-  = render 'map/courier_selection'
+  = render :partial => 'map/courier_selection', :locals => {:your_location => @your_location}
   = render 'bookings/couriers/available'

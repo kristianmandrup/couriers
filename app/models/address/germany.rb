@@ -1,4 +1,4 @@
-class Address::German < Address
+class Address::Germany < Address
   include Mongoid::Document
   
   # Germany (Europe)
@@ -8,8 +8,23 @@ class Address::German < Address
 
   validates_presence_of     :postnr   
 
-  validates_length_of       :postnr,    :within => 6..6
+  validates_length_of       :postnr,    :within => 5..5
   validates_numericality_of :postnr,    :greater_than_or_equal_to => 1, :less_than => 999999
+
+    def to_s
+      %Q{#{street}
+#{postnr} #{city}
+#{country}
+}
+    end
+
+  def zip
+    self.postnr
+  end
+
+  def zip= value
+    self.postnr = value
+  end
       
   private 
 
