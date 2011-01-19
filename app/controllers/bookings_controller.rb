@@ -15,8 +15,8 @@ class BookingsController < InheritedResources::Base
     @available_couriers = Courier.available
     @your_location = Location.create_from session[:location]
 
-    puts "#{@your_location.lat}, #{@your_location.lng}"    
-    puts "available_couriers: #{@available_couriers}"
+    # puts "#{@your_location.lat}, #{@your_location.lng}"    
+    # puts "available_couriers: #{@available_couriers}"
   end
 
   # def create

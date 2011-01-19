@@ -3,7 +3,6 @@
   = javascript_include_tag "main_map"
   = center_map_on_your_location(your_location)
   - couriers.each do |courier|
-    = courier.location
     = draw_courier_location(courier.location)  
 %h3 
   Map of courier locations

@@ -15,8 +15,8 @@ module ApplicationHelper
   def courier_location_script loc, text = ''
     s = "jQuery(function(){
   TIRAMIZOO.map.setCourierLocation({
-    latitude: #{loc.latitude}, 
-    longitude: #{loc.longitude}, 
+    latitude: #{loc.lat}, 
+    longitude: #{loc.lng}, 
     text: '#{text}'
   });
 });"    
@@ -25,8 +25,8 @@ module ApplicationHelper
   def your_location_script loc, text = ''
     s = "jQuery(function(){
   TIRAMIZOO.map.setMapCenter({
-    latitude: #{loc.latitude}, 
-    longitude: #{loc.longitude}, 
+    latitude: #{loc.lat}, 
+    longitude: #{loc.lng}, 
     text: '#{text}'
   });
 });"    

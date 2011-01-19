@@ -11,6 +11,8 @@
     %th
       Rating
     %th
+      Position
+    %th
       Price
       
     - couriers.each do |courier|
@@ -23,5 +25,7 @@
           = courier.eta
         %td 
           = courier.rating
+        %td 
+          = courier.location
         %td 
           = courier.price

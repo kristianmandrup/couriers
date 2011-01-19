@@ -1,7 +1,7 @@
 class Courier::State
-  extend ActiveModel::Naming
-  include ActiveModel::Validation
+  include ActiveModel::Validations
   include ActiveModel::Conversion  
+  extend ActiveModel::Naming
   
   attr_accessor :current_delivery, :work_state
 

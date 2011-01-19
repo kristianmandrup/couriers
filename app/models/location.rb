@@ -19,7 +19,8 @@ class Location
     longitude.to_f.round(6)    
   end
 
-  def to_s 
+  def to_s mode = :short
+    return "#{lat}, #{lng}" if mode == :short
     "latitude: #{lat}, longitude: #{lng}"
   end
   

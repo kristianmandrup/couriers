@@ -2,6 +2,7 @@ class Courier::Individual < Courier
   include Mongoid::Document
 
   embeds_one :person 
+  embeds_one :location
   
   def type
     'individual'
@@ -20,8 +21,15 @@ class Courier::Individual < Courier
       p = Person.create_from(city)
       co = Courier::Individual.new 
       co.person = p
+      
+      # geo_location = GeoMagic::Location      
+      co.location = Location.new :latitude => 48 + delta, :longitude => 11.35 + delta
       co 
     end      
+    
+    def delta
+      (rand(1000) - 500).to_f / 100000.0
+    end
   end
 end
 

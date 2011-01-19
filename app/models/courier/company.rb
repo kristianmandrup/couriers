@@ -2,6 +2,7 @@ class Courier::Company < Courier
   include Mongoid::Document
   
   embeds_one  :company  
+  embeds_one  :location
   
   def type
     'company'
@@ -17,8 +18,15 @@ class Courier::Company < Courier
 
   class << self
     def create_from city = :munich
-      Courier::Company.new :company => Company.create_from(city)
-    end        
+      co = Courier::Company.new :company => Company.create_from(city)
+      # geo_location = GeoMagic::Location      
+      co.location = Location.new :latitude => 48 + delta, :longitude => 11.35 + delta
+      co 
+    end      
+
+    def delta
+      (rand(1000) - 500).to_f / 100000.0
+    end
   end
 end
    
