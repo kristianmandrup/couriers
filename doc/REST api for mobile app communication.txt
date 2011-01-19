@@ -1,0 +1,149 @@
+################################################################################
+TIRAMIZOO REST-API
+################################################################################
+Courier:
+--------------------------------------------------------------------------------
+Get current courier state
+
+courier/state :get
+{
+	work_state: "available|not_available"
+	current_delivery: 	{
+							state: "ready|accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed",
+							id: "1"
+						}
+						
+}
+--------------------------------------------------------------------------------
+Get details about a sepcific delivery
+
+courier/deliveries/1/state :get
+{
+	directions: "3,5km to target",
+	pickup:		{
+					location:	{
+									position: 	{
+													latitude: "150.644",
+													longitude: "-34.397"
+												},
+									address: 	{
+													street: "Sendlinger Straße 1",
+													zip: "80331",
+													city: "München"
+												}
+										
+								},
+					contact: 	{
+									company_name: "Tiramizoo 1",
+									name: "Michael Löhr",
+									email: "michael.loehr@tiramizoo.com",
+									phone: "089123456789"										
+								},
+					notes: "Big box"
+				},						
+	dropoff:	{
+					location:	{
+									position: 	{
+													latitude: "150.644",
+													longitude: "-34.397"
+												},
+									address: 	{
+													street: "Sendlinger Straße 2",
+													zip: "80331",
+													city: "München"
+												}
+										
+								},
+					contact: 	{
+									company_name: "Tiramizoo 2",
+									name: "Philipp Walz",
+									email: "philipp.walz@tiramizoo.com",
+									phone: "089987654321"										
+								},
+					notes: "Big box"							
+				}
+}
+--------------------------------------------------------------------------------
+Set the state of a specific delivery
+
+courier/deliveries/1/state :put
+{
+	state: "ready|accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed"
+	location:	{
+					longitude: "-34.397", 
+					latitude: "150.644"
+				}
+}
+################################################################################
+Couriers:
+--------------------------------------------------------------------------------
+Get locations of all couriers within my radius
+
+couriers/locations :get
+[
+	{
+		id: "1",
+		latitude: "150.644",
+		longitude: "-34.397", 
+		vehicle: "bike|cargobike|motorbike|car|van"
+	},	
+	{
+		id: "2",
+		latitude: "150.644",
+		longitude: "-34.397", 
+		vehicle: "bike|cargobike|motorbike|car|van"
+	}
+]
+################################################################################
+TIRAMIZOO PUB/SUB (Pubnub.com) API
+################################################################################
+Push new delivery from server to client
+
+channel: tiramizoo-courier-delivery
+{
+    action: "new_delivery",
+    data: {
+        directions: "3,5km to target",
+        pickup:		{
+                        location:	{
+                                        position: 	{
+                                                        latitude: "150.644",
+                                                        longitude: "-34.397"
+                                                    },
+                                        address: 	{
+                                                        street: "Sendlinger Straße 1",
+                                                        zip: "80331",
+                                                        city: "München"
+                                                    }
+
+                                    },
+                        notes: "Big box"
+                    },
+        dropoff:	{
+                        location:	{
+                                        position: 	{
+                                                        latitude: "150.644",
+                                                        longitude: "-34.397"
+                                                    },
+                                        address: 	{
+                                                        street: "Sendlinger Straße 2",
+                                                        zip: "80331",
+                                                        city: "München"
+                                                    }
+
+                                    }
+                        notes: "Big box"
+                    }
+            }
+}
+--------------------------------------------------------------------------------
+Push new location from client to server
+
+channel: tiramizoo-courier-location
+{
+    action: "update_location"
+    data: {
+        latitude: "150.644",
+        longitude: "-34.397"
+    }
+}

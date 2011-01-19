@@ -12,15 +12,15 @@ class Location
   end
 
   def lat
-    latitude.to_f    
+    latitude.to_f.round(6)
   end
 
   def lng
-    longitude.to_f    
+    longitude.to_f.round(6)    
   end
 
   def to_s 
-    "latitude: #{latitude}, longitude: #{longitude}"
+    "latitude: #{lat}, longitude: #{lng}"
   end
   
   class << self

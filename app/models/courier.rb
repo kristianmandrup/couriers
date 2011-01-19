@@ -1,5 +1,7 @@
 class Courier < User 
   include Mongoid::Document  
+
+  field :number, :type => Integer
     
   embeds_one :bank_account
   embeds_one :price_structure

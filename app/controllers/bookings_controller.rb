@@ -11,14 +11,11 @@ class BookingsController < InheritedResources::Base
 
   def new
     @booking = session[:booking]
-    puts "booking: #{@booking}"
+
     @available_couriers = Courier.available
     @your_location = Location.create_from session[:location]
-    puts "@your_location = #{@your_location.inspect}"
 
-    puts "#{@your_location.lat}, #{@your_location.lng}"
-    # Location.new("My House", 48.137035, 11.57591948.137035)
-    
+    puts "#{@your_location.lat}, #{@your_location.lng}"    
     puts "available_couriers: #{@available_couriers}"
   end
 

@@ -2,11 +2,11 @@
   = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
   = javascript_include_tag "main_map"
   = center_map_on_your_location(your_location)
-  = draw_courier_location(your_location.move 0.001, 0.00025)  
-  = draw_courier_location(your_location.move 0.0015, -0.00025)  
-  = draw_courier_location(your_location.move -0.0005, -0.0015)  
-  = draw_courier_location(your_location.move 0.0025, -0.00025)  
-  = draw_courier_location(your_location.move -0.0035, 0.005)  
+  - couriers.each do |courier|
+    = courier.location
+    = draw_courier_location(courier.location)  
 %h3 
   Map of courier locations
+#couriers  
+  = your_location
   #map-canvas

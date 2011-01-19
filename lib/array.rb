@@ -10,4 +10,4 @@ class Array
   def into_json
     self.map(&:for_json).to_json
   end  
-end
+end        

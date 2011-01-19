@@ -7,7 +7,7 @@
       = booking_form.semantic_fields_for :pickup_address do |pickup_form| 
         = pickup_form.inputs do
           = pickup_form.input :street
-          = pickup_form.input :city, :input_html => { :disabled => true}
+          = pickup_form.input :city #, :input_html => { :disabled => true}
           = pickup_form.input :zip
           = pickup_form.semantic_fields_for :name do |name_form| 
             = name_form.input :first_name
@@ -21,7 +21,7 @@
       = booking_form.semantic_fields_for :dropoff_address do |dropoff_form| 
         = dropoff_form.inputs do
           = dropoff_form.input :street
-          = dropoff_form.input :city, :input_html => { :disabled => true}
+          = dropoff_form.input :city #, :input_html => { :disabled => true}
           = dropoff_form.input :zip
           = dropoff_form.semantic_fields_for :name do |name_form| 
             = name_form.input :first_name
@@ -31,5 +31,5 @@
             = contact_form.input :email
 
 #courier_map.right
-  = render :partial => 'map/courier_selection', :locals => {:your_location => @your_location}
-  = render 'bookings/couriers/available'
+  / = render :partial => 'map/courier_selection', :locals => {:your_location => @your_location, :couriers => @available_couriers}
+  = render 'bookings/couriers/available', :locals => {:couriers => @available_couriers}

@@ -22,6 +22,7 @@ gem 'ruby_parser'
 # Geo libraries
 gem "geo_magic"
 gem "graticule"
+gem "geocode"
 
 # gem "geo_mere_laal", :path => '/Users/kristianconsult/ruby-gems/geo_mere_laal'
 

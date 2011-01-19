@@ -4,7 +4,6 @@ class MainController < InheritedResources::Base
   geo_magic :remote # include GeoMagic::Remote
   
   def index
-    @location = true # geolocation here!
     @quote = Quote.new
   end
 
