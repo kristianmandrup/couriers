@@ -268,8 +268,7 @@ h3. Geocode libraries
 <pre>
   g = Geocode.new_geocoder :google, {:google_api_key => "abcd1234_SAMPLE_GOOGLE_API_KEY_etc"}
   result1 = g.geocode "1600 Amphitheatre Parkway, Mountain View, CA"
-  result2 = g.reverse_geocode "37.421759,-122.08437"
-  
+  result2 = g.reverse_geocode "37.421759,-122.08437"  
 </pre>
 
 "Graticule":https://github.com/collectiveidea/graticule/

@@ -32,11 +32,17 @@ class Courier < User
     {:eta => eta, :rating => rating, :price => price}
   end
   
-  class << self
+  class << self   
+    def work_states
+      [:available, :not_available]
+    end    
+    
     def create_individual options = {}
       ci = Courier::Individual.new      
       ci.person = options[:person] if options[:person]
       ci.person.address = options[:address] if options[:address]
+      ci.delivery = Courier::Delivery.create_from :munich
+      ci.work_state = work_states[0].to_s
       ci
     end
 

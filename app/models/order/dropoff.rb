@@ -9,7 +9,7 @@ class Order::Dropoff
   field :notes, :type => String
   
   def for_json
-    {:contact => contact.for_json}.merge super
+    {:contact => contact.for_json, :address => address.for_json}
   end  
   
   class << self

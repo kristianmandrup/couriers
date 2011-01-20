@@ -25,8 +25,12 @@ class Address
 
   def locate!
     raise "Address can't be located without a street" if street.blank?
-    begin
-      self.location = GeoMap.geo_coder.geocode as_string
+    begin             
+      loc = GeoMap.geo_coder.geocode as_string
+      # p "GeoMap Location: #{loc.data.inspect} (see Address.locate!)"
+      # p "lat: #{loc.latitude.inspect}"
+      # p "lng: #{loc.longitude.inspect}"
+      self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
     rescue Exception => e
       p "Exception: #{e}"
     end

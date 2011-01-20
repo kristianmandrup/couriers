@@ -10,7 +10,7 @@ class Order::Booking
   embedded_in :delivery_state,  :inverse_of => :booking  
   
   def for_json
-    {:pickup => pickup.for_json, :dropoff => dropoff.for_json}
+    {:pickup => pickup.for_json, :dropoff => dropoff.for_json, :package_description => package_description }
   end
 
   def into_json

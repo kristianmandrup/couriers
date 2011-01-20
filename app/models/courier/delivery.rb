@@ -14,13 +14,13 @@ class Courier::Delivery
         
     def create_random
       delivery = self.new :delivery_state => random_delivery_state
-      delivery.booking = Order::Booking.create_from :munich
+      delivery.waybill = Order::Waybill.create_from :munich
       delivery
     end
 
-    def create_from booking, state = :ready
+    def create_from waybill, state = :ready
       delivery = self.new :delivery_state => state
-      delivery.booking = booking
+      delivery.waybill = waybill
       delivery
     end
     

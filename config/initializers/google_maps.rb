@@ -32,7 +32,7 @@ module GeoMap
       
     def geocode location_str
       geo_coder.locate location_str
-    end
+    end    
   end
 
   class GeocodeAdapter < ServiceAdapter
@@ -41,7 +41,68 @@ module GeoMap
     end
       
     def geocode location_str
-      geo_coder.geocode location_str
+      geo_coder.geocode(location_str).extend GeocodeAPI
+    end
+
+    module GeocodeAPI      
+      def country
+        country_api["CountryNameCode"]
+      end
+
+      def country_name
+        country_api["CountryName"]
+      end
+      
+      def state
+        adm_api["AdministrativeAreaName"]
+      end
+      
+      def postal_code
+        subadm_api["Locality"]["PostalCode"]["PostalCodeNumber"]
+      end 
+      alias_method :zip, :postal_code
+      
+      def street
+        subadm_api["Thoroughfare"]["ThoroughfareName"]
+      end
+
+      def city
+        subadm_api["SubAdministrativeAreaName"]
+      end
+
+      def latitude
+        coords[0]
+      end
+
+      def longitude
+        coords[1]
+      end
+      
+      protected
+
+      def api
+        data["Placemark"].first
+      end
+
+      def coords
+        api["Point"]["coordinates"]
+      end
+
+      def adr_api
+        api["AddressDetails"]
+      end 
+
+      def country_api
+        adr_api["Country"]
+      end
+      
+      def adm_api
+        country_api["AdministrativeArea"]        
+      end
+      
+      def subadm_api
+        adm_api["SubAdministrativeArea"]
+      end
     end
 
     def reverse_geocode latitude, longitude
