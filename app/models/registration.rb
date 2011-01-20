@@ -1,4 +1,4 @@
-class RegistrationRequest
+class Registration
   include Mongoid::Document
 
   field :location,      :type => String
@@ -8,6 +8,5 @@ class RegistrationRequest
   embeds_one :contact
   embeds_one :vehicle
   
-  class << self    
-  end
+  field :status,        :type => String  
 end

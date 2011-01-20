@@ -3,6 +3,12 @@ class Courier::Company < Courier
   
   embeds_one  :company  
   embeds_one  :location
+
+  after_create :set_number
+
+  def set_number
+    self.number = Courier::Counter.inc_company
+  end
   
   def type
     'company'

@@ -19,10 +19,14 @@ class Address
 }
   end
 
+  def as_string
+    "#{street}, #{city}, #{country}"
+  end
+
   def locate!
     raise "Address can't be located without a street" if street.blank?
     begin
-      self.location = GeoMap.geo_coder.geocode point_string    
+      self.location = GeoMap.geo_coder.geocode as_string
     rescue Exception => e
       p "Exception: #{e}"
     end
@@ -76,7 +80,7 @@ class Address
 
     def streets city= :munich
       {
-        :munich     => ['Mullerstrasse 43', 'Rosenheimerstrasse 108', 'Marienplatz 14', 'Kalzplatz 32'],
+        :munich     => ['Mullerstrasse 43', 'Rosenheimerstrasse 108', 'Marienplatz 14', 'Karlzplatz 32'],
         :vancouver  => ['Bladestreet 18', 'Grand plaza 35', 'Jenny street 23', 'Sidewalk 100']
       }
     end 
@@ -98,7 +102,7 @@ class Address
     class_eval %{
       def self.create_#{country} *args
         p "create_germany called with \#{args.inspect}"
-        Address::#{country.classify}.new *args
+        Address::#{country.to_s.classify}.new *args
       end
     }
   end

@@ -5,7 +5,7 @@ class Person
   embeds_one :name, :class => 'Person::Name'
 
   embeds_one :address
-  embeds_one :profile
+  embeds_one :profile #, :class_name => 'Courier::Profile'
 
   def full_name
     name.full_name

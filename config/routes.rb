@@ -8,6 +8,17 @@ Tiramizoo::Application.routes.draw do
   # Search couriers
   match 'search/couriers'    => 'search#couriers',  :as => :search_couriers
 
+  resources :couriers, :only => [] do
+    collection do
+      post :select
+    end
+    
+    member do
+      get   :get_state
+      post  :set_state
+    end
+  end
+
   # list of potential types of User registrations
   resources :registrations, :only => [:index]
   resources :quotes

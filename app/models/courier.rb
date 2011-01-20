@@ -6,7 +6,13 @@ class Courier < User
   embeds_one :bank_account
   embeds_one :price_structure
   
-  embeds_many :vehicles  
+  embeds_many :vehicles
+  
+  embeds_one :delivery
+
+  field :work_state, :type => String
+
+  validates :work_state, :work_state => true
 
   def eta
     x = rand(3) > 1 ? rand(200) : rand(30)

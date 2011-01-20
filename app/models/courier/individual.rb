@@ -3,6 +3,12 @@ class Courier::Individual < Courier
 
   embeds_one :person 
   embeds_one :location
+
+  after_create :set_number
+
+  def set_number
+    self.number = Courier::Counter.inc_courier
+  end
   
   def type
     'individual'

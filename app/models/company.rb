@@ -3,12 +3,10 @@ class Company
 
   field :name, :type => String
   
-  embeds_one :address 
-
+  embeds_one :address
   embeds_one :contact
-  embeds_one :profile
-
-  embeds_one :channel, :class => 'Contact::Channel'
+  embeds_one :profile #, :class_name => 'Courier::Profile'
+  embeds_one :channel, :class_name => 'Contact::Channel'
 
   def for_json
     {:name => name, :address => address.for_json, :contact => contact.for_json }

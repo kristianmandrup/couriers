@@ -1,31 +1,35 @@
 %h3 List of couriers available
 
-%table
-  %tr
-    %th 
-      Name    
-    %th
-      Type
-    %th 
-      ETA              
-    %th
-      Rating
-    %th
-      Position
-    %th
-      Price
+= form_tag select_couriers_path, :method => :post do |f|
+  %table
+    %tr
+      %th 
+        Name    
+      %th
+        Type
+      %th 
+        ETA              
+      %th
+        Rating
+      %th
+        Position
+      %th
+        Price
       
-    - couriers.each do |courier|
-      %tr
-        %td 
-          = courier.name
-        %td 
-          = courier.type
-        %td 
-          = courier.eta
-        %td 
-          = courier.rating
-        %td 
-          = courier.location
-        %td 
-          = courier.price
+      - couriers.each do |courier|
+        %tr
+          %td 
+            = check_box_tag "select[#{courier.number}]", 'yes', false
+          %td 
+            = courier.name
+          %td 
+            = courier.type
+          %td 
+            = courier.eta
+          %td 
+            = courier.rating
+          %td 
+            = courier.location
+          %td 
+            = courier.price
+  = submit_tag "Send order to selected couriers" 

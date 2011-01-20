@@ -1,4 +1,4 @@
-class PriceStructure
+class Courier::PriceStructure
   include Mongoid::Document
 
   class << self

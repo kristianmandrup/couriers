@@ -35,9 +35,6 @@ class Location
     def available_cities
       @available_cities ||= t 'cities.germany'
     end
-
-    def from_ip session
-    end
   end 
   
 end

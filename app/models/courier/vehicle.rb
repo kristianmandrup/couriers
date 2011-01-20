@@ -1,4 +1,4 @@
-class Vehicle
+class Courier::Vehicle
   include Mongoid::Document
 
   field :name,  :type => String  
@@ -12,15 +12,7 @@ class Vehicle
     def create_single name
       raise ArgumentError, "Not a valid vehicle type - must be one of #{available_types}" if !available_types.include? name
       Vehicle.new :name => name.to_s, :count => 1
-    end
-    
-    # def types
-    #   available_types.inject([]) do |res, type|
-    #     type = type.to_s
-    #     res << [type, type]
-    #     res
-    #   end
-    # end
+    end    
   end
   
   # create_car, create_van etc.

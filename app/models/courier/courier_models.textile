@@ -1,0 +1,14 @@
+h1. Courier models
+
+The main Courier class is a kind of User
+
+<pre>
+  class Courier < User   
+</pre>
+
+field :number, :type => Integer
+  
+embeds_one :bank_account
+embeds_one :price_structure
+
+embeds_many :vehicles  

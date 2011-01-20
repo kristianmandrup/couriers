@@ -1,5 +1,7 @@
 class QuotesController < InheritedResources::Base
 
+  # formtastic can provide a namespace for your form to ensure uniqueness of id attributes on form elements
+
   def create      
     p "params: #{params.inspect}"
     quote = params[:quote]

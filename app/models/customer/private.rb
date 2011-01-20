@@ -1,5 +1,5 @@
 # Customer is a business
-class Customer::Private < User 
+class Customer::Private < Customer 
   include Mongoid::Document
   
   embeds_one :person
