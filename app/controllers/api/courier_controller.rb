@@ -1,5 +1,5 @@
 module Api
-  class CouriersController < ActionController::Base
+  class CourierController < ActionController::Base
     respond_to :json
 
 #    before_filter :authenticate_user!
@@ -21,36 +21,6 @@ module Api
       get_state if request.get?      
     end  
   
-    # Get locations of all couriers within my radius
-    # 
-    # couriers/locations/:radius :get
-    # [
-    #   {
-    #     id: "1",
-    #     position : {
-    #        latitude: "150.644",
-    #       longitude: "-34.397"
-    #     }
-    #     vehicle: "bike|cargobike|motorbike|car|van"
-    #   },  
-    #   {
-    #     id: "2",
-    #     position : {
-    #       latitude: "150.644",
-    #       longitude: "-34.397"
-    #     }
-    #     vehicle: "bike|cargobike|motorbike|car|van"
-    #   }
-    # ]
-    def locations    
-      radius = params[:radius_km]
-      current_location = current_user.find(params[:id]).location
-
-      # should extend array with CourierList 
-      nearby_couriers = current_location.nearby_couriers_in :radius => radius        
-      respond_with(nearby_couriers.positions)       
-    end  
-
     protected
 
     def update_state
@@ -62,13 +32,16 @@ module Api
 
       p "body: #{body}" 
 
-      json = JSON.decode(body)      
+      json = ActiveSupport::JSON.decode(body)      
       
       p "json: #{json}"
       
       courier_user.work_state = json['work_state']
+      courier_user.save
+
+      p "respond with work state: #{courier_user.work_state}"
       
-      respond_with(courier_user.work_state)
+      respond_with(WorkState.new, :location => courier_state_path)
     end
 
     def get_state
