@@ -4,7 +4,7 @@ class MainController < InheritedResources::Base
   geo_magic :remote # include GeoMagic::Remote
   
   def index
-    @quote = Quote.new
+    @quote = Order::Quote.new
   end
 
   def init_user

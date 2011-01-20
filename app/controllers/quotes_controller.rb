@@ -12,7 +12,7 @@ class QuotesController < InheritedResources::Base
     pickup_address   = Address.create_from_point pickup_point
     dropoff_address  = Address.create_from_point dropoff_point
 
-    @booking = Booking.new :city => 'Munich'
+    @booking = Order::Booking.new :city => 'Munich'
     @booking.pickup_address = pickup_address
     @booking.dropoff_address = dropoff_address
     
