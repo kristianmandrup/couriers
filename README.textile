@@ -260,6 +260,9 @@ Google map directions
 
 "directions":http://code.google.com/apis/maps/documentation/javascript/v2/services.html
 
+Geo auto-completion
+
+"Geo autocomplete":http://code.google.com/p/geo-autocomplete/
 
 h3. Geocode libraries
 

@@ -26,8 +26,7 @@ class Courier::Individual < Courier
     def create_from city = :munich       
       p = Person.create_from(city)
       co = Courier::Individual.new 
-      co.person = p
-      
+      co.person = p      
       # geo_location = GeoMagic::Location      
       co.location = Location.new :latitude => 48 + delta, :longitude => 11.35 + delta
       co 

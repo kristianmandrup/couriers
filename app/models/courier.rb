@@ -13,6 +13,12 @@ class Courier < User
   field :work_state, :type => String
 
   validates :work_state, :work_state => true
+  
+  after_create :set_work_state
+
+  def set_work_state
+    self.work_state = 'not_available' if work_state.blank?
+  end
 
   def eta
     x = rand(3) > 1 ? rand(200) : rand(30)
