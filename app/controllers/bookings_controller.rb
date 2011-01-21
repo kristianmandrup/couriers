@@ -49,47 +49,47 @@ class BookingsController < ApplicationController
   # }
   # --------------------------------------------------------------------------------  
   def update
-    # TiramizooApp.pubnub.publish({
-    #     'channel' => 'tiramizoo-courier-delivery',
-    #     'message' => {
-    #       directions: "3,5km to target",
-    #       pickup:   {
-    #         location: {
-    #           position: {
-    #             latitude: 150.644,
-    #             longitude: -34.397
-    #           },
-    #           address:  {
-    #             street: "Sendlinger Strasse 1",
-    #             zip: "80331",
-    #             city: "Munchen"
-    #           }
-    #         },
-    #         notes: "Big box"
-    #       },
-    #       dropoff:  {
-    #         location: {
-    #           position:   {
-    #             latitude: 150.644,
-    #             longitude: -34.397
-    #           },
-    #           address:  {
-    #             street: "Sendlinger Strasse 2",
-    #             zip: "80331",
-    #             city: "Munchen"
-    #           }
-    #         },
-    #         notes: "Big box"
-    #       }
-    #     }        
-    # }) 
-
     TiramizooApp.pubnub.publish({
         'channel' => 'tiramizoo-courier-delivery',
         'message' => {
-          directions: "3,5km to target"
-        }
-    })
+          directions: "3,5km to target",
+          pickup:   {
+            location: {
+              position: {
+                latitude: 150.644,
+                longitude: -34.397
+              },
+              address:  {
+                street: "Sendlinger Strasse 1",
+                zip: "80331",
+                city: "Munchen"
+              }
+            },
+            notes: "Big box"
+          },
+          dropoff:  {
+            location: {
+              position:   {
+                latitude: 150.644,
+                longitude: -34.397
+              },
+              address:  {
+                street: "Sendlinger Strasse 2",
+                zip: "80331",
+                city: "Munchen"
+              }
+            },
+            notes: "Big box"
+          }
+        }        
+    }) 
+
+    # TiramizooApp.pubnub.publish({
+    #     'channel' => 'tiramizoo-courier-delivery',
+    #     'message' => {
+    #       directions: "3,5km to target"
+    #     }
+    # })
     
     redirect_to new_booking_path    
   end
