@@ -54,10 +54,10 @@ gem 'lemonade'
 gem 'hassle', :git => 'git://github.com/jasoncodes/hassle.git'
 
 # CAPTCHA
-gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'
+# gem "recaptcha" , :git => 'https://github.com/davout/recaptcha.git'
 
 # Image upload for Mongoid
-gem "carrierwave", :git => 'https://github.com/jnicklas/carrierwave.git'
+# gem "carrierwave", :git => 'https://github.com/jnicklas/carrierwave.git'
 
 # i18n
 # gem "e9s", ">= 2.2.6"
@@ -67,7 +67,6 @@ gem "carrierwave", :git => 'https://github.com/jnicklas/carrierwave.git'
 gem "active_merchant"
 
 # Google Maps
-gem "bhm-google-maps", :git => 'https://github.com/antramm/bhm-google-maps.git'
 gem "mongoid", ">= 2.0.0.rc.3"
 gem "bson_ext", ">= 1.1.5" 
-gem 'remarkable_mongoid'
+# gem 'remarkable_mongoid'

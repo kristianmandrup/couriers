@@ -7,25 +7,6 @@ GIT
       rack
 
 GIT
-  remote: https://github.com/antramm/bhm-google-maps.git
-  revision: 34b9cb5
-  specs:
-    bhm-google-maps (0.3.1)
-
-GIT
-  remote: https://github.com/davout/recaptcha.git
-  revision: 2e3bfac
-  specs:
-    recaptcha (0.2.3)
-
-GIT
-  remote: https://github.com/jnicklas/carrierwave.git
-  revision: 7361f97
-  specs:
-    carrierwave (0.5.1)
-      activesupport (~> 3.0)
-
-GIT
   remote: https://github.com/kristianmandrup/cream.git
   revision: 6d741ab
   specs:
@@ -40,8 +21,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.0)
       devise-links (>= 0.2.1)
+      devise-links (>= 0.2.0)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -139,8 +120,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (>= 0.4.0)
       r3_plugin_toolbox (~> 0.4.0)
+      r3_plugin_toolbox (>= 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
@@ -289,13 +270,6 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
-    remarkable (4.0.0.alpha4)
-      rspec (>= 2.0.0.alpha11)
-    remarkable_activemodel (4.0.0.alpha4)
-      remarkable (~> 4.0.0.alpha4)
-      rspec (>= 2.0.0.alpha11)
-    remarkable_mongoid (0.5.0)
-      remarkable_activemodel (>= 4.0.0.alpha2)
     require_all (1.2.0)
     responders (0.6.2)
     roles_generic (0.3.7)
@@ -380,10 +354,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_merchant
-  bhm-google-maps!
   bson_ext (>= 1.1.5)
   capybara
-  carrierwave!
   chronic
   compass
   cream (>= 0.8.9.2)!
@@ -403,8 +375,6 @@ DEPENDENCIES
   mongoid (>= 2.0.0.rc.3)
   pickle
   rails (= 3.0.3)
-  recaptcha!
-  remarkable_mongoid
   roles_mongoid (>= 0.4.4)
   rspec (>= 2.4.0)
   rspec-rails (>= 2.4.0)
