@@ -26,7 +26,7 @@ class Contact::Channel
     end
     
     def create_from city = :munich
-      Contact::Info.new :phone => phones[city].pick_one, :email => emails[city].pick_one
+      Contact::Channel.new :phone => phones[city].pick_one, :email => emails[city].pick_one
     end
   end
 end

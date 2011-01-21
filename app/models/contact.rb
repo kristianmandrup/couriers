@@ -1,8 +1,8 @@
 class Contact
   include Mongoid::Document
 
-  embeds_one :name, :class => 'Name'
-  embeds_one :channel, :class => 'Contact::Channel'
+  embeds_one :name, :class_name => 'Person::Name'
+  embeds_one :channel, :class_name => 'Contact::Channel'
 
   def full_name
     name.full_name
@@ -15,8 +15,8 @@ class Contact
   class << self
     def create_from city = :munich
       co = Contact.new
-      co.name = Name.create_from city
-      # co.contact_info = Contact::Info.create_from city
+      co.name = Person::Name.create_from city
+      co.channel = Contact::Channel.create_from city
       co      
     end
   end    

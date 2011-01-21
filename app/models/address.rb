@@ -26,13 +26,12 @@ class Address
   def locate!
     raise "Address can't be located without a street" if street.blank?
     begin             
-      loc = GeoMap.geo_coder.geocode as_string
-      # p "GeoMap Location: #{loc.data.inspect} (see Address.locate!)"
-      # p "lat: #{loc.latitude.inspect}"
-      # p "lng: #{loc.longitude.inspect}"
+      loc = TiramizooApp.geocoder.geocode as_string 
+      puts "address was located" if loc
       self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
     rescue Exception => e
-      p "Exception: #{e}"
+      p "Locate exception from #{as_string}: #{e}"
+      p "geocoder: #{GeoMap.geo_coder.instance}"
     end
     self
   end
@@ -53,17 +52,11 @@ class Address
     # create localized address based on current geolocation!? 
     def create_from_point point_string  
       if !point_string.blank?
-        begin 
-          location = GeoMap.geo_coder.locate point_string
-
-          pcountry = location ? location.country : 'Germany' # GeoMagic::Remote.my_location.country
-          address_options = location ? {:street => location.street, :city => location.city, :zip => location.zip, :country => pcountry} : {}
-          adr = create_address pcountry, address_options
-          adr.location = Location.new :lat => location.latitude, :long => location.longitude
-          return adr
-        rescue Exception => e
-          p "Exception: #{e}"
-        end
+        pcountry = location ? location.country : 'Germany' # GeoMagic::Remote.my_location.country
+        address_options = location ? {:street => location.street, :city => location.city, :zip => location.zip, :country => pcountry} : {}
+        adr = create_address pcountry, address_options
+        adr.locate!
+        return adr
       end 
       p "return empty adr"
       create_empty

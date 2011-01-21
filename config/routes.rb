@@ -6,22 +6,14 @@ Tiramizoo::Application.routes.draw do
   match 'info/private'    => 'info#private',    :as => :private_info
 
   # Search couriers
-  match 'search/couriers'    => 'search#couriers',  :as => :search_couriers
+  match 'search/couriers'           => 'api/search#couriers',           :as => :search_couriers
+  match "courier/state"             => "api/couriers#state",            :via => [:get, :post]
+  match "courier/location"          => "api/couriers#location",         :via => [:post]
+  match "location/nearby_couriers"  => "api/couriers#nearby_couriers",  :via => :get
 
-  match 'courier/state'      => 'api/courier#state',  :as => :courier_state
+  match "delivery-list"             => "api/deliveries#index",       :as => :deliveries
 
-  # scope :module => "api" do
-  #   resources :couriers, :only => [] do
-  #     collection do
-  #       post :select
-  #     end
-  #   
-  #     member do
-  #       get   :state
-  #       post  :state
-  #     end
-  #   end
-  # end
+
   
   # list of potential types of User registrations
   resources :registrations, :only => [:index]

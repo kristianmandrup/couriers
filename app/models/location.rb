@@ -2,13 +2,17 @@ class Location
   include Mongoid::Document
   
   # attr_accessor :address, 
-  field :latitude, :type => String
-  field :longitude, :type => String
+  field :latitude, :type => Float
+  field :longitude, :type => Float
 
   def move dlat, dlong
     self.latitude = (lat + dlat.to_f).to_s
     self.longitude = (lng + dlong.to_f).to_s
     self    
+  end
+
+  def for_json
+    {:latitude => latitude, :longitude => longitude }
   end
 
   def lat
@@ -17,6 +21,15 @@ class Location
 
   def lng
     longitude.to_f.round(6)    
+  end
+
+  def to_point
+    GeoMagic::Point.new(lat, lng)
+  end
+
+  def nearby_couriers couriers, options = {:radius => 5.km}
+    courier_locations = couriers.map {|c| c.location.to_point}.as_locations
+    courier_locations.get_within options[:radius], :from => self.to_point
   end
 
   def to_s mode = :short

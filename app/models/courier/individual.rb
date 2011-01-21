@@ -2,9 +2,12 @@ class Courier::Individual < Courier
   include Mongoid::Document
 
   embeds_one :person 
-  embeds_one :location
 
   after_create :set_number
+
+  def location
+    person.address.location
+  end
 
   def set_number
     self.number = Courier::Counter.inc_courier
@@ -23,53 +26,11 @@ class Courier::Individual < Courier
   end
   
   class << self
-    def create_from city = :munich       
-      p = Person.create_from(city)
+    def create_from city = :munich
       co = Courier::Individual.new 
-      co.person = p      
-      # geo_location = GeoMagic::Location      
-      co.location = Location.new :latitude => 48 + delta, :longitude => 11.35 + delta
+      co.person = Person.create_from(city)
       co 
-    end      
-    
-    def delta
-      (rand(1000) - 500).to_f / 100000.0
     end
   end
 end
 
-# {
-#   username: 'mike',
-#   password: 'xxxxx',  
-#   language: 'de',
-# 
-#   person: {
-#     first_name: 'mike',
-#     last_name: 'loehr',
-#     address: {
-#       street: 'sfsfsa 133',
-#       zip: 12345,
-#       city: 'Munchen',
-#       country: 'Germany'
-#     }
-# 
-#     profile: {
-#       description: 'sdgdsgdgs',
-#       webpage_url: 'sdgsdg',
-#       avatar: 'assf.jpg'
-#     }
-#   },    
-#         
-#   bank_account: {
-#     
-#   },
-#   price_structure: {
-#     
-#   },
-# 
-#   vehicles: [
-#     { name: Bicycle, count: 2},
-#     { name: Car, count: 1}
-#   ]    
-# }
-# 

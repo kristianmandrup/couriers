@@ -3,18 +3,21 @@ class Courier < User
 
   field :number, :type => Integer
     
-  embeds_one :bank_account
-  embeds_one :price_structure
+  embeds_one  :bank_account
+  embeds_one  :price_structure
   
-  embeds_many :vehicles
-  
-  embeds_one :delivery
+  embeds_many :vehicles    
+  embeds_one  :delivery
 
-  field :work_state, :type => String
+  field       :work_state, :type => String
 
-  validates :work_state, :work_state => true
+  validates   :work_state, :work_state => true
   
   after_create :set_work_state
+
+  def location
+    raise "#location method must be implemented by subclass"    
+  end
 
   def set_work_state
     self.work_state = 'not_available' if work_state.blank?
@@ -74,7 +77,7 @@ class Courier < User
     end
     
     def available city = :munich
-      number = rand(5) +1
+      number = rand(5) + rand(5) + 2
       number.times.inject([]) do |res, n| 
         res << create_from(city)
         res 

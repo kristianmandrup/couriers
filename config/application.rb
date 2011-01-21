@@ -13,7 +13,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Tiramizoo
   class Application < Rails::Application
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
     config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)
 
@@ -39,7 +39,7 @@ module Tiramizoo
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-        config.action_view.javascript_expansions[:defaults] = %w()
+    config.action_view.javascript_expansions[:defaults] = %w()
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

@@ -5,7 +5,8 @@ class Company
   
   embeds_one :address
   embeds_one :contact
-  embeds_one :profile #, :class_name => 'Courier::Profile'
+  embeds_one :profile
+
   embeds_one :channel, :class_name => 'Contact::Channel'
 
   def for_json

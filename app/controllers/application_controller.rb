@@ -43,4 +43,12 @@ class ApplicationController < ActionController::Base
     parsed_locale = request.subdomains.first
     I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
   end
+  
+  def json_request
+    JSON.parse(request.body.read)
+  end
+
+  def render_json(obj)
+    render :json => obj
+  end  
 end
