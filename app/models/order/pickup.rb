@@ -1,4 +1,4 @@
-class Order::DropOff
+class Order::Pickup
   include Mongoid::Document
   
   embedded_in :booking, :inverse_of => :pickup
@@ -19,13 +19,5 @@ class Order::DropOff
       order.notes = 'Pick it up baby!'
       order
     end    
-    
-    def create_from city = :munich
-      order = self.new
-      order.address = Address.create_from city
-      order.contact = Contact.create_from city
-      order.notes = 'Drop it baby!'
-      order
-    end
   end
 end

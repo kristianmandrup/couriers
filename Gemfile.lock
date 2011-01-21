@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jasoncodes/hassle.git
-  revision: a61495da1957d8db509ef72fa8c5f99c562d7f42
+  revision: a61495d
   specs:
     hassle (0.0.1)
       haml
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/cream.git
-  revision: 6d741abba4c420c80c5e40cd15cf5d7ac7c30eb8
+  revision: 6d741ab
   specs:
     cream (0.8.9.2)
       cancan (>= 1.4.1)
@@ -21,8 +21,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.1)
       devise-links (>= 0.2.0)
+      devise-links (>= 0.2.1)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/formtastic.git
-  revision: e5869ac25a170590423449ae96e478e7b866b6de
+  revision: e5869ac
   specs:
     formtastic (1.2.3)
       actionpack (>= 2.3.7)
@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_country_select.git
-  revision: 8b4312b61591ed9fb408b7ac6141befdd1e0c226
+  revision: 8b4312b
   specs:
     localized_country_select (0.1.0)
       rails (>= 2.3.5)
@@ -55,7 +55,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/localized_language_select.git
-  revision: 86401eb8f99552dd5b4ef7d9e265518d376c4882
+  revision: 86401eb
   specs:
     localized_language_select (0.2.0)
       rails (>= 2.3.5)
@@ -120,8 +120,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (~> 0.4.0)
       r3_plugin_toolbox (>= 0.4.0)
+      r3_plugin_toolbox (~> 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)

@@ -14,14 +14,11 @@ class Order::Dropoff
   
   class << self
     def create_from city = :munich
-      address = DropoffAddress.new :street => Address.streets[city].pick_one , :city => city, :country => Address.countries[city]
-      address.locate!
-    end    
-    
-    def create_from city = :munich
-      adr = create_from city
-      adr.contact = Contact.create_from city
-      adr
+      order = self.new
+      order.address = Address.create_from city
+      order.contact = Contact.create_from city
+      order.notes = 'Drop it baby!'
+      order
     end
   end  
 end

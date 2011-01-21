@@ -68,9 +68,9 @@ class BookingsController < ApplicationController
   
   def message
     {
-      'directions': "3,5km to target",
-      'pickup' : Order::Pickup.create_from :munich,
-      'dropoff': Order::DropOff.create_from :munich, 
+      directions: "3,5km to target",
+      pickup: Order::Pickup.create_from(:munich).for_json,
+      dropoff: Order::Dropoff.create_from(:munich).for_json, 
     }
   end    
 end
