@@ -21,8 +21,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.1)
       devise-links (>= 0.2.0)
+      devise-links (>= 0.2.1)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -120,13 +120,13 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (~> 0.4.0)
       r3_plugin_toolbox (>= 0.4.0)
+      r3_plugin_toolbox (~> 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)
       sugar-high (~> 0.3.1)
-    capybara (0.4.1)
+    capybara (0.4.1.1)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -355,7 +355,7 @@ PLATFORMS
 DEPENDENCIES
   active_merchant
   bson_ext (>= 1.1.5)
-  capybara (>= 0.4.0)
+  capybara (~> 0.4.1.1)
   chronic
   compass
   cream (>= 0.8.9.2)!
