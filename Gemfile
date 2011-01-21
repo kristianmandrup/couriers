@@ -4,7 +4,7 @@ gem 'rails', '3.0.3'
 group :development, :test do
   gem "cucumber-rails"
   gem "pickle"
-  gem "capybara"
+  gem "capybara", ">= 0.4.0"
   gem "rspec", ">= 2.4.0"
   gem "rspec-rails", ">= 2.4.0"  
 
