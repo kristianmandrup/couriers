@@ -20,7 +20,7 @@ gem 'formtastic', '>= 1.1.0', :git => 'https://github.com/kristianmandrup/formta
 gem 'ruby_parser'
 
 # Geo libraries
-gem "geo_magic", ">= 0.2.2" # :path => '/Users/kristianconsult/ruby-gems/geo_magic' #, 
+gem "geo_magic", ">= 0.2.2.1" # :path => '/Users/kristianconsult/ruby-gems/geo_magic' #, 
 gem "graticule"
 gem "geocode"
 

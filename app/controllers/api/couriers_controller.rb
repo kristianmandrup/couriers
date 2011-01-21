@@ -52,7 +52,7 @@ module Api
     # ] 
     def nearby_couriers    
       # should extend array with CourierList 
-      rectangle = GeoMagic::Rectangle.create_from_coords ne_latitude, ne_longitude, sw_latitude, sw_longitude
+      rectangle = GeoMagic::Rectangle.create_from_coords(ne_latitude, ne_longitude, sw_latitude, sw_longitude)
       # .get_within 10.km, :from => current_location.to_point      
       avail = Courier.available
       # p "rect: #{rectangle}"
