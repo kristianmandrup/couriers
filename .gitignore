@@ -2,8 +2,6 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-tmp
-# Gemfile.lock
 
 public/stylesheets/compiled
 
