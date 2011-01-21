@@ -60,6 +60,11 @@ module Api
       courier_points = avail.as_map_points
       # p "courier_points: #{courier_points}"      
       nearby_couriers = courier_points.within_rectangle(rectangle).extend Positionable
+
+      # # always ensure at least 2
+      # nearby_couriers << avail[0..1]            
+      # nearby_couriers = nearby_couriers.uniq.extend Positionable
+      
       render_json nearby_couriers.positions.map(&:for_json)
     end  
 
@@ -67,10 +72,6 @@ module Api
 
     def current_location 
       @current_location ||= (longitude || latitude) ? Location.new(latitude, longitude) : current_user.find(params[:id]).location
-    end
-
-    def radius
-      params[:radius]
     end
 
     def unit
@@ -95,11 +96,13 @@ module Api
 
     def update_state
       courier_user = Courier::Individual.create_from :munich
-      body = request.body.read      
-      json = ActiveSupport::JSON.decode(body)      
-      courier_user.work_state = json['work_state']
+      body = request.body.read # '{"work_state": "available"}' # 
+      work_state = decode_state_from(body)
+
+      courier_user.work_state = work_state
       courier_user.save
-      render_json(WorkState.new) # , :location => courier_state_path respond_with
+      p "post back changed work_state: #{work_state}"
+      render_json(WorkState.new courier_user.work_state) # , :location => courier_state_path respond_with
     end
 
     def get_state
@@ -107,6 +110,24 @@ module Api
       delivery = courier_user.delivery
       courier_state = Courier::State.new # :current_delivery => delivery, :work_state => work_state
       render_json(courier_state.json_workstate)
+    end
+    
+    private 
+    
+    def decode_state_from body
+      begin
+        return uncover(body) if !body.match(/#{Regexp.escape('{')}/)          
+        json = ActiveSupport::JSON.decode(body)        
+        json['work_state'] || 'not_available'
+      rescue
+        uncover body        
+      end
+    end      
+    
+    def uncover body
+      return 'not_available' if body.match(/not_available/)
+      return 'available' if body.match(/available/)
+      'unknown'
     end
   end
 end

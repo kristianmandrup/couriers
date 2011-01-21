@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # protect_from_forgery
   
   # before_filter :geo_location - Done by Main Controller
   before_filter :set_locale

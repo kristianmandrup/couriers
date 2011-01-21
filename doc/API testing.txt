@@ -6,6 +6,13 @@ $ irb
 > CGI.escape('150.644')
 > RestClient.get('http://localhost:3000/location/nearby_couriers?radius=20&ne_latitude=11.629219857543935&ne_longitude=48.14503914726847&sw_latitude=11.56055530676268&sw_longitude=48.135273633709915')
 
+RestClient.get('http://tiramizoo-beta.heroku.com/location/nearby_couriers?radius=20&ne_latitude=11.629219857543935&ne_longitude=48.14503914726847&sw_latitude=11.56055530676268&sw_longitude=48.135273633709915')
 
 
-ne_latitude=48.14503914726847&ne_longitude=11.629219857543935&sw_latitude=48.135273633709915&sw_longitude=11.56055530676268
+PubNub
+
+pubnub.publish({
+    'channel' => 'my_channel',
+    'message' => { 'my_var' => 'my text data' }
+})
+

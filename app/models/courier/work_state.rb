@@ -6,7 +6,7 @@ class WorkState
   
   attr_accessor :work_state
   
-  def initialize 
-    @work_state = 'not_available'
+  def initialize work_state 
+    @work_state = work_state || 'not_available'
   end  
 end

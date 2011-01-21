@@ -1,40 +1,96 @@
-class BookingsController < InheritedResources::Base
+class BookingsController < ApplicationController 
 
-  def show
-    # puts "SHOW booking"        
-    # 
-    # puts Booking.all.map(&:_id)
-    # @booking = Booking.find params[:id]
-    # 
-    # puts "show form for booking: #{@booking.inspect}"
-  end
+  # InheritedResources::Base
 
   def new
     @booking = session[:booking]
-
     @available_couriers = Courier.available
     @your_location = Location.create_from session[:location]
+  end   
 
-    # puts "#{@your_location.lat}, #{@your_location.lng}"    
-    # puts "available_couriers: #{@available_couriers}"
+  # Push new delivery from server to client
+  # 
+  # channel: tiramizoo-courier-delivery
+  # {
+  #     action: "new_delivery",
+  #     data: {
+  #         directions: "3,5km to target",
+  #         pickup:   {
+  #                         location: {
+  #                                         position:   {
+  #                                                         latitude: 150.644,
+  #                                                         longitude: -34.397
+  #                                                     },
+  #                                         address:  {
+  #                                                         street: "Sendlinger Straße 1",
+  #                                                         zip: "80331",
+  #                                                         city: "München"
+  #                                                     }
+  # 
+  #                                     },
+  #                         notes: "Big box"
+  #                     },
+  #         dropoff:  {
+  #                         location: {
+  #                                         position:   {
+  #                                                         latitude: 150.644,
+  #                                                         longitude: -34.397
+  #                                                     },
+  #                                         address:  {
+  #                                                         street: "Sendlinger Straße 2",
+  #                                                         zip: "80331",
+  #                                                         city: "München"
+  #                                                     }
+  # 
+  #                                     }
+  #                         notes: "Big box"
+  #                     }
+  #             }
+  # }
+  # --------------------------------------------------------------------------------  
+  def update
+    # TiramizooApp.pubnub.publish({
+    #     'channel' => 'tiramizoo-courier-delivery',
+    #     'message' => {
+    #       directions: "3,5km to target",
+    #       pickup:   {
+    #         location: {
+    #           position: {
+    #             latitude: 150.644,
+    #             longitude: -34.397
+    #           },
+    #           address:  {
+    #             street: "Sendlinger Strasse 1",
+    #             zip: "80331",
+    #             city: "Munchen"
+    #           }
+    #         },
+    #         notes: "Big box"
+    #       },
+    #       dropoff:  {
+    #         location: {
+    #           position:   {
+    #             latitude: 150.644,
+    #             longitude: -34.397
+    #           },
+    #           address:  {
+    #             street: "Sendlinger Strasse 2",
+    #             zip: "80331",
+    #             city: "Munchen"
+    #           }
+    #         },
+    #         notes: "Big box"
+    #       }
+    #     }        
+    # }) 
+
+    TiramizooApp.pubnub.publish({
+        'channel' => 'tiramizoo-courier-delivery',
+        'message' => {
+          directions: "3,5km to target"
+        }
+    })
+    
+    redirect_to new_booking_path    
   end
-
-  # def create
-  #   puts "CREATE booking!"    
-  #   
-  #   pickup_point  = params[:pickup_point]
-  #   droppof_point = params[:droppof_point]
-  #   
-  #   pickup_point   = Address.create_from_point pickup_point
-  #   dropoff_point  = Address.create_from_point dropoff_point
-  #   
-  #   pickup_address   = AddressBook.get_contact_details @pickup_point
-  #   dropoff_address  = AddressBook.get_contact_details @dropoff_point
-  # 
-  #   vehicle  = Vehicle.create_single params[:vehicle]
-  # 
-  #   @booking = Booking.create! :vehicle => vehicle, :pickup_address => pickup_address, :dropoff_address => dropoff_address
-  #   
-  #   redirect_to :show
-  # end    
 end
