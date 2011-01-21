@@ -13,14 +13,19 @@ class Order::DropOff
   
   class << self
     def create_from city = :munich
-      address = PickupAddress.new :street => Address.streets[city].pick_one , :city => city, :country => Address.countries[city]
-      address.locate!
+      order = self.new
+      order.address = Address.create_from city
+      order.contact = Contact.create_from city
+      order.notes = 'Pick it up baby!'
+      order
     end    
     
     def create_from city = :munich
-      adr = create_from city
-      adr.contact = Contact.create_from city
-      adr
+      order = self.new
+      order.address = Address.create_from city
+      order.contact = Contact.create_from city
+      order.notes = 'Drop it baby!'
+      order
     end
   end
 end

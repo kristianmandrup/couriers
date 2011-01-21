@@ -48,40 +48,10 @@ class BookingsController < ApplicationController
   #             }
   # }
   # --------------------------------------------------------------------------------  
-  def update
+  def update        
     TiramizooApp.pubnub.publish({
         'channel' => 'tiramizoo-courier-delivery',
-        'message' => {
-          directions: "3,5km to target",
-          pickup:   {
-            location: {
-              position: {
-                latitude: 150.644,
-                longitude: -34.397
-              },
-              address:  {
-                street: "Sendlinger Strasse 1",
-                zip: "80331",
-                city: "Munchen"
-              }
-            },
-            notes: "Big box"
-          },
-          dropoff:  {
-            location: {
-              position:   {
-                latitude: 150.644,
-                longitude: -34.397
-              },
-              address:  {
-                street: "Sendlinger Strasse 2",
-                zip: "80331",
-                city: "Munchen"
-              }
-            },
-            notes: "Big box"
-          }
-        }        
+        'message' => message        
     }) 
 
     # TiramizooApp.pubnub.publish({
@@ -93,4 +63,14 @@ class BookingsController < ApplicationController
     
     redirect_to new_booking_path    
   end
+  
+  protected
+  
+  def message
+    {
+      'directions': "3,5km to target",
+      'pickup' : Order::Pickup.create_from :munich,
+      'dropoff': Order::DropOff.create_from :munich, 
+    }
+  end    
 end
