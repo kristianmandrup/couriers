@@ -25,12 +25,13 @@ class Address
   end
 
   def locate! point_string = nil
-    raise "Address can't be located without a street" if street.blank?
+    point_string ||= as_string
+    raise "Address can't be located without a street" if point_string.blank?
     begin             
-      loc = TiramizooApp.geocoder.geocode as_string 
+      loc = TiramizooApp.geocoder.geocode(point_string)
       self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
     rescue Exception => e
-      p "Locate exception from #{as_string}: #{e}"
+      p "Locate exception from #{point_string}: #{e}"
       p "geocoder: #{GeoMap.geo_coder.instance}"
     end
     self
@@ -69,9 +70,10 @@ class Address
       Address::Empty.new
     end
 
-    def create_address country = :de, address_options = {}
-      case country.to_s.downcase.to_sym 
-      when :de 
+    def create_address address_options = {}
+      city = address_options[:city].downcase.to_sym
+      case city 
+      when :munich 
         create_germany address_options
       else
         create_canada address_options
@@ -79,7 +81,7 @@ class Address
     end
 
     def create_from city = :munich
-      address = create_address :street => streets(city).pick_one, :city => city
+      address = create_address :street => streets(city).pick_one, :city => city.to_s.humanize
       address.locate!
     end
 
@@ -93,7 +95,6 @@ class Address
   countries_available.map(&:to_s).each do |country|
     class_eval %{
       def self.create_#{country} *args
-        p "create_germany called with \#{args.inspect}"
         Address::#{country.to_s.classify}.new *args
       end
     }

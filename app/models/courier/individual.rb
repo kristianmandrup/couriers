@@ -1,6 +1,7 @@
 class Courier::Individual < Courier
   include Mongoid::Document
 
+  field :courier_number, :type => Integer
   embeds_one :person 
 
   def location

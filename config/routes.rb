@@ -12,7 +12,7 @@ Tiramizoo::Application.routes.draw do
   match "location/nearby_couriers"  => "api/couriers#nearby_couriers",  :via => :get
 
   match "delivery-list"             => "api/deliveries#index",       :as => :deliveries
-  match "booking/wait_for_couriers_response"  => "booking/wait_for_couriers_response",  :as => :wait_for_couriers_response
+  match "booking/wait_for_couriers_response"  => "bookings#wait_for_couriers_response",  :as => :wait_for_couriers_response
 
   
   # list of potential types of User registrations
