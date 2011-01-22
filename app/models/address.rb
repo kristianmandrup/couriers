@@ -1,9 +1,10 @@
 class Address
   include Mongoid::Document
 
-  field :street,    :type => String
-  field :city,      :type => String
-  field :country,   :type => String
+  field :street,        :type => String
+  field :city,          :type => String
+  field :country,       :type => String
+  field :country_code,  :type => String
 
   embeds_one  :location
 
@@ -52,13 +53,13 @@ class Address
     def create_from_point point_string  
       if !point_string.blank?        
         begin             
-          loc = TiramizooApp.geocoder.geocode as_string
+          loc = TiramizooApp.geocoder.geocode point_string
           address = create_address loc.country_code, loc.address_hash
           address.location = Location.new loc.location_hash
           return address
         rescue Exception => e
-          p "Locate exception from #{as_string}: #{e}"
-          p "geocoder: #{GeoMap.geo_coder.instance}"
+          p "Locate exception from #{point_string}: #{e}"
+          # p "geocoder: #{TiramizooApp.geocoder}"
         end
       end 
       create_empty
@@ -78,32 +79,15 @@ class Address
     end
 
     def create_from city = :munich
-      address = create_address country_code[city], :street => streets[city].pick_one , :city => city
+      address = create_address :street => streets(city).pick_one, :city => city
       address.locate!
     end
 
     protected
     
     def streets city = :munich
-      {
-        :munich     => ['Mullerstrasse 43', 'Rosenheimerstrasse 108', 'Marienplatz 14', 'Karlzplatz 32'],
-        :vancouver  => ['Bladestreet 18', 'Grand plaza 35', 'Jenny street 23', 'Sidewalk 100']
-      }
+      TiramizooApp.load_streets(city)
     end 
-
-    def countries city = :munich
-      {
-        :munich     => 'Germany',
-        :vancouver  => 'Canada'
-      }
-    end
-
-    def country_codes city = :munich
-      {
-        :munich     => :de,
-        :vancouver  => :ca
-      }
-    end    
   end
 
   countries_available.map(&:to_s).each do |country|

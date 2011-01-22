@@ -1,7 +1,7 @@
 class Courier < User 
   include Mongoid::Document  
 
-  field :number, :type => Integer
+  field       :number,      :type => Integer
     
   embeds_one  :bank_account
   embeds_one  :price_structure
@@ -9,18 +9,18 @@ class Courier < User
   embeds_many :vehicles    
   embeds_one  :delivery
 
-  field       :work_state, :type => String
+  field       :work_state,  :type => String
 
   validates   :work_state, :work_state => true
   
-  after_create :set_work_state
+  after_initialize :set_work_state, :set_number
+
+  def accepted_delivery?
+    "No"
+  end
 
   def location
     raise "#location method must be implemented by subclass"    
-  end
-
-  def set_work_state
-    self.work_state = 'not_available' if work_state.blank?
   end
 
   def eta
@@ -40,6 +40,17 @@ class Courier < User
   def for_json
     {:eta => eta, :rating => rating, :price => price}
   end
+
+  protected
+
+  def set_work_state
+    self.work_state = 'not_available' if work_state.blank?
+  end
+
+  def set_number
+    self.number = Courier::Counter.current_number
+    save
+  end
   
   class << self   
     def work_states
@@ -47,7 +58,7 @@ class Courier < User
     end    
     
     def create_individual options = {}
-      ci = Courier::Individual.new      
+      ci = Courier::Individual.create      
       ci.person = options[:person] if options[:person]
       ci.person.address = options[:address] if options[:address]
       ci.delivery = Courier::Delivery.create_from :munich
@@ -56,7 +67,7 @@ class Courier < User
     end
 
     def create_company options = {}
-      co = Courier::Company.new
+      co = Courier::Company.create
       co.company = Company.create_from :munich
       co
     end

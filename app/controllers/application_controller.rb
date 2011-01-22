@@ -1,13 +1,37 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery
   
-  # before_filter :geo_location - Done by Main Controller
   before_filter :set_locale
-
   
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url
+  end
+
+  def guest_options
+   session[:guest_options] ||= {}
+  end
+
+  def current_user   
+    puts "current_user"
+    if !session[:user_id]
+      puts "make guest"        
+      @guest ||= Guest.create(guest_options) 
+      puts "guest: #{@guest}"
+      return @guest
+    end
+    if session[:user_id]  
+      begin
+        clazz = session[:user_class_name].constantize
+        @current_user ||= clazz.find session[:user_id] 
+        puts "logged in user: #{@current_user}"
+        return @current_user
+      rescue Exception => e
+        puts "Error with current_user: user_class_name = '#{session[:user_class_name]}' error: #{e}"
+        puts "returning Guest instead"
+        @guest ||= Guest.create(guest_options)
+      end
+    end
   end
 
   def set_locale

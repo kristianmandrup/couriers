@@ -12,15 +12,15 @@ class QuotesController < InheritedResources::Base
     pickup_address   = Address.create_from_point pickup_point
     dropoff_address  = Address.create_from_point dropoff_point
 
-    @booking = Order::Booking.new :city => 'Munich'
-    @booking.pickup_address = pickup_address
-    @booking.dropoff_address = dropoff_address
+    @booking = Order::Booking.create_empty_from :city => 'Munich'
+    @booking.pickup.address   = pickup_address
+    @booking.dropoff.address  = dropoff_address
     
     session[:booking] = @booking
     
     puts "CREATED session[:booking]: #{session[:booking]} " 
         
-    redirect_to new_booking_path
+    redirect_to new_order_booking_path
   end
     
   def new    

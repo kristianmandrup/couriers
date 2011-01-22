@@ -1,8 +1,12 @@
 %h3 List of couriers available
 
-= form_tag select_couriers_path, :method => :post do |f|
+= form_tag order_booking_path, :method => :post do |f|
   %table
     %tr
+      %th 
+        Book
+      %th 
+        Number
       %th 
         Name    
       %th
@@ -19,7 +23,9 @@
       - couriers.each do |courier|
         %tr
           %td 
-            = check_box_tag "select[#{courier.number}]", 'yes', false
+            = check_box_tag "couriers[#{courier.number}]", 'yes', false
+          %td
+            = courier.number
           %td 
             = courier.name
           %td 

@@ -18,6 +18,13 @@ class Order::Booking
   end
 
   class << self
+    def create_empty_from city = :munich
+      booking = self.new
+      booking.pickup  = Order::Pickup.new
+      booking.dropoff = Order::Dropoff.new
+      booking
+    end
+
     def create_from city = :munich
       booking = self.new
       booking.pickup  = Order::Pickup.create_from city

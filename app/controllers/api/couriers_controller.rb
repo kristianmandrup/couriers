@@ -51,20 +51,12 @@ module Api
     #   }
     # ] 
     def nearby_couriers    
-      # should extend array with CourierList 
       rectangle = GeoMagic::Rectangle.create_from_coords(ne_latitude, ne_longitude, sw_latitude, sw_longitude)
-      # .get_within 10.km, :from => current_location.to_point      
+
       avail = Courier.available
-      # p "rect: #{rectangle}"
-      # p "avail: #{avail}"      
       courier_points = avail.as_map_points
-      # p "courier_points: #{courier_points}"      
       nearby_couriers = courier_points.within_rectangle(rectangle).extend Positionable
 
-      # # always ensure at least 2
-      # nearby_couriers << avail[0..1]            
-      # nearby_couriers = nearby_couriers.uniq.extend Positionable
-      
       render_json nearby_couriers.positions.map(&:for_json)
     end  
 
@@ -96,15 +88,18 @@ module Api
 
     def update_state
       courier_user = Courier::Individual.create_from :munich
-      body = request.body.read # '{"work_state": "available"}' # 
+      body = request.body.read
       work_state = decode_state_from(body)
 
+      puts "work state to set: #{work_state}"
       courier_user.work_state = work_state
       courier_user.save
-      p "post back changed work_state: #{work_state}"
-      render_json(WorkState.new courier_user.work_state) # , :location => courier_state_path respond_with
+      ws = WorkState.new courier_user.work_state
+      puts "work state to be sent: #{ws.for_json}"      
+      render_json(ws)
     end
-
+    
+    # Note: The Courier::State contains both the workstate and delivery info
     def get_state
       courier_user = Courier::Individual.create_from :munich
       delivery = courier_user.delivery

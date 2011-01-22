@@ -13,6 +13,12 @@ describe Courier do
     co = Courier::Individual.create_from :munich
     p co.inspect
   end
+
+  it "Should create individual with a positive number" do
+    co = Courier::Individual.create_from :munich
+    co.number.should > 0
+  end
+
   
   # it 'should create a Courier with a valid person and nickname' do
   #   person = Person.create first_name: 'Mike', last_name: 'Loehr'

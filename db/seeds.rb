@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+# Courier.create_random 10, :from => :munich, :work_state => 'available'
+# Courier.create_random 10, :from => :munich, :work_state => 'not_available'
+

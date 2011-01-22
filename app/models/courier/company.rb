@@ -1,17 +1,12 @@
 class Courier::Company < Courier
   include Mongoid::Document
+
+  field :company_number, :type => Integer
   
   embeds_one  :company
 
-  after_create :set_number
-
   def location
     company.address.location
-  end
-
-
-  def set_number
-    self.number = Courier::Counter.inc_company
   end
   
   def type
@@ -26,6 +21,12 @@ class Courier::Company < Courier
     {:email => email, :company => company.for_json}.merge super
   end
 
+  def set_number    
+    self.company_number = Courier::Counter.inc_company
+    super
+    save    
+  end
+
   class << self
     def create_from city = :munich
       co = Courier::Company.new 
@@ -34,36 +35,3 @@ class Courier::Company < Courier
     end
   end
 end
-   
-# {
-#   username: 'mike',
-#   password: 'xxxxx',  
-#   language: 'de',
-# 
-#   company: {
-#     name: FastAndFurious,
-#     address: {
-#   
-#     } 
-#     contact: {
-#       first_name: 'mike',
-#       last_name: 'loehr',
-#       email: 'dfsd@dfgf.de',
-#       phone: '+49 2323232'
-#     }
-#     profile: {
-#   
-#     }
-#     phone: '+49 18188228',
-#     email: 'abc@mail.de'      
-#   },
-#   
-#   bank_account: {},
-#   
-#   price_structure: {},
-#   
-#   vehicles: [
-#     { name: Bicycle, count: 2}
-#     { name: Car, count: 1}
-#   ]
-# }

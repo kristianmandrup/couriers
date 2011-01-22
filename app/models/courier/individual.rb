@@ -3,14 +3,8 @@ class Courier::Individual < Courier
 
   embeds_one :person 
 
-  after_create :set_number
-
   def location
     person.address.location
-  end
-
-  def set_number
-    self.number = Courier::Counter.inc_courier
   end
   
   def type
@@ -23,6 +17,14 @@ class Courier::Individual < Courier
 
   def for_json
     {:email => email, :person => person.for_json}.merge super
+  end
+
+  protected
+
+  def set_number    
+    self.courier_number = Courier::Counter.inc_courier
+    super
+    save
   end
   
   class << self
