@@ -4,7 +4,7 @@ class QuotesController < InheritedResources::Base
 
   def create      
     p "params: #{params.inspect}"
-    quote = params[:quote]
+    quote = params[:order_quote]
     pickup_point  = quote[:pickup_point].strip
     dropoff_point = quote[:dropoff_point].strip
     vehicle       = quote[:vehicle]

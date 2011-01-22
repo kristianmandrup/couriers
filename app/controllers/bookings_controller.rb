@@ -53,13 +53,6 @@ class BookingsController < ApplicationController
         'channel' => 'tiramizoo-courier-delivery',
         'message' => message        
     }) 
-
-    # TiramizooApp.pubnub.publish({
-    #     'channel' => 'tiramizoo-courier-delivery',
-    #     'message' => {
-    #       directions: "3,5km to target"
-    #     }
-    # })
     
     redirect_to new_booking_path    
   end

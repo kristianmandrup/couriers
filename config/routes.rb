@@ -17,13 +17,15 @@ Tiramizoo::Application.routes.draw do
   
   # list of potential types of User registrations
   resources :registrations, :only => [:index]
-  resources :quotes
 
-  # Track booking using existing booking number
-  resources :tracking,  :only => [:show]
+  namespace :order do
+    resources :quotes
+    # Booking procedure    
+    resources :bookings #,  :only => [:new] # updates booking session?
+    # Track booking using existing booking number
+    resources :tracking,  :only => [:show]
+  end    
 
-  # Booking procedure
-  resources :bookings #,  :only => [:new] # updates booking session?
   resources :schedule,  :only => [:new, :create]
   resources :payment,   :only => [:new, :create]  
 

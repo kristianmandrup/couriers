@@ -23,11 +23,10 @@ class Address
     "#{street}, #{city}, #{country}"
   end
 
-  def locate!
+  def locate! point_string = nil
     raise "Address can't be located without a street" if street.blank?
     begin             
       loc = TiramizooApp.geocoder.geocode as_string 
-      puts "address was located" if loc
       self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
     rescue Exception => e
       p "Locate exception from #{as_string}: #{e}"
@@ -51,14 +50,17 @@ class Address
 
     # create localized address based on current geolocation!? 
     def create_from_point point_string  
-      if !point_string.blank?
-        pcountry = location ? location.country : 'Germany' # GeoMagic::Remote.my_location.country
-        address_options = location ? {:street => location.street, :city => location.city, :zip => location.zip, :country => pcountry} : {}
-        adr = create_address pcountry, address_options
-        adr.locate!
-        return adr
+      if !point_string.blank?        
+        begin             
+          loc = TiramizooApp.geocoder.geocode as_string
+          address = create_address loc.country_code, loc.address_hash
+          address.location = Location.new loc.location_hash
+          return address
+        rescue Exception => e
+          p "Locate exception from #{as_string}: #{e}"
+          p "geocoder: #{GeoMap.geo_coder.instance}"
+        end
       end 
-      p "return empty adr"
       create_empty
     end
 
@@ -75,24 +77,33 @@ class Address
       end
     end
 
-    def streets city= :munich
+    def create_from city = :munich
+      address = create_address country_code[city], :street => streets[city].pick_one , :city => city
+      address.locate!
+    end
+
+    protected
+    
+    def streets city = :munich
       {
         :munich     => ['Mullerstrasse 43', 'Rosenheimerstrasse 108', 'Marienplatz 14', 'Karlzplatz 32'],
         :vancouver  => ['Bladestreet 18', 'Grand plaza 35', 'Jenny street 23', 'Sidewalk 100']
       }
     end 
 
-    def countries city= :munich
+    def countries city = :munich
       {
         :munich     => 'Germany',
         :vancouver  => 'Canada'
       }
     end
 
-    def create_from city = :munich
-      address = Address.new :street => streets[city].pick_one , :city => city, :country => countries[city]
-      address.locate!
-    end
+    def country_codes city = :munich
+      {
+        :munich     => :de,
+        :vancouver  => :ca
+      }
+    end    
   end
 
   countries_available.map(&:to_s).each do |country|
