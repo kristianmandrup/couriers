@@ -6,12 +6,19 @@ class Person::Name
 
   embedded_in :person, :inverse_of => :name
 
+  validates_with FullNameValidator  
+  before_validation :strip_names
+
   def full_name
     [first_name, last_name].join(' ')
   end
 
   def for_json
     {:first => first_name, :last => last_name}
+  end
+
+  def to_s
+    full_name
   end
 
   class << self
@@ -30,14 +37,12 @@ class Person::Name
     end 
 
     def create_from city = :munich
-      Person::Name.new :first_name => first_names[city].pick_one , :last_name => last_names[city].pick_one
+      city ||= :munich
+      Person::Name.new :first_name => first_names[city.to_sym].pick_one , :last_name => last_names[city.to_sym].pick_one
     end
   end
-  
-  validates_with FullNameValidator  
-  before_validation :strip_names
-  
-  private
+    
+  protected
   
   def strip_names
     self.first_name.strip!

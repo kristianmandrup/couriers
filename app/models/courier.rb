@@ -11,12 +11,19 @@ class Courier < User
 
   field       :work_state,  :type => String
 
+  # a delivery offer can reference the courier of that offer
+  referenced_in :offer, :inverse_of => :courier
+
   validates   :work_state, :work_state => true
   
   after_initialize :set_work_state, :set_number
 
   def accepted_delivery?
     "No"
+  end
+
+  def state_and_curent_delivery
+    Courier::State.new :current_delivery => delivery, :work_state => work_state    
   end
 
   def location
@@ -41,6 +48,12 @@ class Courier < User
     {:eta => eta, :rating => rating, :price => price}
   end
 
+  def random_user
+    @email = "courier_#{rand(100)+1}@messenger.com"
+    @password = "123456"
+    @password_confirmation = "123456"
+  end
+
   protected
 
   def set_work_state
@@ -58,41 +71,39 @@ class Courier < User
     end    
     
     def create_individual options = {}
-      ci = Courier::Individual.create      
+      ci = Courier::Individual.new options
+      ci.random_user
       ci.person = options[:person] if options[:person]
       ci.person.address = options[:address] if options[:address]
-      ci.delivery = Courier::Delivery.create_from :munich
+      ci.delivery = Courier::Delivery.create_from options
       ci.work_state = work_states[0].to_s
       ci
     end
 
     def create_company options = {}
-      co = Courier::Company.create
-      co.company = Company.create_from :munich
+      co = Courier::Company.new
+      co.company = Company.create_from options
       co
     end
 
-    def create_from city = :munich 
-      puts "create_from: #{city}"
-      # person = Person.create_from :munich
-      # person.address = Address.get_random_from :munich
-
-      type = [:individual, :company].pick_one
+    def create_from options = {}
+      city = options[:from] || 'munich'
+      type = options[:type]
+      type ||= [:individual, :company].pick_one
 
       case type
       when :individual        
-        Courier::Individual.create_from city
+        create_individual options
       when :company
-        Courier::Company.create_from city
+        create_company options
       end
     end
     
-    def available city = :munich
-      number = rand(5) + rand(5) + 2
+    def create_random number, options = {}
       number.times.inject([]) do |res, n| 
-        res << create_from(city)
+        res << create_from(options)
         res 
       end
     end
-  end
+  end  
 end

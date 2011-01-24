@@ -8,8 +8,22 @@ class Contact
     name.full_name
   end
 
+  def phone
+    channel.phone if channel
+  end
+
+  def email
+    channel.email if channel
+  end
+
   def for_json
     {:name => name.for_json, :channels => channel.for_json}
+  end
+
+  def to_s
+    %Q{name: #{name}
+#{channel}
+}
   end
 
   class << self

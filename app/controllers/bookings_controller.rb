@@ -10,60 +10,34 @@ class BookingsController < ApplicationController
     @your_location = Location.create_from session[:location]
   end   
 
-  # Push new delivery from server to client
-  # 
-  # channel: tiramizoo-courier-delivery
-  # {
-  #     action: "new_delivery",
-  #     data: {
-  #         directions: "3,5km to target",
-  #         pickup:   {
-  #                         location: {
-  #                                         position:   {
-  #                                                         latitude: 150.644,
-  #                                                         longitude: -34.397
-  #                                                     },
-  #                                         address:  {
-  #                                                         street: "Sendlinger Straße 1",
-  #                                                         zip: "80331",
-  #                                                         city: "München"
-  #                                                     }
-  # 
-  #                                     },
-  #                         notes: "Big box"
-  #                     },
-  #         dropoff:  {
-  #                         location: {
-  #                                         position:   {
-  #                                                         latitude: 150.644,
-  #                                                         longitude: -34.397
-  #                                                     },
-  #                                         address:  {
-  #                                                         street: "Sendlinger Straße 2",
-  #                                                         zip: "80331",
-  #                                                         city: "München"
-  #                                                     }
-  # 
-  #                                  }
-  #                         notes: "Big box"
-  #                     }
-  #             }
-  # }
-  # --------------------------------------------------------------------------------  
-  def create
+  # List deliveries
+  def index
+    @deliveries = current_courier.deliveries
+    respond_with(@deliveries)
+  end
+
+  # Updates the booking
+  def update
     session[:couriers_selected] = couriers_selected
+
+    delivery = Delivery.create_from_booking current_booking
+    delivery.offer_to couriers_selected
+
     couriers_selected.each do |id|
       p "sending deliver info to delivery channel for courier: #{id}"
-      courier_channel(id).publish :directions => '3,5km to...', :pickup   => pickup, :dropoff  => dropoff
+      courier_channel(id).publish :id => params['id'], :directions => '3,5km to...', :pickup => pickup, :dropoff  => dropoff
     end
-    
+
     redirect_to wait_for_couriers_response_path    
   end
+
+
 
   def wait_for_couriers_response
     @couriers_to_wait_for = Courier.find(:number => session[:couriers_selected])
     render :wait_for_couriers_response
   end
+
   
   protected
 
@@ -75,10 +49,20 @@ class BookingsController < ApplicationController
     }
   end
 
+  # parse pickup
+  def pickup
+    Courier::Pickup.create_from_params params["pickup"]
+  end
+
+  # parse dropoff
+  def dropoff
+    Courier::Dropoff.create_from_params params["dropoff"]
+  end
+
   def couriers_selected 
     get_selected params["couriers"]
   end
-  
+
   def companies_selected 
     get_selected params["couriers"]["company"]
   end
@@ -86,9 +70,10 @@ class BookingsController < ApplicationController
   def individuals_selected
     get_selected params["couriers"]["individual"]
   end
-  
+
   def get_selected selected
     return [] if selected.empty?
     return selected.keys.map(&:to_i) if selected
-  end  
+  end    
+    
 end

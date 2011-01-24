@@ -7,18 +7,45 @@ class Order::Dropoff
   embeds_one :address
   
   field :notes, :type => String
+
+  def location
+    address.location
+  end
   
   def for_json
     {:contact => contact.for_json, :address => address.for_json}
   end  
+
+  def without_contact
+    {:address => address.for_json}
+  end
+
+  def to_s
+    %Q{
+contact: 
+#{contact}
+
+address: 
+#{address}
+
+notes: #{notes}
+}
+  end
   
   class << self
+    def create_from_params params
+      dropoff = self.new :notes => params[:notes]
+      dropoff.contact = Contact.create_from_params params[:contact]
+      dropoff.address = Address.create_from_params params[:address]
+      dropoff
+    end
+
     def create_from city = :munich
-      order = self.new
-      order.address = Address.create_from city
-      order.contact = Contact.create_from city
-      order.notes = 'Drop it baby!'
-      order
+      dropoff = self.new
+      dropoff.address = Address.create_from city
+      dropoff.contact = Contact.create_from city
+      dropoff.notes = 'Drop it baby!'
+      dropoff
     end
   end  
 end

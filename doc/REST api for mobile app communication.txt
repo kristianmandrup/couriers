@@ -25,11 +25,12 @@ courier/location :post
                 }
 }
 --------------------------------------------------------------------------------
-Get details about a sepcific delivery
+Get details about a specific delivery
 
 courier/deliveries/1/state :get
 {
 	directions: "3,5km to target",
+	id : "34",
 	pickup:		{
 					location:	{
 									position: 	{

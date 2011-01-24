@@ -13,6 +13,9 @@ class Company
     {:name => name, :address => address.for_json, :contact => contact.for_json }
   end
 
+  validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true  
+
+  after_initialize :strip_name
 
   class << self
 
@@ -23,19 +26,17 @@ class Company
     end
     
     def create_from city = :munich
-      co = Company.new :name => names[city].pick_one
+      city ||= :munich
+      co = Company.new :name => names[city.to_sym].pick_one
       co.contact = Contact.create_from city
       co.address = Address.create_from city
       co
     end
   end
+    
+  protected 
   
-  validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true  
-  before_validation :strip_names
-  
-  private 
-  
-  def strip_names
+  def strip_name
     self.name = self.name.strip
   end
 end

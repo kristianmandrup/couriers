@@ -10,6 +10,12 @@ class Contact::Channel
   def for_json
     {:phone => phone, :email => email}
   end
+
+  def to_s
+    %Q{phone: #{phone}
+email: #{email}
+}
+  end
   
   class << self
     
@@ -26,7 +32,8 @@ class Contact::Channel
     end
     
     def create_from city = :munich
-      Contact::Channel.new :phone => phones[city].pick_one, :email => emails[city].pick_one
+      city ||= :munich
+      Contact::Channel.new :phone => phones[city.to_sym].pick_one, :email => emails[city.to_sym].pick_one
     end
   end
 end

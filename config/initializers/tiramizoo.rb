@@ -18,7 +18,6 @@ module TiramizooApp
       
       @streets ||= {}
       @streets[city] ||= begin
-        puts "load streets for city: #{country_code.inspect} #{city.inspect}"
         yml = YAML.load_file("#{Rails.root}/config/addresses.#{country_code}.yml")
         yml[country_code.to_s][city.to_s]
       rescue

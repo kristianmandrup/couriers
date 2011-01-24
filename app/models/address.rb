@@ -15,7 +15,7 @@ class Address
   #  returns the string representing the address / the address
   def to_s
     %Q{#{street}
-#{city}      
+#{city}
 #{country}
 }
   end
@@ -51,11 +51,11 @@ class Address
     end
 
     # create localized address based on current geolocation!? 
-    def create_from_point point_string  
+    def create_from_point point_string
       if !point_string.blank?        
         begin             
           loc = TiramizooApp.geocoder.geocode point_string
-          address = create_address loc.country_code, loc.address_hash
+          address = create_address loc.address_hash
           address.location = Location.new loc.location_hash
           return address
         rescue Exception => e
@@ -81,11 +81,14 @@ class Address
     end
 
     def create_from city = :munich
-      address = create_address :street => streets(city).pick_one, :city => city.to_s.humanize
-      address.locate!
+      create_from_point "#{random_street city}, #{city}"
     end
 
     protected
+
+    def random_street city
+      streets(city).pick_one
+    end
     
     def streets city = :munich
       TiramizooApp.load_streets(city)

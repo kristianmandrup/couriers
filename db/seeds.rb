@@ -6,6 +6,18 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-# Courier.create_random 10, :from => :munich, :work_state => 'available'
-# Courier.create_random 10, :from => :munich, :work_state => 'not_available'
+Mongoid.database.collections.each do |coll|
+  coll.remove
+end
+
+couriers = Courier.create_random(10, :from => :munich)
+
+p couriers
+couriers.each {|c| c.save! }
+
+puts "In database"
+
+puts "Couriers: #{Courier.all.to_a}"
+puts "Individual Couriers: #{Courier::Individual.all.to_a}"
+puts "Company Couriers: #{Courier::Company.all.to_a}"
 

@@ -11,18 +11,27 @@ class Address::Germany < Address
   validates_length_of       :postnr,    :within => 5..5
   validates_numericality_of :postnr,    :greater_than_or_equal_to => 1, :less_than => 999999
 
-    def to_s
-      %Q{#{street}
-#{postnr} #{city}
+  def to_s
+    %Q{#{street}
+#{postnr_city}
 #{country}
 }
-    end
+  end
+  
+  def postnr_city
+    return "#{postnr} #{city}" if !postnr.blank?
+    city
+  end
 
   def zip
     self.postnr
   end
 
   def zip= value
+    self.postnr = value
+  end
+
+  def postal_code= value
     self.postnr = value
   end
       

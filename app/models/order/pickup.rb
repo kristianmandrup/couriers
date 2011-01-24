@@ -6,18 +6,45 @@ class Order::Pickup
   embeds_one  :address
   
   field :notes, :type => String  
+
+  def location
+    address.location
+  end
   
   def for_json
     {:contact => contact.for_json, :address => address.for_json}
   end    
+
+  def without_contact
+    {:address => address.for_json}
+  end
+
+  def to_s
+    %Q{
+contact: 
+#{contact}
+
+address: 
+#{address}
+
+notes: #{notes}
+}
+  end
   
-  class << self
+  class << self 
+    def create_from_params params
+      pickup = self.new :notes => params[:notes]
+      pickup.contact = Contact.create_from_params params[:contact]
+      pickup.address = Address.create_from_params params[:address]
+      pickup      
+    end
+    
     def create_from city = :munich
-      order = self.new
-      order.address = Address.create_from city
-      order.contact = Contact.create_from city
-      order.notes = 'Pick it up baby!'
-      order
+      pickup = self.new
+      pickup.address = Address.create_from city
+      pickup.contact = Contact.create_from city
+      pickup.notes = 'Pick it up baby!'
+      pickup
     end    
   end
 end

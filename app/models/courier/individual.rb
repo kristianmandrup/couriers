@@ -29,8 +29,10 @@ class Courier::Individual < Courier
   end
   
   class << self
-    def create_from city = :munich
-      co = Courier::Individual.new 
+    def create_from options = {}
+      city = options[:from] || :munich
+      co = Courier::Individual.new options
+      co.random_user
       co.person = Person.create_from(city)
       co 
     end
