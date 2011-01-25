@@ -1,29 +1,44 @@
 class Courier < User 
-  include Mongoid::Document  
+  include Mongoid::Document
 
-  field       :number,      :type => Integer
+  field       :number,            :type => Integer
     
   embeds_one  :bank_account
   embeds_one  :price_structure
   
-  embeds_many :vehicles    
+  embeds_many :vehicles
   embeds_one  :delivery
 
-  field       :work_state,  :type => String
+  field       :current_vehicle,   :type => String
+  field       :work_state,        :type => String
 
   # a delivery offer can reference the courier of that offer
   referenced_in :offer, :inverse_of => :courier
 
-  validates   :work_state, :work_state => true
+  validates :work_state, :work_state => true
   
   after_initialize :set_work_state, :set_number
+
+  def current_delivery
+    delivery
+  end
+
+  def travel_mode
+    Vehicle.travel_mode_of current_vehicle    
+  end
+
+  def available?
+    false
+  end
 
   def accepted_delivery?
     "No"
   end
 
-  def state_and_curent_delivery
-    Courier::State.new :current_delivery => delivery, :work_state => work_state    
+  def info
+    options = {:work_state => work_state, :travel_mode => travel_mode}
+    options.merge!(:current_delivery => delivery) if delivery
+    Courier::Info.new options
   end
 
   def location
@@ -75,7 +90,7 @@ class Courier < User
       ci.random_user
       ci.person = options[:person] if options[:person]
       ci.person.address = options[:address] if options[:address]
-      ci.delivery = Courier::Delivery.create_from options
+      ci.delivery = Delivery.create_from options
       ci.work_state = work_states[0].to_s
       ci
     end
@@ -97,6 +112,10 @@ class Courier < User
       when :company
         create_company options
       end
+    end
+
+    def create_one_random options = {}
+      create_from(options)
     end
     
     def create_random number, options = {}

@@ -2,7 +2,7 @@ class DeliveryRequestStateValidator < ActiveModel::EachValidator
 
   # ready|accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed
   def valid_states
-    Courier::DeliveryRequestState.valid_states
+    Delivery::Request.valid_states
   end
 
   def validate_each(record, attribute, value)

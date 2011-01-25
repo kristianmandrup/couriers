@@ -17,6 +17,10 @@ class Courier::Company < Courier
     company.name
   end
 
+  def available?
+    true
+  end
+
   def for_json
     {:email => email, :company => company.for_json}.merge super
   end

@@ -1,11 +1,4 @@
-class DeliveriesController < ApplicationController 
-
-  # List deliveries
-  def index
-    @deliveries = current_courier.deliveries
-    respond_with(@deliveries)
-  end
-
+class DeliveryOffersController < ApplicationController 
   # Creates a delivery from an accepted Delivery Offer (from waiting screen)
 
   # Pushes new delivery from server to client
@@ -57,11 +50,16 @@ class DeliveriesController < ApplicationController
 
     delivery_offer = Delivery::Offer.create_for(current_booking, couriers_selected)
 
+    # sends delivery offer info without contact information to each courier
     couriers_to_notify.each do |id|
       p "sending deliver info to delivery channel for courier: #{id}"
       courier_channel(id).publish :directions => '3,5km to...', :delivery_offer => delivery_offer.for_json
     end
 
     redirect_to wait_for_couriers_response_path    
+  end    
+    
+  def couriers_to_notify
+    couriers_to_notify = couriers_selected + courier_companies_subscribing_to_zip(current_booking.zip)
   end  
 end

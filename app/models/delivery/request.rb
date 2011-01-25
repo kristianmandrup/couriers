@@ -1,4 +1,4 @@
-class Courier::DeliveryRequest
+class Delivery::Request
   include Mongoid::Document
 
   field :time_notified, :type => Time

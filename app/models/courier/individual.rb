@@ -7,6 +7,18 @@ class Courier::Individual < Courier
   def location
     person.address.location
   end
+
+  def city
+    person.address.city
+  end
+
+  def zip
+    person.address.zip
+  end
+
+  def available?
+    work_state == 'available'
+  end
   
   def type
     'individual'
@@ -29,6 +41,10 @@ class Courier::Individual < Courier
   end
   
   class << self
+    def all_from city = :munich
+      where(:city => city)
+    end
+
     def create_from options = {}
       city = options[:from] || :munich
       co = Courier::Individual.new options

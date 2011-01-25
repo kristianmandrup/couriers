@@ -25,4 +25,12 @@ RSpec.configure do |config|
   
   config.include Devise::TestHelpers, :type => :controller  
   # config.extend ControllerMacros, :type => :controller  
+
+  # run before every test suite
+  # config.before do
+  #   Courier.create_random 1, :work_state => :available, :number => 1 # Steffan
+  #   courier_2 = Courier.create_random 1, :work_state => :available, :number => 2 # Matthias
+  #   courier_2.delivery = Delivery.create_from(:munich).state = 'accepted'
+  #   Courier.create_random 1, :work_state => :not_available, :number => 3 # Barbie
+  # end
 end

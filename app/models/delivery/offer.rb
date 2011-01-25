@@ -6,7 +6,7 @@ class Delivery::Offer
   field :number, :type => String
 
   embeds_one  :booking, :class_name => 'Order::Booking'
-  embeds_many :delivery_requests, :class_name => 'Courier::DeliveryRequest'  
+  embeds_many :delivery_requests, :class_name => 'Delivery::Request'  
 
   after_initialize :setup
 
@@ -29,7 +29,7 @@ requests:
   end
 
   def for_json    
-    {:id => number, :directions => 'go get it', :pickup => pickup.without_contact , :dropoff => dropoff.without_contact }
+    {:id => number, :directions => 'go get it', :pickup => pickup.without_contact, :dropoff => dropoff.without_contact }
   end
 
   def for_couriers couriers
@@ -39,8 +39,13 @@ requests:
   end
   
   class << self
+    def status event
+      Rails.logger.error "Unknown offer event: #{event}" and return if !event_msg[event]
+      status_msg event, event_msg[event]
+    end
+    
     def create_request courier
-      Courier::DeliveryRequest.create_for courier
+      Delivery::Request.create_for courier
     end
 
     def create_from city = :munich 
@@ -58,6 +63,20 @@ requests:
       delivery_offer.for_couriers couriers
       delivery_offer      
     end
+    
+    private
+
+    def event_msg
+      {
+        :OK => 'You got the delivery',
+        :DELIVERY_TIMEOUT => 'You responded after the timeout period',
+        :DELIVERY_TAKEN => 'Delivery has already been taken'        
+      }
+    end
+    
+    def status_msg code, msg
+      {:status => {:code => code.to_s, :message => msg} }
+    end    
   end
 
   protected

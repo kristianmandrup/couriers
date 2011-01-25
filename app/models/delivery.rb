@@ -12,16 +12,12 @@ class Delivery
   validates :state, :delivery_state => true
 
   def for_json    
-    {:id => number, :directions => 'go get it', :pickup => pickup, :dropoff => dropoff}
+    {:id => number, :travel_mode => travel_mode, :directions => 'go get it', :pickup => pickup, :dropoff => dropoff}
   end
 
-  def format_for_state
-    case state.to_sym
-    when :accept
-      return {:id => number, :directions => 'go get it', :pickup => pickup.without_contact, :dropoff => dropoff.without_contact}
-    end
-    for_json    
-  end  
+  def info
+    for_json
+  end
   
   def pickup
     waybill.pickup
@@ -51,8 +47,8 @@ class Delivery
       delivery
     end
 
-    def create_from options
-      city = options[:from] || 'munich'
+    def create_from options = {}      
+      city = extract_city options
 
       delivery = self.new :state => random_delivery_state
 
@@ -62,6 +58,15 @@ class Delivery
     end
     
     protected
+
+    def extract_city options = {}
+      case options
+      when Symbol
+        options
+      else
+        options[:from] || :munich
+      end
+    end
 
     def setup
       self.number = rand(100) + 1

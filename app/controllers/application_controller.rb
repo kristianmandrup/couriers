@@ -13,22 +13,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user   
-    puts "current_user"
     if !session[:user_id]
-      puts "make guest"        
       @guest ||= Guest.create(guest_options) 
-      puts "guest: #{@guest}"
       return @guest
     end
     if session[:user_id]  
       begin
         clazz = session[:user_class_name].constantize
         @current_user ||= clazz.find session[:user_id] 
-        puts "logged in user: #{@current_user}"
         return @current_user
       rescue Exception => e
-        puts "Error with current_user: user_class_name = '#{session[:user_class_name]}' error: #{e}"
-        puts "returning Guest instead"
         @guest ||= Guest.create(guest_options)
       end
     end
@@ -67,12 +61,4 @@ class ApplicationController < ActionController::Base
     parsed_locale = request.subdomains.first
     I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
   end
-  
-  def json_request
-    JSON.parse(request.body.read)
-  end
-
-  def render_json(obj)
-    render :json => obj
-  end  
 end

@@ -10,29 +10,6 @@ class BookingsController < ApplicationController
     @your_location = Location.create_from session[:location]
   end   
 
-  # List deliveries
-  def index
-    @deliveries = current_courier.deliveries
-    respond_with(@deliveries)
-  end
-
-  # Updates the booking
-  def update
-    session[:couriers_selected] = couriers_selected
-
-    delivery = Delivery.create_from_booking current_booking
-    delivery.offer_to couriers_selected
-
-    couriers_selected.each do |id|
-      p "sending deliver info to delivery channel for courier: #{id}"
-      courier_channel(id).publish :id => params['id'], :directions => '3,5km to...', :pickup => pickup, :dropoff  => dropoff
-    end
-
-    redirect_to wait_for_couriers_response_path    
-  end
-
-
-
   def wait_for_couriers_response
     @couriers_to_wait_for = Courier.find(:number => session[:couriers_selected])
     render :wait_for_couriers_response

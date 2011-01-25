@@ -17,6 +17,19 @@ class Courier::Vehicle
     def random_vehicle
       available_types.pick_one
     end   
+    
+    def travel_mode_of vehicle_type
+      return 'biking' if biking_modes.include? vehicle_type.to_s.downcase
+      'driving'
+    end      
+
+    def biking_modes
+      ['bike', 'bicycle']
+    end
+    
+    def travel_modes
+      [:biking, :driving]
+    end
   end
   
   # create_car, create_van etc.
