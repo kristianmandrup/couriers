@@ -18,11 +18,11 @@ class Delivery
   def for_json    
     # :directions => 'go get it'
     # number
-    {:id => "1", :state => state, :travel_mode => travel_mode, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
+    {:id => "1", :state => state, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
   end
 
   def get_state
-    {:state => state}
+    self    
   end
 
   def get_info
