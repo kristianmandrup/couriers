@@ -15,7 +15,7 @@ module Api
     #   response: "accepted|declined"
     # }
 
-    # RestClient.put('http://localhost:3000/api/couriers/1/delivery_offers/1/response.json', response: 'accepted')
+    # RestClient.put('http://localhost:3000/api/couriers/1/delivery_offers/1/state.json', response: 'accepted')
 
     # RESPONSE
     # {
@@ -27,13 +27,13 @@ module Api
     #     id: "1",
     #   }
     # }
-    def response
+    def answer
       begin
         # delivery_offer = Delivery::Offer.where(:number => delivery_id)
         # delivery_offer.set_state state # may raise "business" error (lock)
         delivery_offer = Delivery::Offer.create_from :munich
 
-        status :OK
+        reply_update delivery_offer, :state
       rescue DeliveryTimeOutError
         status :DELIVERY_TIMEOUT
 
@@ -41,14 +41,16 @@ module Api
         status :DELIVERY_TAKEN
       rescue Exception => e
         puts e
-        reply_put_error delivery_offer, :response
+        reply_update_error delivery_offer, :state
       end
     end    
 
     protected
 
     def status event
-      render_json(Delivery::Offer.status(event).merge(:id => delivery_id))
+      status_json = Delivery::Offer.status(event).merge(:id => delivery_id)
+      puts "status_json: #{status_json}"
+      render_json(status_json)
     end         
   end
 end

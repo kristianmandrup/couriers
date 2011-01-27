@@ -31,7 +31,7 @@ Tiramizoo::Application.routes.draw do
 
       resources :delivery_offers, :only => [] do
         member do
-          put :response
+          put :answer
         end
       end
     end

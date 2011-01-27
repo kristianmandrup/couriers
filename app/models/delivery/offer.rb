@@ -9,6 +9,19 @@ class Delivery::Offer
   embeds_many :delivery_requests, :class_name => 'Delivery::Request'  
 
   after_initialize :setup
+  
+  # API methods
+
+  def for_json    
+    # number.to_s
+    {:id => "1", :directions => 'go get it', :pickup => pickup.without_contact, :dropoff => dropoff.without_contact }
+  end
+
+  def get_state
+    self
+  end
+
+  # conv. methods
 
   def to_s
     %Q{number: #{number}
@@ -26,10 +39,6 @@ requests:
 
   def dropoff
     booking.dropoff
-  end
-
-  def for_json    
-    {:id => number, :directions => 'go get it', :pickup => pickup.without_contact, :dropoff => dropoff.without_contact }
   end
 
   def for_couriers couriers
