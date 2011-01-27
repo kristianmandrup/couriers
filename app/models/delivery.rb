@@ -61,11 +61,11 @@ waybill:
     include ::AddressHelper
         
     def delivery_states
-      [:ready, :accepted, :cancelled, :picked_up, :delivered, :billed]
+      [:accepted, :cancelled, :picked_up, :delivered, :billed]
     end    
 
     def create_from_booking booking
-      delivery = self.new :state => :ready
+      delivery = self.new :state => :accepted
       delivery.waybill = Order::Waybill.create_from_booking booking
       delivery.location = delivery.pickup.location # initial location of delivery is at pickup
       delivery.timestamp = Time.now
