@@ -14,7 +14,7 @@ class Delivery::Offer
 
   def for_json    
     # number.to_s
-    {:id => "1", :pickup => pickup.for_json, :dropoff => dropoff.for_json }
+    {:id => "1", :pickup => pickup.for_json, :dropoff => dropoff.get_overview }
   end
 
   def get_state
