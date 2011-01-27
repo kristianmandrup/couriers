@@ -4,6 +4,9 @@ class Contact
   embeds_one :name, :class_name => 'Person::Name'
   embeds_one :channel, :class_name => 'Contact::Channel'
 
+  embedded_in :person, :inverse_of => :contact
+  embedded_in :company, :inverse_of => :contact
+
   def full_name
     name.full_name
   end
@@ -17,7 +20,7 @@ class Contact
   end
 
   def for_json
-    {:name => name.for_json, :email => channel.email, :phone => channel.phone}
+    {:name => full_name, :phone => channel.phone, :company_name => 'Flowers4u'} #:email => channel.email
   end
 
   def to_s
