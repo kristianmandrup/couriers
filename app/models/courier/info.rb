@@ -10,7 +10,7 @@ class Courier::Info
   attr_accessor :work_state
 
   def for_json
-    state = {:work_state => work_state, :travel_mode => travel_mode}    
+    state = {:id => number, :work_state => work_state, :travel_mode => travel_mode}    
     state.merge!(:current_delivery => current_delivery.for_json) if current_delivery          
     state
   end

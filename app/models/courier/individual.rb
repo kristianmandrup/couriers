@@ -6,6 +6,10 @@ class Courier::Individual < Courier
 
   # API methods
 
+  def for_json
+    {:email => email, :person => person.for_json}.merge super
+  end
+
   def get_location
     {:location => address.location.for_json}
   end
@@ -40,10 +44,6 @@ class Courier::Individual < Courier
     person.full_name
   end
   alias_method :name, :full_name
-
-  def for_json
-    {:email => email, :person => person.for_json}.merge super
-  end
 
   protected
 

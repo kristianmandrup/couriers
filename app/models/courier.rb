@@ -25,10 +25,12 @@ class Courier < User
     {:work_state => work_state}
   end
 
+  # id/number is temporary until we have authentication in place!
   def get_info
-    options = {:work_state => work_state, :travel_mode => travel_mode}
+    options = {:id => number, :work_state => work_state, :travel_mode => travel_mode}
     options.merge!(:current_delivery => delivery) if delivery
-    Courier::Info.new options
+    options
+    # Courier::Info.new options
   end
 
   # convenience methods
