@@ -17,7 +17,7 @@ class Contact
   end
 
   def for_json
-    {:name => name.for_json, :channels => channel.for_json}
+    {:name => name.for_json, :email => channel.email, :phone => channel.phone}
   end
 
   def to_s
