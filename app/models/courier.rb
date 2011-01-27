@@ -19,6 +19,20 @@ class Courier < User
   
   after_initialize :set_work_state, :set_number
 
+  # API methods
+
+  def get_state
+    {:work_state => work_state}
+  end
+
+  def get_info
+    options = {:work_state => work_state, :travel_mode => travel_mode}
+    options.merge!(:current_delivery => delivery) if delivery
+    Courier::Info.new options
+  end
+
+  # convenience methods
+
   def current_delivery
     delivery
   end
@@ -39,17 +53,11 @@ class Courier < User
     "No"
   end
 
-  def state
-    {:work_state => work_state}
-  end
-
-  def info
-    options = {:work_state => work_state, :travel_mode => travel_mode}
-    options.merge!(:current_delivery => delivery) if delivery
-    Courier::Info.new options
-  end
-
   def location
+    raise "#location method must be implemented by subclass"    
+  end
+
+  def get_location
     raise "#location method must be implemented by subclass"    
   end
 

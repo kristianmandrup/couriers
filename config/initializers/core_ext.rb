@@ -1,5 +1,6 @@
 require 'array'
 require 'string'
+require 'hash'
 require 'nil_class'
 require 'time_period'
 require 'positionable'

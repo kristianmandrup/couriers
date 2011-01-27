@@ -5,11 +5,11 @@ module Api
     end
 
     def delivery_id 
-      params[:delivery_id]      
+      params[:id]
     end
 
     def state 
-      params[:state]      
+      params[:state]
     end
   end
 end

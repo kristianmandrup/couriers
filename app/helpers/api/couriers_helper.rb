@@ -10,11 +10,11 @@ module Api
       params[:id]
     end
 
-    def location
+    def p_location
       params[:location]
     end
 
-    def work_state
+    def p_work_state
       params[:work_state]
     end
 

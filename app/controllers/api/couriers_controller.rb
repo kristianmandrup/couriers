@@ -83,7 +83,7 @@ module Api
     def state
       begin 
         puts "params: #{params}"
-        current_courier.work_state = work_state # see couriers_helper
+        current_courier.work_state = p_work_state # see couriers_helper
         current_courier.save
         reply_update(current_courier, :state)
       rescue
@@ -117,8 +117,9 @@ module Api
     # }  
 
     def location
-      begin
-        current_courier.location = Location.create_from_params location # see couriers_helper
+      begin    
+        puts "service location: #{params}"
+        current_courier.location = Location.create_from_params p_location # see couriers_helper
         current_courier.save
         reply_update(current_courier, :location)
       rescue

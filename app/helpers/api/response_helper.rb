@@ -13,21 +13,26 @@ module Api
       render_json reply_error("#{humanized obj.class} could not update #{dhumanized name}")
     end
 
-    def reply_get data, name
-      reply_ok "#{humanized name} was retrieved"
+    def reply_get obj, name
+      data = obj.send :"get_#{name}"
+      puts "get data: #{data.inspect}, #{name}"
+      puts "json data: #{data.for_json}"
+      json_obj = reply_ok("#{humanized name} was retrieved").merge(data.for_json)
+      puts "json obj: #{json_obj}"
+      render_json json_obj
     end
 
     def reply_get_error name
-      reply_error "Error getting #{dhumanized name}"
+      render_json(reply_error "Error getting #{dhumanized name}")
     end  
 
     protected
 
     def reply_success_update obj, name 
       puts "reply_success_update: #{obj.inspect}, #{name}"
-      data = obj.send name
-      puts "data: #{data.inspect}"
-      json_obj = reply_ok("#{humanized obj.class} #{dhumanized name} was updated").merge(data)
+      data = obj.send :"get_#{name}"
+      puts "update data: #{data.inspect}"
+      json_obj = reply_ok("#{humanized obj.class} #{dhumanized name} was updated").merge(data.for_json)
       puts "json obj: #{json_obj}"
       render_json json_obj
     end

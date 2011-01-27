@@ -4,6 +4,14 @@ class Courier::Individual < Courier
   field :courier_number, :type => Integer
   embeds_one :person 
 
+  # API methods
+
+  def get_location
+    {:location => address.location.for_json}
+  end
+
+  # convenience methods
+
   def address
     person.address
   end

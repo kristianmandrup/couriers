@@ -4,7 +4,7 @@ require 'spec/rest-api/courier/location/location_helper'
 describe 'Delivery Offer api' do  
   describe 'Post courier Delivery Offer response' do
     let(:host)    { 'http://localhost:3000' }
-    let(:service) { "#{host}/couriers/:id/state" }
+    let(:service) { "#{host}/couriers/:id/location" }
 
     include CourierStateHelper
 

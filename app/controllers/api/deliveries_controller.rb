@@ -4,8 +4,8 @@ module Api
 
     respond_to :json
 
-    helper Api::DeliveriesHelper
-    helper Api::ResponseHelper    
+    include Api::DeliveriesHelper
+    include Api::ResponseHelper    
 
     # Get details about a specific delivery
     # Send back different data depending on the state of the delivery.
@@ -71,19 +71,24 @@ module Api
     def info                 
       # A delivery has ALWAYS been accepted and is owned by a courier
       # hence the delivery should contain all info, including contact info
-      begin
-        delivery = Delivery.where(:number => delivery_id)
+      begin    
+        puts "deliveries-info: #{params}"    
+        # Delivery.where(:number => delivery_id)
+        delivery = Delivery.create_from :munich
+        
+        puts "delivery: #{delivery}"
+        
         reply_get delivery, :info
-      rescue
+      rescue Exception => e
+        puts e
         reply_get_error :info
       end
     end
-
-    protected
   
     # Set the state of a specific delivery:
     # 
     # courier/deliveries/1/state :put
+    # REQUEST
     # {
     #   state: "cancelled|arrived_at_pickup|arrived_at_dropoff|billed"
     #   location: {
@@ -91,21 +96,35 @@ module Api
     #           latitude: 150.644
     #         }
     # }
+    # RESPONSE
+    # { :status => 'OK'},
+    #   state: "cancelled|arrived_at_pickup|arrived_at_dropoff|billed"
+    #   location: {
+    #           longitude: -34.397,
+    #           latitude: 150.644
+    #  }
+    # }
+
+
+    # RestClient.put('http://localhost:3000/api/couriers/1/deliveries/1/state.json', {state: 'picked_up', location: {longitude: -34.397,latitude: 150.644}})
     
     # This only works on a delivery "owned" by the current courier
-    def update_state         
+    def state         
       begin
-        current_courier.deliveries.where(:number => delivery_id)
-        # sends delivery offer info without contact information to each courier
-        delivery.location = Location.create_from_params location
-        delivery.set_state state
+        # current_courier.deliveries.where(:number => delivery_id)
+        # # sends delivery offer info without contact information to each courier
+        # delivery.location = Location.create_from_params location
+        # delivery.set_state state
+
+        puts "delivery-state: #{params}"    
+        # Delivery.where(:number => delivery_id)
+        delivery = Delivery.create_from :munich
         
-        reply_update delivery, :info
-
-      rescue
-        reply_update_error :state
+        reply_update delivery, :state
+      rescue Exception => e
+        puts e
+        reply_update_error delivery, :state
       end
-    end    
-
+    end
   end
 end

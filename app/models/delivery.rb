@@ -11,12 +11,40 @@ class Delivery
   
   validates :state, :delivery_state => true
 
+  after_initialize :set_number
+
+  # API methods
+
   def for_json    
-    {:id => number, :travel_mode => travel_mode, :directions => 'go get it', :pickup => pickup, :dropoff => dropoff}
+    {:id => number, :travel_mode => travel_mode, :directions => 'go get it', :pickup => pickup.for_json, :dropoff => dropoff.for_json}
   end
 
-  def info
-    for_json
+  def get_state
+    {:state => state}
+  end
+
+  def get_info
+    self
+  end
+
+  # convenience methods
+
+  def set_number
+    self.number = rand(1000) + 1
+  end
+  
+  def to_s
+    %Q{delivery: # #{number}
+state: #{state}
+location: 
+#{location}
+waybill: 
+#{waybill}
+}
+  end
+
+  def travel_mode
+    'biking'
   end
   
   def pickup
