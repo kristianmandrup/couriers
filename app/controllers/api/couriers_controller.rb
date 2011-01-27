@@ -56,7 +56,8 @@ module Api
     def info
       begin
         reply_get(current_courier, :info)
-      rescue
+      rescue Exception => e
+        puts e
         reply_get_error :info
       end
     end
@@ -86,7 +87,8 @@ module Api
         current_courier.work_state = p_work_state # see couriers_helper
         current_courier.save
         reply_update(current_courier, :state)
-      rescue
+      rescue Exception => e
+        puts e
         reply_update_error(current_courier, :state)
       end      
     end
@@ -122,7 +124,8 @@ module Api
         current_courier.location = Location.create_from_params p_location # see couriers_helper
         current_courier.save
         reply_update(current_courier, :location)
-      rescue
+      rescue Exception => e
+        puts e
         reply_update_error(current_courier, :location)
       end      
     end

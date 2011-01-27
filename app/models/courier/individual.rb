@@ -24,6 +24,10 @@ class Courier::Individual < Courier
     address.location
   end
 
+  def location= loc
+    address.location = loc
+  end
+
   def city
     address.city
   end

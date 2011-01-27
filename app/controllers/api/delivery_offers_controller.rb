@@ -39,6 +39,9 @@ module Api
 
       rescue DeliveryAlreadyTakenError
         status :DELIVERY_TAKEN
+      rescue Exception => e
+        puts e
+        reply_put_error delivery_offer, :response
       end
     end    
 

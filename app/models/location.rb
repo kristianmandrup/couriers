@@ -39,8 +39,9 @@ class Location
   
   class << self
 
-    def create_from_params params
-      self.new :latitude => params[:latitude], :longitude => params[:longitude]
+    def create_from_params params 
+      puts "create_from_params: #{params.inspect}"
+      self.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     end
 
     # from GeoMagic location
