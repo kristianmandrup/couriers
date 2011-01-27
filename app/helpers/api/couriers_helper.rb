@@ -18,7 +18,7 @@ module Api
       params[:work_state]
     end
 
-    # for bounding rectangle calculation: nearby couriers 
+    # for bounding rectangle calculation: nearby couriers
     def ne_longitude
       params[:ne_longitude].to_f
     end      
