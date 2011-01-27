@@ -13,11 +13,11 @@ class Order::Dropoff
   end
   
   def for_json
-    {:contact => contact.for_json, :address => address.for_json}
+    {:position => location.for_json, :address => address.get_street, :contact => contact.for_json }
   end  
 
-  def without_contact
-    {:address => address.for_json}
+  def get_overview
+    {:position => location.for_json, :address => address.get_street }
   end
 
   def to_s

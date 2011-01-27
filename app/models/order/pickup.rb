@@ -7,16 +7,20 @@ class Order::Pickup
   
   field :notes, :type => String  
 
-  def location
-    address.location
-  end
+  # API methods
   
   def for_json
-    {:contact => contact.for_json, :address => address.for_json}
+    {:address => address.get_street, :position => location.for_json, :contact => contact.for_json }
   end    
 
-  def without_contact
-    {:address => address.for_json}
+  def get_overview
+    {:position => location.for_json, :address => address.get_street }
+  end
+
+  # conv. methods
+
+  def location
+    address.location
   end
 
   def to_s

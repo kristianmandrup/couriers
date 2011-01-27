@@ -8,9 +8,17 @@ class Address
 
   embeds_one  :location
 
+  # API method
+
   def for_json
     {:street => street, :city => city, :country => country}
   end
+  
+  def get_street
+    {:street => street}
+  end
+
+  # conv. method
 
   #  returns the string representing the address / the address
   def to_s

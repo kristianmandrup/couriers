@@ -16,7 +16,9 @@ class Delivery
   # API methods
 
   def for_json    
-    {:id => number, :travel_mode => travel_mode, :directions => 'go get it', :pickup => pickup.for_json, :dropoff => dropoff.for_json}
+    # :directions => 'go get it'
+    # number
+    {:id => "1", :travel_mode => travel_mode, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
   end
 
   def get_state
