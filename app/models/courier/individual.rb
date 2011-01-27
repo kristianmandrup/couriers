@@ -4,16 +4,20 @@ class Courier::Individual < Courier
   field :courier_number, :type => Integer
   embeds_one :person 
 
+  def address
+    person.address
+  end
+
   def location
-    person.address.location
+    address.location
   end
 
   def city
-    person.address.city
+    address.city
   end
 
   def zip
-    person.address.zip
+    address.zip
   end
 
   def available?
@@ -24,9 +28,10 @@ class Courier::Individual < Courier
     'individual'
   end  
 
-  def name
+  def full_name
     person.full_name
   end
+  alias_method :name, :full_name
 
   def for_json
     {:email => email, :person => person.for_json}.merge super
@@ -41,15 +46,17 @@ class Courier::Individual < Courier
   end
   
   class << self
+    include ::AddressHelper
+    
     def all_from city = :munich
-      where(:city => city)
+      where :city => city
     end
 
     def create_from options = {}
-      city = options[:from] || :munich
-      co = Courier::Individual.new options
+      city = extract_city options
+      co = Courier::Individual.new
       co.random_user
-      co.person = Person.create_from(city)
+      co.person = Person.create_from city
       co 
     end
   end

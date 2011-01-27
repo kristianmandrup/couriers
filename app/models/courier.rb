@@ -1,4 +1,4 @@
-class Courier < User 
+class Courier < User
   include Mongoid::Document
 
   field       :number,            :type => Integer
@@ -6,7 +6,7 @@ class Courier < User
   embeds_one  :bank_account
   embeds_one  :price_structure
   
-  embeds_many :vehicles
+  embeds_many :vehicles,  :class_name => 'Courier::Vehicle'
   embeds_one  :delivery
 
   field       :current_vehicle,   :type => String
@@ -24,7 +24,11 @@ class Courier < User
   end
 
   def travel_mode
-    Vehicle.travel_mode_of current_vehicle    
+    Vehicle.travel_mode_of current_vehicle
+  end
+
+  def available= value
+    self.work_state = value ? 'available' : 'not_available'
   end
 
   def available?
@@ -35,6 +39,10 @@ class Courier < User
     "No"
   end
 
+  def state
+    {:work_state => work_state}
+  end
+
   def info
     options = {:work_state => work_state, :travel_mode => travel_mode}
     options.merge!(:current_delivery => delivery) if delivery
@@ -43,6 +51,10 @@ class Courier < User
 
   def location
     raise "#location method must be implemented by subclass"    
+  end
+
+  def address
+    raise "#address method must be implemented by subclass"    
   end
 
   def eta
@@ -63,12 +75,6 @@ class Courier < User
     {:eta => eta, :rating => rating, :price => price}
   end
 
-  def random_user
-    @email = "courier_#{rand(100)+1}@messenger.com"
-    @password = "123456"
-    @password_confirmation = "123456"
-  end
-
   protected
 
   def set_work_state
@@ -80,7 +86,9 @@ class Courier < User
     save
   end
   
-  class << self   
+  class << self
+    include ::AddressHelper
+    
     def work_states
       [:available, :not_available]
     end    
@@ -102,8 +110,7 @@ class Courier < User
     end
 
     def create_from options = {}
-      city = options[:from] || 'munich'
-      type = options[:type]
+      city = extract_city options
       type ||= [:individual, :company].pick_one
 
       case type
@@ -113,7 +120,12 @@ class Courier < User
         create_company options
       end
     end
-
+    
+    def available
+      in_db = Courier.all.to_a
+      in_db.empty? ? create_random(6, :from => :munich, :type => :individual) : in_db
+    end
+    
     def create_one_random options = {}
       create_from(options)
     end

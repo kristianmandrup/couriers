@@ -11,54 +11,63 @@ module Api
     # Send back different data depending on the state of the delivery.
     # In accepted state pickup.contact and dropoff.contact are not sent back
     # 
-    # courier/deliveries/1/info :get
+    # couriers/:id/deliveries/:delivery_id/info :get
+    # REQUEST
+    #   params[:id]
+    #   params[:delivery_id]
+
+    # RESPONSE
     # {
-    #   id: "1",
-    #   state: "accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed"    
-    #   travel_mode: "biking|driving",
-    #   pickup:   {
-    #           location: {
-    #                   position:   {
-    #                           latitude: 150.644,
-    #                           longitude: -34.397
-    #                         },
-    #                   address:  {
-    #                           street: "Sendlinger Straße 1",
-    #                           zip: "80331",
-    #                           city: "München"
-    #                         }
-    # 
-    #                 },
-    #           contact:  {
-    #                   company_name: "Tiramizoo 1",
-    #                   name: "Michael Löhr",
-    #                   email: "michael.loehr@tiramizoo.com",
-    #                   phone: "089123456789"                   
-    #                 },
-    #           notes: "Big box"
-    #         },            
-    #   dropoff:  {
-    #           location: {
-    #                   position:   {
-    #                           latitude: 150.644,
-    #                           longitude: -34.397
-    #                         },
-    #                   address:  {
-    #                           street: "Sendlinger Straße 2",
-    #                           zip: "80331",
-    #                           city: "München"
-    #                         }
-    # 
-    #                 },
-    #           contact:  {
-    #                   company_name: "Tiramizoo 2",
-    #                   name: "Philipp Walz",
-    #                   email: "philipp.walz@tiramizoo.com",
-    #                   phone: "089987654321"                   
-    #                 },
-    #           notes: "Big box"              
+    #   status: {
+    #     code: "OK",
+    #     message: "Work state updated"
+    #   },
+    #   data: {    
+    #     id: "1",
+    #     state: "accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed"    
+    #     travel_mode: "biking|driving",
+    #     pickup:   {
+    #       location: {
+    #         position:   {
+    #           latitude: 150.644,
+    #           longitude: -34.397
+    #         },
+    #         address:  {
+    #           street: "Sendlinger Straße 1",
+    #           zip: "80331",
+    #           city: "München"
     #         }
-    # }
+    #       },
+    #       contact:  {
+    #         company_name: "Tiramizoo 1",
+    #         name: "Michael Löhr",
+    #         email: "michael.loehr@tiramizoo.com",
+    #         phone: "089123456789"                   
+    #       },
+    #       notes: "Big box"
+    #     },            
+    #     dropoff:  {
+    #       location: {
+    #         position:   {
+    #           latitude: 150.644,
+    #           longitude: -34.397
+    #         },
+    #         address:  {
+    #           street: "Sendlinger Straße 2",
+    #           zip: "80331",
+    #           city: "München"
+    #         }
+    #       },
+    #       contact:  {
+    #         company_name: "Tiramizoo 2",
+    #         name: "Philipp Walz",
+    #         email: "philipp.walz@tiramizoo.com",
+    #         phone: "089987654321"                   
+    #       },
+    #       notes: "Big box"              
+    #     }
+    #   }
+    # } 
     def info                 
       # A delivery has ALWAYS been accepted and is owned by a courier
       # hence the delivery should contain all info, including contact info

@@ -21,6 +21,12 @@ class User
     {:email => j[:email], :country => j[:country] }
   end
 
+  def random_user
+    self.email = "courier_#{rand(100)+1}@messenger.com"
+    self.password = "123456"
+    self.password_confirmation = "123456"
+  end
+
   def self.find_recoverable_or_initialize_with_errors(required_attributes, attributes, error=:invalid)
     case_insensitive_keys.each { |k| attributes[k].try(:downcase!) }
 

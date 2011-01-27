@@ -9,7 +9,7 @@ module Api
 
     # Set response for a specific delivery offer:
     # 
-    # courier/delivery_offers/1/response :put
+    # couriers/:id/delivery_offers/:delivery_id/response :put
     # REQUEST
     # {
     #   response: "accepted|declined"
@@ -17,9 +17,14 @@ module Api
 
     # RESPONSE
     # {
-    #   id: "12"
+    #   status: {
+    #     code: "OK",
+    #     message: "Work state updated"
+    #   },
+    #   data: {    
+    #     id: "1",
+    #   }
     # }
-
     def response
       begin
         delivery_offer = Delivery::Offer.where(:number => delivery_id)

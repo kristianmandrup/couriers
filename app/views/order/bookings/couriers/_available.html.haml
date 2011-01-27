@@ -1,6 +1,7 @@
 %h3 List of couriers available
 
-= form_tag order_booking_path, :method => :post do |f|
+/ = semantic_form_for @booking do |f|
+= form_tag order_bookings_path, :method => :post do |f|
   %table
     %tr
       %th 
@@ -23,7 +24,8 @@
       - couriers.each do |courier|
         %tr
           %td 
-            = check_box_tag "couriers[#{courier.number}]", 'yes', false
+            / = f.check_box "couriers[#{courier.number}]", 'yes', false
+            = check_box_tag "couriers[#{courier.number}]", 'yes', false            
           %td
             = courier.number
           %td 

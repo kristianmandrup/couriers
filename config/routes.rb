@@ -7,27 +7,66 @@ Tiramizoo::Application.routes.draw do
 
   # Search couriers
   match 'search/couriers'           => 'api/search#couriers',           :as => :search_couriers
-  match "courier/state"             => "api/couriers#state",            :via => [:get, :post]
-  match "courier/location"          => "api/couriers#location",         :via => [:post]
-  match "location/nearby_couriers"  => "api/couriers#nearby_couriers",  :via => :get
 
-  match "delivery-list"             => "api/deliveries#index",       :as => :deliveries
-  match "booking/wait_for_couriers_response"  => "bookings#wait_for_couriers_response",  :as => :wait_for_couriers_response
-
+  match "location/nearby_couriers"  => "api/couriers#nearby_couriers",  :via => [:put]
   
   # list of potential types of User registrations
   resources :registrations, :only => [:index]
 
-  namespace :order do
-    resources :quotes
-    # Booking procedure    
-    resources :bookings #,  :only => [:new] # updates booking session?
-    # Track booking using existing booking number
-    resources :tracking,  :only => [:show]
-  end    
+  namespace :api do  
+    resources :couriers, :only => [] do
+      member do
+        put :state
+        get :info
+        put :location
+      end
+      
+      resources :deliveries, :only => [] do
+        member do
+          put :state
+          get :info
+          get :index
+        end
+      end
 
-  resources :schedule,  :only => [:new, :create]
-  resources :payment,   :only => [:new, :create]  
+      resources :delivery_offers, :only => [] do
+        member do
+          put :response
+        end
+      end
+    end
+  end
+
+  namespace :order do
+    # new quote is handled by main#index (quote form is on main page)
+    # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
+    resources :quotes, :only => [:create] 
+
+    # :new an initial booking filled out with GPS
+    # fill out booking form and select couriers
+    # submit - :create complete booking, and redirect to delivery_offer#new
+    resources :bookings, :only => [:new, :create, :show] # updates booking session?
+
+    # waiting screen (awaiting biddings)
+    # :create - creates the new delivery offer and pushes offer to couriers
+    # then redirect to delivery_offer#show to display the created delivery offer and the 'empty' delivery requests (waiting responses)    
+
+    # :show - display delivery offer and real time status of delivery responses from couriers
+
+    # when delivery offer accepted, a delivery is created and then redirect to payment#new (new payment)
+    # if not accepted redirect to booking#new
+    resources :delivery_offers, :only => [:new]
+
+    # :new - new payment form
+    # :create store the payment info and execute the payment with the provider!
+    resources :payments,   :only => [:new, :create]
+
+    # :show - track delivery using existing delivery number
+    # :index - show status list of all deliveries of customer    
+    # resources :tracking,  :only => [:show, :index]
+    
+    # resources :schedule,  :only => [:new, :create]    
+  end    
 
   resources :guests
 

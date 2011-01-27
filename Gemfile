@@ -9,7 +9,8 @@ group :development, :test do
   gem "rspec-rails", ">= 2.4.0"  
 
   # cucumber-fm  
-  gem "diff-lcs"  
+  gem "diff-lcs"
+  gem "rest-client"
 end  
 
 # gem "mongrel", '>= 1.2.0.pre2'

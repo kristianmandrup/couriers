@@ -29,7 +29,7 @@ dropoff: #{dropoff}
   class << self
     def create_empty_from city = :munich
       booking = self.new
-      booking.package_description = random_desc
+      # booking.package_description = random_desc
       booking.pickup  = Order::Pickup.new
       booking.dropoff = Order::Dropoff.new
       booking
@@ -37,6 +37,7 @@ dropoff: #{dropoff}
 
     def create_from city = :munich
       booking = self.new
+      booking.package_description = random_desc      
       booking.pickup  = Order::Pickup.create_from city
       booking.dropoff = Order::Dropoff.create_from city
       booking

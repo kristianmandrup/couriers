@@ -27,7 +27,9 @@ class Delivery
     waybill.dropoff
   end 
   
-  class << self    
+  class << self
+    include ::AddressHelper
+        
     def delivery_states
       [:ready, :accepted, :cancelled, :arrived_at_pickup, :arrived_at_dropoff, :billed]
     end    
@@ -58,15 +60,6 @@ class Delivery
     end
     
     protected
-
-    def extract_city options = {}
-      case options
-      when Symbol
-        options
-      else
-        options[:from] || :munich
-      end
-    end
 
     def setup
       self.number = rand(100) + 1

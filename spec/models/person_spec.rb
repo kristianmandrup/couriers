@@ -3,8 +3,10 @@ require 'spec_helper'
 describe Person do 
 
   describe 'Create random person' do  
-    it 'should not create person without a name' do
+    it 'should create a valid person' do
       pers = Person.create_from :munich
+      p "errors: #{pers.errors}"
+      pers.valid?.should be_true
       p pers
     end
   end

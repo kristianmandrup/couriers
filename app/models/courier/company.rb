@@ -3,10 +3,14 @@ class Courier::Company < Courier
 
   field :company_number, :type => Integer
   
-  embeds_one  :company
+  embeds_one  :company, :class_name => 'Company'
+
+  def address
+    company.address
+  end
 
   def location
-    company.address.location
+    address.location
   end
   
   def type
@@ -32,11 +36,13 @@ class Courier::Company < Courier
   end
 
   class << self
+    include ::AddressHelper
+    
     def create_from options = {}
-      city = options[:from] || :munich      
-      co = Courier::Company.new options
+      city = extract_city options
+      co = Courier::Company.new
       co.random_user      
-      co.company = Company.create_from city
+      co.company = ::Company.create_from city
       co
     end
   end

@@ -1,24 +1,22 @@
 require 'spec_helper'
 
 describe Courier do 
-  it 'should create a Service Provider' do
+  describe 'Generate random couriers' do  
+    context '10 random couriers generated' do
+      before do
+        @couriers = Courier.create_random 10, :from => :munich, :work_state => 'available'
+      end
     
-    courier = Courier.create
+      it "should create 10 couriers" do
+        @couriers.size.should == 10
+      end
 
-    user            = User.create email: 'abc@123.dk', password: '123456', password_confirmation: '123456', role: 'guest'
-    price_structure = PriceStructure.create! max_weight_kg: 24, max_dimensions_cm: '120x50x30', base_price: 7.5, km_price: 7.2 , km_point: 3, cost_per_stop: 2.5, waiting_time: 4, unsuccessful_delivery: 4.5, currency: 'euro'
-    bank_account    = BankAccount.create! bank_name: 'Deutche Bank', account_number: '2323523523', bank_id: 'DE233'
-
-    courier.user             = user
-    courier.bank_account     = bank_account
-    courier.price_structure  = price_structure
-
-    # service_provider_1.create_bank_account bank_name: 'Deutche Bank', account_number: '2323523523', bank_id: 'DE233'
-    # service_provider_1.create_price_structure max_weight_kg: 24, max_dimensions_cm: '120x50x30', base_price: 7.5, km_price: 7.2 , km_point: 3, cost_per_stop: 2.5, waiting_time: 4, unsuccessful_delivery: 4.5, currency: 'euro'    
-  end
-  
-  it "should create random couriers" do
-    Courier.create_random 10, :from => :munich, :work_state => 'available'
-    Courier.create_random 10, :from => :munich, :work_state => 'not_available'
+      it "first courier should be a valid courier" do
+        courier = @couriers.first
+        courier.name.should_not be_nil
+        courier.address.should_not be_nil
+        courier.location.should_not be_nil
+      end
+    end
   end
 end

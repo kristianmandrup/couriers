@@ -8,5 +8,5 @@ class Registration
   embeds_one :contact
   embeds_one :vehicle
   
-  field :status,        :type => String  
+  field :status,  :type => String  
 end

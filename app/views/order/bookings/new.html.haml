@@ -33,4 +33,4 @@
 #courier_map.right     
   / = @available_couriers
   = render :partial => 'map/courier_selection', :locals => {:your_location => @your_location, :couriers => @available_couriers}
-  = render :partial => 'bookings/couriers/available', :locals => {:couriers => @available_couriers}
+  = render :partial => 'order/bookings/couriers/available', :locals => {:couriers => @available_couriers}

@@ -1,16 +1,16 @@
 module Api
   # Get current courier info
   # 
-  # courier/info :get
+  # couriers/:id/info :get
   # {
-  #     work_state: "available|not_available"
-  #     current_delivery: > courier/deliveries/{current_delivery_id}/info
+  #   work_state: "available|not_available"
+  #   current_delivery: > courier/deliveries/{current_delivery_id}/info
   # }
   # 
   # --------------------------------------------------------------------------------
   # Set current courier state
   # 
-  # courier/state :put
+  # couriers/:id/state :put
   # {
   #   work_state: "available|not_available"
   # }
@@ -18,29 +18,40 @@ module Api
   # --------------------------------------------------------------------------------
   # Set current courier location
   # 
-  # courier/location :put
+  # couriers/:id/location :put
   # {
   #   position:   {
-  #                     latitude: 150.644,
-  #                     longitude: -34.397
-  #                 }
+  #     latitude: 150.644,
+  #     longitude: -34.397
+  #   }
   # }  
   class CouriersController < ApplicationController
     respond_to :json
 
-    helper Api::CouriersHelper
-    helper Api::ResponseHelper
+    include ::Api::CouriersHelper
+    include Api::ResponseHelper
 
     # before_filter :authenticate_user!
 
     # Get current courier info
-    # 
-    # courier/info :get
+    # couriers/:id/info :get
+    
+    # REQUEST
+    #   params[:id]    
+
+    # RESPONSE
+
     # {
-    #     id: "1" # courier number
-    #     work_state: "available|not_available",
-    #     travel_mode: "biking|driving",
-    #     current_delivery: > courier/deliveries/{current_delivery_id}/info
+    #     status: {
+    #         code: "OK",
+    #         message: "Delivery accepted"
+    #     }    
+    #     data: {
+    #       id: "1" # courier number
+    #       work_state: "available|not_available",
+    #       travel_mode: "biking|driving",
+    #       current_delivery: > courier/deliveries/{current_delivery_id}/info
+    #    }
     # }
     def info
       begin
@@ -50,12 +61,28 @@ module Api
       end
     end
 
-    # courier/state :post
+    # couriers/:courier_id/state :post
+
+    # REQUEST
+    #   params[:courier_id]
+    
     # {
     #   work_state: "available|not_available"
     # }
-    def update_state
-      begin
+    
+    # {
+    #     status: {
+    #         code: "OK",
+    #         message: "Work state updated"
+    #     },
+    #     data: {
+    #       work_state: "available|not_available",
+    #    }
+    # }
+    
+    def state
+      begin 
+        puts "params: #{params}"
         current_courier.work_state = work_state # see couriers_helper
         current_courier.save
         reply_update(current_courier, :state)
@@ -66,14 +93,30 @@ module Api
     
     # Set current courier location
     # 
-    # courier/location :put
+    # couriers/:id/location :put
+    # REQUEST
     # {
-    #   position:   {
-    #                     latitude: 150.644,
-    #                     longitude: -34.397
-    #                 }
+    #   position: {
+    #     latitude: 150.644,
+    #     longitude: -34.397
+    #   }
     # }  
-    def update_location
+
+    # RESPONSE
+    # {
+    #   status: {
+    #     code: "OK",
+    #     message: "Work state updated"
+    #   },
+    #   data: {
+    #     position:   {
+    #       latitude: 150.644,
+    #       longitude: -34.397
+    #     }
+    #   }
+    # }  
+
+    def location
       begin
         current_courier.location = Location.create_from_params location # see couriers_helper
         current_courier.save
@@ -86,7 +129,9 @@ module Api
   
     # Get locations of all couriers within my radius
     # 
-    # location/nearby_couriers :get,
+    # location/nearby_couriers :get
+
+    # REQUEST
     # params: {
     #     ne_latitude: 150.644,
     #     ne_longitude: -34.397,
@@ -94,8 +139,14 @@ module Api
     #     sw_longitude: -34.397
     # }
     # 
-    # POST
-    # [
+    # RESPONSE
+    # {
+    #   status: {
+    #     code: "OK",
+    #     message: "Work state updated"
+    #   },
+    #   data: {    
+    #   [
     #   {
     #     id: "1",
     #     position: {
@@ -112,7 +163,9 @@ module Api
     #         },
     #     vehicle: "bike|cargobike|motorbike|car|van"
     #   }
-    # ] 
+    #   ]
+    #   }
+    # } 
     def nearby_couriers 
       begin   
         rectangle = GeoMagic::Rectangle.create_from_coords(ne_latitude, ne_longitude, sw_latitude, sw_longitude) # see couriers_helper

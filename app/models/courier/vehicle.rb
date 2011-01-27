@@ -3,15 +3,24 @@ class Courier::Vehicle
 
   field :name,  :type => String  
   field :count, :type => Integer, :default => 1
+
+  def to_s
+    count == 1 ? "a #{name.to_s.humanize}" : "#{count} #{name.to_s.pluralize.humanize}"    
+  end
   
   class << self    
     def available_types
       [:bike, :cargobike, :motorbike, :car, :van]
     end
     
-    def create_single name
+    def create_one name
       raise ArgumentError, "Not a valid vehicle type - must be one of #{available_types}" if !available_types.include? name
-      Vehicle.new :name => name.to_s, :count => 1
+      Courier::Vehicle.new :name => name.to_s, :count => 1
+    end    
+
+    def create number, name
+      raise ArgumentError, "Not a valid vehicle type - must be one of #{available_types}" if !available_types.include? name
+      Courier::Vehicle.new :name => name.to_s, :count => number
     end    
     
     def random_vehicle
@@ -35,8 +44,17 @@ class Courier::Vehicle
   # create_car, create_van etc.
   available_types.each do |type|
     class_eval %{
-      def create_#{type}
-        create_single :#{type}
+      def self.create_#{type}
+        create_one :#{type}
+      end        
+    }
+  end  
+
+  # create_car, create_van etc.
+  available_types.each do |type|
+    class_eval %{
+      def self.create_#{type.to_s.pluralize} number
+        create number, :#{type}
       end        
     }
   end  

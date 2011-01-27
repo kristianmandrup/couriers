@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Courier::Individual do 
-  describe 'Create random Individual Courier from munich' do
+describe Courier::Company do 
+  describe 'Create random Courier Company from munich' do
     before do
-      @courier = Courier::Individual.create_from :munich
+      @courier = Courier::Company.create_from :munich
     end
 
     context 'The courier' do
@@ -15,12 +15,12 @@ describe Courier::Individual do
         @courier.travel_mode.should match /\S+/
       end
       
-      it "should not be available" do
-        @courier.available?.should be_false
+      it "should be available" do
+        @courier.available?.should be_true
       end
 
-      it "should have a full name" do
-        @courier.full_name.should match /\S+/
+      it "should have a name" do
+        @courier.name.should match /\S+/
       end
 
       it "should have an address" do
@@ -41,3 +41,4 @@ describe Courier::Individual do
     end
   end
 end                    
+    

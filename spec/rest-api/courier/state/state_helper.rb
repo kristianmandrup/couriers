@@ -12,13 +12,14 @@ module CourierStateHelper
   end
 
   def service_path id
-    service.gsub(/:id/, persona(id))
+    number = persona(id)[:id]
+    service.gsub(/:courier_id/, number.to_s) << '.json'
   end
 
-  def available id
-    ws = persona(id)[:available] ? 'available' : 'not_available'
+  def state id
+    work_state = persona(id)[:available] ? 'available' : 'not_available'
     { 
-      work_state: ws}
+      work_state: work_state
     }
   end
 end

@@ -3,12 +3,14 @@ module Api
     # these can be used as wrappers by the API functions
 
     def reply_update obj, name
-      reply_invalid_update(event) and return if !obj.valid?    
+      puts "reply_update: #{obj.inspect}, #{name}, valid: #{obj.valid?}"
+      # reply_invalid_update(obj) and return if !obj.valid?    
       reply_success_update obj, name
     end
 
-    def reply_update_error obj, name
-      reply_error "#{humanized obj} could not update #{dhumanized name}"
+    def reply_update_error obj, name                                                       
+      puts "reply_update_error: #{name}"
+      render_json reply_error("#{humanized obj.class} could not update #{dhumanized name}")
     end
 
     def reply_get data, name
@@ -21,12 +23,23 @@ module Api
 
     protected
 
-    def reply_success_update obj, name
-      reply_ok  "#{humanized obj.class} #{dhumanized name} was updated"
+    def reply_success_update obj, name 
+      puts "reply_success_update: #{obj.inspect}, #{name}"
+      data = obj.send name
+      puts "data: #{data.inspect}"
+      json_obj = reply_ok("#{humanized obj.class} #{dhumanized name} was updated").merge(data)
+      puts "json obj: #{json_obj}"
+      render_json json_obj
     end
 
     def reply_invalid_update obj
-      reply_status :INVALID_UPDATE, "#{humanized obj} update was not valid"
+      puts "reply_invalid_update: #{obj.inspect}"                                              
+      
+      error = obj.errors.values.first.first
+      what = obj.errors.keys.first
+      json_obj = reply_status(:INVALID_UPDATE, "#{humanized obj.class} update was not valid, #{what} #{error}")
+      puts "json obj: #{json_obj}"
+      render_json json_obj
     end
 
     private
@@ -53,11 +66,11 @@ module Api
     end
 
     def dhumanized obj
-      obj.to_s.humanize.downcase
+      obj.to_s.dhuman
     end
 
     def humanized obj
-      obj.to_s.humanize
+      obj.to_s.human
     end
   end
 end

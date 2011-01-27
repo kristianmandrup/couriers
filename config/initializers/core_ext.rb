@@ -1,5 +1,7 @@
-require 'array'      
+require 'array'
+require 'string'
 require 'nil_class'
 require 'time_period'
 require 'positionable'
 require 'exceptions'
+require 'address_helper'

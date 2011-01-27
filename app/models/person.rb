@@ -25,13 +25,13 @@ class Person
     end    
     
     def create_with options = {}
-       person = Person.new 
-       p.address = options[:address]
-       person.name = Person::Name.new :first_name => options[:first_name], :last_name => options[:last_name]
-       person
+      person = Person.new 
+      p.address = options[:address]
+      person.name = Person::Name.new :first_name => options[:first_name], :last_name => options[:last_name]
+      person
     end
   end
 
-  validates_associated :address
-  validates :address, :presence => true  
+  # validates_associated :address
+  # validates :address, :presence => true  
 end

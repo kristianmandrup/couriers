@@ -18,6 +18,14 @@ class Courier::Info
   # use custom validators!
   validates :work_state, :work_state => true
   validates :travel_mode, :travel_mode => true
+
+  def available?
+    work_state == 'available'
+  end
+
+  def available= value
+    self.work_state = value ? 'available' : 'not_available'
+  end
   
   def initialize attributes = {}
     attributes.each do |name, value|
