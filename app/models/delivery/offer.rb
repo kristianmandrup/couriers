@@ -14,11 +14,15 @@ class Delivery::Offer
 
   def for_json    
     # number.to_s
-    {:id => "1", :directions => 'go get it', :pickup => pickup.get_overview, :dropoff => dropoff.get_overview }
+    {:id => "1", :pickup => pickup.for_json, :dropoff => dropoff.for_json }
   end
 
   def get_state
     self
+  end
+
+  def get_initial_info
+    {:id => "1", :pickup => pickup.get_overview, :dropoff => dropoff.get_overview }
   end
 
   # conv. methods

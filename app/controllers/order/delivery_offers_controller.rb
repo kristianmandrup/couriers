@@ -54,7 +54,7 @@ module Order
       # sends delivery offer info without contact information to each courier
       couriers_to_notify.each do |id|
         p "sending deliver info to delivery channel for courier: #{id}"
-        courier_channel(id).publish :directions => '3,5km to...', :delivery_offer => delivery_offer.for_json
+        courier_channel(id).publish :delivery_offer => delivery_offer.get_initial_info
       end
     end    
 
