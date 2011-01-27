@@ -14,7 +14,7 @@ class Order::Pickup
   end    
 
   def get_overview
-    {:position => location.for_json, :address => address.get_street }
+    {:position => location.for_json, :address => address.get_street, :notes => notes }
   end
 
   # conv. methods

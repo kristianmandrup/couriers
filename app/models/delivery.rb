@@ -18,12 +18,20 @@ class Delivery
   def for_json    
     # :directions => 'go get it'
     # number
-    case state.to_sym 
+    dropoff_json = case state.to_sym 
     when :accepted
-      {:id => "1", :state => state, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
+      dropoff.get_overview
     else
-      {:id => "1", :state => state, :pickup => pickup.get_overview, :dropoff => dropoff.for_json}
+      dropoff.for_json
     end
+
+    pickup_json = case state.to_sym 
+    when :accepted
+      dropoff.for_json
+    else
+      dropoff.get_overview
+    end
+    {:id => "1", :state => state, :pickup => pickup_json, :dropoff => dropoff_json}
   end
 
   def get_state
