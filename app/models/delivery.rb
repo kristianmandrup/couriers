@@ -18,7 +18,7 @@ class Delivery
   def for_json    
     # :directions => 'go get it'
     # number
-    {:id => "1", :travel_mode => travel_mode, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
+    {:id => "1", :state => state, :travel_mode => travel_mode, :pickup => pickup.for_json, :dropoff => dropoff.for_json}
   end
 
   def get_state
@@ -61,7 +61,7 @@ waybill:
     include ::AddressHelper
         
     def delivery_states
-      [:ready, :accepted, :cancelled, :arrived_at_pickup, :arrived_at_dropoff, :billed]
+      [:ready, :accepted, :cancelled, :picked_up, :delivered, :billed]
     end    
 
     def create_from_booking booking
