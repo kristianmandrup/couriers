@@ -10,7 +10,7 @@ class Order::Pickup
   # API methods
   
   def for_json
-    {:address => address.get_street, :position => location.for_json, :contact => contact.for_json }
+    {:address => address.get_street, :position => location.for_json, :contact => contact.for_json, :notes => notes }
   end    
 
   def get_overview

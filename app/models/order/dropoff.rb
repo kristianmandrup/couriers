@@ -6,14 +6,14 @@ class Order::Dropoff
   embeds_one :contact
   embeds_one :address
   
-  field :notes, :type => String
+  field :notes, :type => String, :default_value => ''
 
   def location
     address.location
   end
   
   def for_json
-    {:position => location.for_json, :address => address.get_street, :contact => contact.for_json }
+    {:position => location.for_json, :address => address.get_street, :contact => contact.for_json, :notes => notes }
   end  
 
   def get_overview
