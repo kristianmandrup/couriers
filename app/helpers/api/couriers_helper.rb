@@ -11,7 +11,7 @@ module Api
     end
 
     def p_location
-      params[:location] || params
+      params[:location] || params[:position] || params
     end
 
     def p_work_state
