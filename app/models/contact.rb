@@ -20,7 +20,7 @@ class Contact
   end
 
   def for_json
-    {:name => full_name, :phone => channel.phone, :company_name => 'Flowers4u'} #:email => channel.email
+    {:name => full_name, :phone => channel.phone, :company_name => 'Flowers4u', :notes => 'There are no notes!'} #:email => channel.email
   end
 
   def to_s
