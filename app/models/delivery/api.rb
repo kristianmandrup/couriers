@@ -1,15 +1,19 @@
 class Delivery
   module Api
-    def for_json    
-      {:id => "1", :state => state, :pop => pickup_json, :pod => dropoff_json}
+    def for_json
+      if [:cancelled, :delivered].include? state.to_sym
+        {}
+      else          
+        get_state
+      end      
     end
 
     def get_state
-      self    
+      {:id => "1", :state => state, :pop => pickup_json, :pod => dropoff_json}
     end
 
     def get_info
-      self
+      self      
     end
 
     private

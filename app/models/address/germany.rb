@@ -6,10 +6,12 @@ class Address::Germany < Address
   
   before_validation :set_country #, :request_state_and_city_validation_based_on_zipcode
 
-  validates_presence_of     :postnr   
+  # validates_presence_of     :postnr   
 
-  validates_length_of       :postnr,    :within => 5..5
-  validates_numericality_of :postnr,    :greater_than_or_equal_to => 1, :less_than => 999999
+  validates :postnr, :german_postnr => true
+  
+  # validates_length_of       :postnr,    :within => 5..5
+  # validates_numericality_of :postnr,    :greater_than_or_equal_to => 1, :less_than => 999999
 
   def to_s
     %Q{#{street}

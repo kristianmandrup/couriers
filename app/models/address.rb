@@ -78,14 +78,19 @@ class Address
       Address::Empty.new
     end
 
+    # city => :munich
     def create_address address_options = {}
-      city = address_options[:city].downcase.to_sym
-      case city 
-      when :munich 
+      case get_city address_options[:city] 
+      when :munich
         create_germany address_options
       else
         create_canada address_options
       end
+    end
+
+    def get_city city
+      return :munich if city.downcase =~ /m.*ch.*/
+      :vancouver
     end
 
     def create_from city = :munich
