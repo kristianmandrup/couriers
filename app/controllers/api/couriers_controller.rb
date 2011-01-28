@@ -123,7 +123,7 @@ module Api
       begin    
         puts "service location: #{params}"
         current_courier.location = Location.create_from_params p_location # see couriers_helper
-        current_courier.save
+        current_courier.save!
         render_json(reply_ok "courier was relocated")
         # reply_update # (current_courier, :location)
       rescue Exception => e

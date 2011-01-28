@@ -75,8 +75,9 @@ module Api
         puts "deliveries-info: #{params}"    
         # Delivery.where(:number => delivery_id)
         delivery = Delivery.create_from :munich
+        delivery.save!
         
-        puts "delivery: #{delivery}"
+        puts "delivery saved: #{delivery}"
         
         reply_get delivery, :info
       rescue Exception => e

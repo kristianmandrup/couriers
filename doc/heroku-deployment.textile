@@ -7,3 +7,5 @@ Seed the Database: @heroku rake db:seed --app tiramizoo-beta@
 h2. Sync of local DB to Mongo HQ
 
 @heroku plugins:install http://github.com/pedro/heroku-mongo-sync.git@
+
+MongoHQ Password: tiramizoo42
