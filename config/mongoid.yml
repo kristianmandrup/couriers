@@ -1,15 +1,8 @@
-defaults: &defaults
-
 development:
-  <<: *defaults
-  host: localhost
-  database: tiramizoo_development
+  uri: <%= ENV['MONGOHQ_URL'] %>  
 
 test:
-  <<: *defaults  
-  host: localhost  
-  database: tiramizoo_test
+  uri: <%= ENV['MONGOHQ_URL'] %>    
 
-# set these environment variables on your prod server
 production:
   uri: <%= ENV['MONGOHQ_URL'] %>  
