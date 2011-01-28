@@ -83,10 +83,10 @@ module Api
     
     def state
       begin 
-        # puts "params: #{params}"        
+        puts "params: #{params}"        
         current_courier.work_state = p_work_state # see couriers_helper
         current_courier.save!
-        # puts "updated courier state to: #{p_work_state}, sending it back #{current_courier.work_state}"
+        puts "updated courier state to: #{p_work_state}, sending it back #{current_courier.work_state}"
         reply_update(current_courier, :state)
       rescue Exception => e
         puts e
