@@ -54,8 +54,9 @@ module Api
     #    }
     # }
     def info
-      begin
-        reply_get(current_courier, :info)
+      begin            
+        @courier = current_courier
+        reply_get(@courier, :info)
       rescue Exception => e
         puts e
         reply_get_error :info
@@ -83,14 +84,14 @@ module Api
     
     def state
       begin 
-        puts "params: #{params}"        
-        current_courier.work_state = p_work_state # see couriers_helper
-        current_courier.save!
-        puts "updated courier state to: #{p_work_state}, sending it back #{current_courier.work_state}"
-        reply_update(current_courier, :state)
+        @courier = current_courier
+        @courier.work_state = p_work_state # see couriers_helper
+        @courier.save!
+        # puts "updated courier state to: #{p_work_state}, sending it back #{@courier.work_state}"
+        reply_update(@courier, :state)
       rescue Exception => e
         puts e
-        reply_update_error(current_courier, :state)
+        reply_update_error(@courier, :state)
       end      
     end
     
@@ -121,14 +122,14 @@ module Api
 
     def location
       begin    
-        puts "service location: #{params}"
-        current_courier.location = Location.create_from_params p_location # see couriers_helper
-        current_courier.save!
+        @courier = current_courier
+        @courier.location = Location.create_from_params p_location # see couriers_helper
+        @courier.save!
         render_json(reply_ok "courier was relocated")
         # reply_update # (current_courier, :location)
       rescue Exception => e
         puts e
-        reply_update_error(current_courier, :location)
+        reply_update_error(@courier, :location)
       end      
     end
 

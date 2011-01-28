@@ -10,6 +10,10 @@ test:
   host: localhost  
   database: tiramizoo_test
 
+# http://blog.heroku.com/archives/2010/4/30/mongohq_add_on_public_beta/
+# http://support.mongohq.com/kb/how-tos/upgrading-your-heroku-addon    
+# https://github.com/pedro/heroku-mongo-sync
+
 # set these environment variables on your prod server
 production:
   uri: <%= ENV['MONGOHQ_URL'] %>  

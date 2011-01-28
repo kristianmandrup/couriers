@@ -1,9 +1,13 @@
 module Api
   module CouriersHelper
     def current_courier
-      # puts "current_courier #: #{courier_id}, couriers in DB: #{Courier.all.size} count"
-      Courier::Individual.create_from :munich
-      # Courier.where(:number => courier_id)
+      # Courier::Individual.create_from :munich 
+      courier = Courier.where(:number => courier_id).first
+      if !courier
+        puts "Create some seed couriers please!"
+        return Courier::Individual.create_from :munich
+      end
+      courier
     end
 
     def courier_id

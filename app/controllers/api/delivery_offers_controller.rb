@@ -49,7 +49,6 @@ module Api
 
     def status event
       status_json = Delivery::Offer.status(event).merge(:id => delivery_id)
-      puts "status_json: #{status_json}"
       render_json(status_json)
     end         
   end
