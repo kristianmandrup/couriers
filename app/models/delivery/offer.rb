@@ -9,22 +9,9 @@ class Delivery::Offer
   embeds_many :delivery_requests, :class_name => 'Delivery::Request'  
 
   after_initialize :setup
+
+  include Api
   
-  # API methods
-
-  def for_json    
-    # number.to_s
-    {:id => "1", :pickup => pickup.for_json, :dropoff => dropoff.get_overview }
-  end
-
-  def get_state
-    self
-  end
-
-  def get_initial_info
-    {:id => "1", :pickup => pickup.get_overview, :dropoff => dropoff.get_overview }
-  end
-
   # conv. methods
 
   def to_s

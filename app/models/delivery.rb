@@ -12,36 +12,8 @@ class Delivery
   validates :state, :delivery_state => true
 
   after_initialize :set_number
-
-  # API methods
-
-  def for_json    
-    # :directions => 'go get it'
-    # number
-    dropoff_json = case state.to_sym 
-    when :accepted
-      dropoff.get_overview
-    else
-      dropoff.for_json
-    end
-
-    pickup_json = case state.to_sym 
-    when :accepted
-      dropoff.for_json
-    else
-      dropoff.get_overview
-    end
-    {:id => "1", :state => state, :pickup => pickup_json, :dropoff => dropoff_json}
-  end
-
-  def get_state
-    self    
-  end
-
-  def get_info
-    self
-  end
-
+  
+  include Api
   # convenience methods
 
   def set_number
