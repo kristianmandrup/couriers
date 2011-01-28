@@ -19,6 +19,7 @@ courier: #{courier.full_name}
   end
 
   def set_state new_state
+    puts "Request #set_state with: #{new_state}"
     raise DeliveryAlreadyTakenError, "Customer accepted delivery response of another courier" if locked? new_state
     raise DeliveryTimeOutError, "Your response was too late" if time_out? new_state
     @state = new_state
@@ -27,7 +28,7 @@ courier: #{courier.full_name}
   def locked? new_state 
     case new_state.to_sym
     when :accepted
-      return  @state != 'ready'
+      return  @state != 'notified'
     end
     false
   end

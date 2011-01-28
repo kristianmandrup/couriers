@@ -20,8 +20,21 @@ booking:
 #{booking}
 
 requests: 
-#{delivery_requests}
+#{delivery_requests.map(&:to_s)}
 }
+  end
+
+  def set_state state, courier
+    puts "set_state of offer: #{state}, for courier nr: #{courier.number}"
+    delivery_requests.each do |req|
+      puts "!!!! Request nr = #{req.courier.number}"
+      if req.courier.number == courier.number
+        puts "!!! FOUND request to answer"
+        puts "Tries to set state! (will now do lock and timeout checks)"
+        req.set_state(state)
+        req.save! 
+      end
+    end
   end
 
   def pickup
@@ -33,9 +46,13 @@ requests:
   end
 
   def for_couriers couriers
-    couriers.each do |courier|
+    puts "for couriers: #{couriers.size}"
+    couriers.each do |courier| 
+      "Adding delivery request for: #{courier.number}"
       self.delivery_requests << self.class.create_request(courier)
     end 
+    puts "Request added: #{delivery_requests.size}"
+    self.save
   end
   
   class << self
@@ -60,6 +77,12 @@ requests:
 
     def create_for booking, couriers
       delivery_offer = create_from_booking booking
+      delivery_offer.for_couriers couriers
+      delivery_offer      
+    end
+
+    def create_for_couriers_only couriers
+      delivery_offer = Delivery::Offer.create_from :munich
       delivery_offer.for_couriers couriers
       delivery_offer      
     end

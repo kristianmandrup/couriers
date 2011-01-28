@@ -20,7 +20,7 @@ couriers.each {|c| c.save! }
 
 puts "In database"
 
-puts "Couriers: #{Courier.all.to_a}"
-puts "Individual Couriers: #{Courier::Individual.all.to_a}"
-puts "Company Couriers: #{Courier::Company.all.to_a}"
+puts "Couriers: #{Courier.all.to_a.map(&:number)}"
+puts "Individual Couriers: #{Courier::Individual.all.to_a.map(&:number)}"
+puts "Company Couriers: #{Courier::Company.all.to_a.map(&:number)}"
 

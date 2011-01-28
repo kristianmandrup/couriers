@@ -29,6 +29,9 @@ class User
   def person *args
   end
 
+  def full_name *args
+  end
+
   def company *args
   end         
 end

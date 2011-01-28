@@ -4,6 +4,7 @@ module Api
 
     respond_to :json  
 
+    include Api::CouriersHelper
     include Api::DeliveriesHelper
     include Api::ResponseHelper    
 
@@ -15,7 +16,7 @@ module Api
     #   response: "accepted|declined"
     # }
 
-    # RestClient.put('http://localhost:3000/api/couriers/1/delivery_offers/1/state.json', response: 'accepted')
+    # RestClient.put('http://localhost:3000/api/couriers/1/delivery_offers/1/answer.json', response: 'accepted')
 
     # RESPONSE
     # {
@@ -30,8 +31,18 @@ module Api
     def answer
       begin
         # delivery_offer = Delivery::Offer.where(:number => delivery_id)
-        delivery_offer = Delivery::Offer.create_from :munich
-        delivery_offer.state = p_state
+        puts "params: #{params}"
+        puts "state: #{p_answer}, courier id: #{courier_id}"
+
+        booking = Order::Booking.create_from :munich
+
+        couriers = Courier.limit(3)
+
+        delivery_offer = Delivery::Offer.create_for_couriers_only couriers
+        
+        puts "delivery_offer: #{delivery_offer}"
+
+        delivery_offer.set_state(p_answer, current_courier)
 
         reply_update delivery_offer, :state
       rescue DeliveryTimeOutError

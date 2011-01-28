@@ -7,7 +7,7 @@ class Courier::Counter
 
   def self.instance
     if !Courier::Counter.first
-      Courier::Counter.create :number => 1, :courier_number => 1, :company_number => 1
+      Courier::Counter.create :number => 0, :courier_number => 0, :company_number => 0
     end
     @instance ||= Courier::Counter.first
   end

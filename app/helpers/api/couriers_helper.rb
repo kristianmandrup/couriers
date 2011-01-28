@@ -2,6 +2,7 @@ module Api
   module CouriersHelper
     def current_courier
       # Courier::Individual.create_from :munich 
+      puts "Couriers in DB: #{Courier.all.map(&:number)}"
       courier = Courier.where(:number => courier_id).first
       if !courier
         puts "Create some seed couriers please!"

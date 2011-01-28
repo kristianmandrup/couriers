@@ -11,5 +11,9 @@ module Api
     def p_state 
       params[:state]
     end
+
+    def p_answer 
+      params[:answer]
+    end
   end
 end
