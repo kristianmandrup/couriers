@@ -3,3 +3,7 @@ h1. Heroku deployment
 Push to _tiramizoo-beta_ at heroku master: @git push heroku master@
 
 Seed the Database: @heroku rake db:seed --app tiramizoo-beta@
+
+h2. Sync of local DB to Mongo HQ
+
+@heroku plugins:install http://github.com/pedro/heroku-mongo-sync.git@

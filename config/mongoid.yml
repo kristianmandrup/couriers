@@ -1,12 +1,13 @@
 defaults: &defaults
-  host: localhost
 
 development:
   <<: *defaults
+  host: localhost
   database: tiramizoo_development
 
 test:
-  <<: *defaults
+  <<: *defaults  
+  host: localhost  
   database: tiramizoo_test
 
 # set these environment variables on your prod server
