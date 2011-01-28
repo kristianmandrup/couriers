@@ -119,6 +119,8 @@ module Api
         puts "delivery-state: #{params}"    
         # Delivery.where(:number => delivery_id)
         delivery = Delivery.create_from :munich
+        delivery.state = p_state
+        
         
         reply_update delivery, :state
       rescue Exception => e

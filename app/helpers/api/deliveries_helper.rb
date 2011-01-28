@@ -8,7 +8,7 @@ module Api
       params[:id]
     end
 
-    def state 
+    def p_state 
       params[:state]
     end
   end
