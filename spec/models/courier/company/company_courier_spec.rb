@@ -1,14 +1,25 @@
 require 'spec_helper'
 
 describe Courier::Company do 
-  describe 'Create random Courier Company from munich' do
-    before do
-      @courier = Courier::Company.create_from :munich
-    end
+    context 'A random courier company from munich' do
+      before do
+        @courier = Courier::Company.create_from :munich
+      end
 
-    context 'The courier' do
+      it "should be valid and should be able to save it" do    
+        if !@courier.valid?
+          p "errors: #{@courier.errors}"
+        end
+        @courier.valid?.should be_true
+        lambda { @courier.save! }.should_not raise_error
+      end
+
       it "should have a positive number" do    
         @courier.number.should > 0
+      end
+
+      it "should have a company" do    
+        @courier.company.should_not be_nil
       end
       
       it "should have a valid travel mode" do

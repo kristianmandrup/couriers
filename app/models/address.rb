@@ -37,6 +37,15 @@ class Address
     raise "Address can't be located without a street" if point_string.blank?
     begin             
       loc = TiramizooApp.geocoder.geocode(point_string)
+
+      status = loc.data["Status"]
+      if status
+        if status["code"] == '620'
+          p "Location #{point_string} couldn't be found"
+          return
+        end
+      end
+
       self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
     rescue Exception => e
       p "Locate exception from #{point_string}: #{e}"
@@ -63,12 +72,19 @@ class Address
       if !point_string.blank?        
         begin             
           loc = TiramizooApp.geocoder.geocode point_string
+          status = loc.data["Status"]
+          if status
+            if status["code"] == '620'
+              p "Location #{point_string} couldn't be found"
+              return create_empty
+            end
+          end
           address = create_address loc.address_hash
           address.location = Location.new loc.location_hash
           return address
         rescue Exception => e
           p "Locate exception from #{point_string}: #{e}"
-          # p "geocoder: #{TiramizooApp.geocoder}"
+          p "geocode location: #{loc.inspect}"
         end
       end 
       create_empty

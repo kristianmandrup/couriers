@@ -45,7 +45,7 @@ class Courier::Individual < Courier
   end  
 
   def full_name
-    person.full_name
+    person.full_name if person
   end
   alias_method :name, :full_name
 

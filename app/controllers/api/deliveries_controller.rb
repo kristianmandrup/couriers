@@ -121,7 +121,6 @@ module Api
         delivery = Delivery.create_from :munich
         delivery.state = p_state
         
-        
         reply_update delivery, :state
       rescue Exception => e
         puts e

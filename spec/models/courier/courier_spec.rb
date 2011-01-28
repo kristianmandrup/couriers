@@ -1,22 +1,24 @@
 require 'spec_helper'
 
 describe Courier do 
-  describe 'Generate random couriers' do  
-    context '10 random couriers generated' do
-      before do
-        @couriers = Courier.create_random 10, :from => :munich, :work_state => 'available'
-      end
-    
-      it "should create 10 couriers" do
-        @couriers.size.should == 10
-      end
+  context 'Empty courier' do
+    before do
+      @courier = Courier.new
+      @courier.random_user
+    end
 
-      it "first courier should be a valid courier" do
-        courier = @couriers.first
-        courier.name.should_not be_nil
-        courier.address.should_not be_nil
-        courier.location.should_not be_nil
+    it "should be valid and should be able to save it" do    
+      if !@courier.valid? 
+        p "courier: #{@courier.inspect}"
+        p "errors: #{@courier.errors}"
       end
+      @courier.valid?.should be_true
+      # lambda { @courier.save! }.should_not raise_error
+      begin
+        @courier.save!
+      rescue Exception => e
+        p "Exception: #{e}, #{@courier.inspect}"
+      end 
     end
   end
 end

@@ -29,7 +29,6 @@ class Company
     
     def create_from options = {}
       city = extract_city options
-      puts "company city: #{city}"
       co = Company.new :name => names[city.to_sym].pick_one
       co.contact = Contact.create_from city
       co.address = Address.create_from city

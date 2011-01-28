@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Address::Canada' do
+describe Address::Canada do
   describe 'Incomplete Address creation' do
     it 'should not create a Canadian with only a street and zip_code' do
       lambda { Address.create_canada street: 'sgdsgk 12', zip_code: 123456 }.should raise_error

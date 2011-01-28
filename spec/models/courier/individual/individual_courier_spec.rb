@@ -1,12 +1,21 @@
 require 'spec_helper'
 
 describe Courier::Individual do 
-  describe 'Create random Individual Courier from munich' do
-    before do
-      @courier = Courier::Individual.create_from :munich
-    end
+  describe 'Create random courier' do
+    context 'A random courier from Munich' do
+      before do
+        @courier = Courier::Individual.create_from :munich
+      end
 
-    context 'The courier' do
+      it "should be valid and should be able to save it" do    
+        if !@courier.valid?
+          p "errors: #{@courier.errors}"
+        end
+        @courier.valid?.should be_true
+        @courier.save
+        # lambda { @courier.save! }.should_not raise_error
+      end
+
       it "should have a positive number" do    
         @courier.number.should > 0
       end
@@ -17,6 +26,10 @@ describe Courier::Individual do
       
       it "should not be available" do
         @courier.available?.should be_false
+      end
+
+      it "should have a person" do    
+        @courier.person.should_not be_nil
       end
 
       it "should have a full name" do

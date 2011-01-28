@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Address::Germany' do
+describe Address::Germany do
   describe 'Incomplete Address creation' do
     it 'should not create a German with only a street and postnr' do
       lambda { Address::Germany.create! street: 'sgdsgk 12', postnr: 123456 }.should raise_error

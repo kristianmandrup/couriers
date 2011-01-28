@@ -10,10 +10,10 @@ Mongoid.database.collections.each do |coll|
   coll.remove
 end
 
-courier = Courier::Individual::create_from :munich
-courier.save!
+# courier = Courier::Individual::create_from :munich
+# courier.save!
 
-# couriers = Courier.create_random(10, :from => :munich, :type => :individual)
+couriers = Courier.create_random(10, :from => :munich, :type => :individual)
 
 p couriers
 couriers.each {|c| c.save! }

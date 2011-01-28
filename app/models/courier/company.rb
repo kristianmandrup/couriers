@@ -3,7 +3,7 @@ class Courier::Company < Courier
 
   field :company_number, :type => Integer
   
-  embeds_one  :company, :class_name => 'Company'
+  embeds_one :company, :class_name => 'Company'
 
   def address
     company.address
@@ -45,7 +45,7 @@ class Courier::Company < Courier
     def create_from options = {}
       city = extract_city options
       co = Courier::Company.new
-      co.random_user      
+      co.random_user
       co.company = ::Company.create_from city
       co
     end

@@ -1,0 +1,5 @@
+h1. Heroku deployment
+
+Push to _tiramizoo-beta_ at heroku master: @git push heroku master@
+
+Seed the Database: @heroku rake db:seed --app tiramizoo-beta@
