@@ -1,17 +1,19 @@
 class Order::Booking
   include Mongoid::Document
 
-  embeds_one  :pickup,              :class_name => 'Order::Pickup'  
-  embeds_one  :dropoff,             :class_name => 'Order::Dropoff'  
+  field       :number,              :type => String
+  field       :description,         :type => String
 
-  field       :number,  :type => String
-  field       :package_description, :type => String
+  embeds_one  :pickup,              :class_name => 'Order::Pickup'
+  embeds_one  :dropoff,             :class_name => 'Order::Dropoff'
 
   embedded_in :waybill,         :inverse_of => :booking
-  embedded_in :delivery_state,  :inverse_of => :booking  
+  embedded_in :delivery_state,  :inverse_of => :booking
+
+  after_initialize :setup
   
   def for_json
-    {:pickup => pickup.for_json, :dropoff => dropoff.for_json, :package_description => package_description }
+    {:pop => pickup.for_json, :pod => dropoff.for_json, :description => description }
   end
 
   def into_json
@@ -27,31 +29,38 @@ dropoff: #{dropoff}
   end
 
   class << self
-    def create_empty_from city = :munich
-      booking = self.new
-      # booking.package_description = random_desc
+    include ::OptionExtractor
+    
+    def create_empty options = {}
+      booking = self.new options
+
+      # booking.description = extract_desc options
+
       booking.pickup  = Order::Pickup.new
       booking.dropoff = Order::Dropoff.new
+
       booking
     end
 
-    def create_from city = :munich
+    def create_for options = {}
       booking = self.new
-      booking.package_description = random_desc      
-      booking.pickup  = Order::Pickup.create_from city
-      booking.dropoff = Order::Dropoff.create_from city
+      booking.description = extract_desc options
+      booking.pickup      = extract_pickup options
+      booking.dropoff     = extract_dropoff options
       booking
-    end
-    
-    def random_desc
-      descriptions.pick_one      
-    end
-    
-    def descriptions
-      ["Big box", "Small box", "Large cylinder", "Heavy box", "Box with wineglasses - be careful!"]
     end
   end
   
   accepts_nested_attributes_for :pickup,  :allow_destroy => true
   accepts_nested_attributes_for :dropoff, :allow_destroy => true
+
+  protected
+
+  def counter
+    Order::Counter::Booking
+  end
+  
+  def setup
+    self.number = counter.next
+  end
 end

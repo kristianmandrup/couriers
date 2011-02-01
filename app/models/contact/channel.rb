@@ -18,21 +18,25 @@ email: #{email}
   end
   
   class << self
+    include ::OptionExtractor
     
     def phones
-      {
-        :munich => ['125215', '2346436', '343423', '574534523']
-      }
+      {:munich => ['125215', '2346436', '343423', '574534523'] }
     end
 
     def emails
-      {
-        :munich => ['blip@mail.de', 'blap.blop@mail.de', 'zander@telekom.de', 'jurgen@flashcom.de']
-      }
+      { :munich => ['blip@mail.de', 'blap.blop@mail.de', 'zander@telekom.de', 'jurgen@flashcom.de'] }
+    end
+
+    def create_for options = {}
+      city = extract_city options
+      channel = Contact::Channel.new 
+      channel.phone = phones[city.to_sym].pick_one
+      channel.email = emails[city.to_sym].pick_one
+      channel
     end
     
     def create_from city = :munich
-      city ||= :munich
       Contact::Channel.new :phone => phones[city.to_sym].pick_one, :email => emails[city.to_sym].pick_one
     end
   end

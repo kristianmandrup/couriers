@@ -1,7 +1,7 @@
 class Delivery
   include Mongoid::Document
   
-  embeds_one :waybill, :class_name => 'Order::Waybill'
+  embeds_one :waybill,  :class_name => 'Order::Waybill'
   embeds_one :location
 
   embedded_in :courier, :inverse_of => :delivery
@@ -31,7 +31,7 @@ waybill:
   end
 
   def travel_mode
-    'biking'
+    courier.travel_mode
   end
   
   def pickup
@@ -43,45 +43,29 @@ waybill:
   end 
   
   class << self
-    include ::AddressHelper
+    include ::OptionExtractor
         
-    def delivery_states
+    def valid_states
       [:accepted, :cancelled, :picked_up, :delivered, :billed]
     end    
-
-    def create_from_booking booking
-      delivery = self.new :state => :accepted
-      delivery.waybill = Order::Waybill.create_from_booking booking
-      delivery.location = delivery.pickup.location # initial location of delivery is at pickup
-      delivery.timestamp = Time.now
-      delivery
-    end
         
-    def create_random
-      delivery = self.new :state => random_delivery_state
-      delivery.waybill  = Order::Waybill.create_from :munich
-      delivery.location = Location.create_from :munich
-      delivery
-    end
-
-    def create_from options = {}      
-      city = extract_city options
-
-      delivery = self.new :state => random_delivery_state
-
-      delivery.location = Location.create_from_city city
-      delivery.waybill  = Order::Waybill.create_from city
+    def create_for options = {}
+      delivery = self.new      
+      delivery.state    = extract_delivery_state(options)
+      delivery.location = extract_location(options)
+      delivery.waybill  = extract_waybill(options)
       delivery
     end
     
-    protected
-
-    def setup
-      self.number = rand(100) + 1
-    end
-    
-    def random_delivery_state
-      delivery_states.pick_one
-    end
   end
+
+  protected
+
+  def counter
+    Order::Counter::Delivery
+  end
+  
+  def setup
+    self.number = counter.next
+  end  
 end

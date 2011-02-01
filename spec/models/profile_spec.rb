@@ -20,9 +20,9 @@ describe Profile do
   end
   
   it 'should create a profile' do
-    profile_1 = Profile.create description: 'blip', webpage_url: 'http://www.ged.de', avatar: 'my_pic.jpg'
-    profile_1.description.should == 'blip'
-    profile_1.webpage_url.should == 'http://www.ged.de'
-    profile_1.avatar.should == 'my_pic.jpg'
+    profile = Profile.create description: 'blip', webpage_url: 'http://www.ged.de', avatar: 'my_pic.jpg'
+    profile.description.should == 'blip'
+    profile.webpage_url.should == 'http://www.ged.de'
+    profile.avatar.should == 'my_pic.jpg'
   end
 end

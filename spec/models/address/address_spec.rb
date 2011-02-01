@@ -30,5 +30,5 @@ describe Address do
       a = Address.create city: 'blip', country: 'USA'
       test_blanks a, :street 
     end
-  end
+  end  
 end

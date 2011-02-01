@@ -15,8 +15,10 @@ end
 
 couriers = Courier.create_random(10, :from => :munich, :type => :individual)
 
-p couriers
-couriers.each {|c| c.save! }
+couriers.each do |courier| 
+  puts courier
+  courier.save!
+end  
 
 puts "In database"
 

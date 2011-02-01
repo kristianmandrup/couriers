@@ -10,12 +10,9 @@ module Order
       dropoff_point = quote[:dropoff_point].strip
       vehicle       = quote[:vehicle]
     
-      pickup_address   = Address.create_from_point pickup_point
-      dropoff_address  = Address.create_from_point dropoff_point
-
-      @booking = Order::Booking.create_empty_from :city => 'Munich'
-      @booking.pickup.address   = pickup_address
-      @booking.dropoff.address  = dropoff_address
+      @booking = Order::Booking.create_empty
+      @booking.pickup.address   = Address.create_from_point pickup_point
+      @booking.dropoff.address  = Address.create_from_point dropoff_point
     
       session[:booking] = @booking
             

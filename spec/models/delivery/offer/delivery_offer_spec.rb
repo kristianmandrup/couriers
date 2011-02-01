@@ -1,31 +1,29 @@
 require 'spec_helper'
 
 describe Delivery::Offer do 
-  before do
-    @booking = Order::Booking.create_from :munich
-    @couriers = Courier.create_random 3
-  end
+  context 'Offer from Munich' do
+    before do
+      @offer = Delivery::Offer.create_for @couriers
+    end
 
-  it 'should create a new delivery offer from a city' do
-    offer = Delivery::Offer.create_from :munich
-    puts "offer: #{offer}"
+    it "should be valid and should be able to save it" do
+      if !@offer.valid?
+        p "errors: #{@offer.errors}"
+      end
+      @offer.valid?.should be_true
+      lambda { @offer.save! }.should_not raise_error
+    end
   end
   
-  it 'should create a new delivery offer from a booking' do
-    offer = Delivery::Offer.create_from_booking @booking
-    puts "offer: #{offer}"
-  end
-
-  it 'should create a new delivery offer from a booking and then set courier requests' do
-    offer = Delivery::Offer.create_from_booking @booking
-    offer.for_couriers @couriers
-    puts "offer: #{offer}"
-  end
-  
-  it 'should create a new delivery offer' do    
-    offer = Delivery::Offer.create_for @booking, @couriers
-    puts "offer: #{offer}"    
-    puts "booking: #{offer.booking}"
-    puts "requests: #{offer.delivery_requests}"
-  end
+  context 'Offer with a Booking' do
+    before do  
+      @booking = Order::Booking.create_empty
+      @couriers = Courier.create_random 3
+      @offer = Delivery::Offer.create_for @couriers, :booking => @booking
+    end
+    
+    it 'should create a new delivery offer from a booking' do
+      @offer.valid?.should be_true
+    end    
+  end 
 end

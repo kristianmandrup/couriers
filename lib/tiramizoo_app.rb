@@ -5,13 +5,17 @@ module TiramizooApp
     end
     
     def geocoder
-      GeoMagic.geo_coder(:env => :rails).instance
+      geocoder_context.instance
     end   
-              
-    def env 
-      ENV['HEROKU_SITE'] || Rails.env.downcase || 'development'
-    end
 
+    def geocoder_context
+      @geocoder_context ||= GeoMagic.geo_coder(:env => :rails).configure
+    end   
+
+    def google_key
+      geocoder_context.google_key
+    end
+              
     def load_streets city
       country_code = country_code_of(city)
       city = city.to_s
@@ -37,4 +41,3 @@ module TiramizooApp
     }  
   end
 end
-  

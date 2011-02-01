@@ -42,9 +42,10 @@ describe Person do
   describe 'Create random person' do  
     it 'should create a valid person' do
       pers = Person.create_from :munich      
-      p "errors: #{pers.errors}"
+      if !pers.valid? 
+        p "errors: #{pers.errors}"
+      end
       pers.valid?.should be_true
-      p pers
     end
     
     it 'should create and save a valid person' do

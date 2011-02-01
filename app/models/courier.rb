@@ -2,7 +2,8 @@ class Courier < User
   include Mongoid::Document
 
   field       :number,            :type => Integer
-    
+  
+  embeds_one  :working_hours,     :class_name => TimePeriod  
   embeds_one  :bank_account
   embeds_one  :price_structure
   
@@ -13,28 +14,15 @@ class Courier < User
   field       :work_state,        :type => String
   
   # a delivery offer can reference the courier of that offer
-  referenced_in :offer, :inverse_of => :courier
+  referenced_in :offer,   :inverse_of => :courier, :class_name => "Delivery::Offer"  
+  referenced_in :request, :inverse_of => :courier, :class_name => "Delivery::Request"  
   
   validates :work_state, :work_state => true
   
   after_initialize :set_work_state, :set_number
 
   # API methods
-
-  def get_state
-    {:work_state => work_state}
-  end
-  
-  # id/number is temporary until we have authentication in place!
-  def get_info
-    # number.to_s    
-    options = {:id => "1", :work_state => work_state, :travel_mode => travel_mode}
-    options.merge!(:current_delivery => delivery) if delivery
-    options
-    # Courier::Info.new options
-  end
-
-  # convenience methods
+  include Api
 
   def current_delivery
     delivery
@@ -59,11 +47,7 @@ class Courier < User
   def location
     raise "#location method must be implemented by subclass"    
   end
-  
-  def get_location
-    raise "#location method must be implemented by subclass"    
-  end
-  
+    
   def address
     raise "#address method must be implemented by subclass"    
   end
@@ -81,11 +65,7 @@ class Courier < User
     p = rand(10) + rand(6) + 5
     "#{p} euro"
   end
-  
-  def for_json
-    {:eta => eta, :rating => rating, :price => price}
-  end
-  
+    
   protected
   
   def set_work_state
@@ -98,53 +78,24 @@ class Courier < User
   end 
   
   class << self
-    include ::AddressHelper
+    include ::OptionExtractor
     
-    def work_states
+    def valid_work_states
       [:available, :not_available]
     end    
-    
-    def create_individual options = {}
-      ci = Courier::Individual.new options
-      ci.random_user
-      ci.person = options[:person] if options[:person]
-      ci.person.address = options[:address] if options[:address]
-      ci.delivery = Delivery.create_from options
-      ci.work_state = work_states[0].to_s
-      ci
-    end
-  
-    def create_company options = {}
-      co = Courier::Company.new
-      co.random_user
-      co.company = Company.create_from options
-      co
-    end
-  
-    def create_from options = {}
-      city = extract_city options
-      type ||= [:individual, :company].pick_one
-  
-      case type
-      when :individual        
-        create_individual options
-      when :company
-        create_company options
-      end
-    end
-    
+          
     def available
       in_db = Courier.all.to_a
       in_db.empty? ? create_random(6, :from => :munich, :type => :individual) : in_db
     end
     
     def create_one_random options = {}
-      create_from(options)
+      create_courier(options)
     end
     
     def create_random number, options = {}
       number.times.inject([]) do |res, n| 
-        res << create_from(options)
+        res << create_one_random(options)
         res 
       end
     end

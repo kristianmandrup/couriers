@@ -2,7 +2,7 @@ class WorkStateValidator < ActiveModel::EachValidator
 
   # ready|accepted|cancelled|arrived_at_pickup|arrived_at_dropoff|billed
   def valid_states
-    Courier.work_states
+    Courier.valid_work_states
   end
 
   def validate_each(record, attribute, value)

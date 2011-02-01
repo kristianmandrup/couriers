@@ -5,14 +5,17 @@ class Location
   field :latitude, :type => Float
   field :longitude, :type => Float
 
+  module Api
+    def for_json
+      {:latitude => latitude, :longitude => longitude }
+    end
+  end
+  include Api
+
   def move dlat, dlong
     self.latitude = (lat + dlat.to_f).to_s
     self.longitude = (lng + dlong.to_f).to_s
     self    
-  end
-
-  def for_json
-    {:latitude => latitude, :longitude => longitude }
   end
 
   def lat
@@ -38,9 +41,9 @@ class Location
   end
   
   class << self
+    include ::OptionExtractor
 
     def create_from_params params 
-      puts "create_from_params: #{params.inspect}"
       self.new :latitude => params[:latitude].to_f, :longitude => params[:longitude].to_f
     end
 
@@ -66,15 +69,18 @@ class Location
       loc = TiramizooApp.geocoder.geocode "#{street}, #{city}"
       create_from_location loc.location_hash
     end
+
+    def create_for options = {}
+      city = extract_city options
+      street = streets(city).pick_one      
+      loc = TiramizooApp.geocoder.geocode "#{street}, #{city}"
+      create_from_location loc.location_hash
+    end
+
+    protected
     
     def streets city = :munich
       TiramizooApp.load_streets(city)
-    end 
-
-    # YAML.load_file("#{Rails.root}/config/available_cities.#{locale}.yml")
-    def available_cities
-      @available_cities ||= t 'cities.germany'
     end
-  end 
-  
+  end
 end

@@ -7,27 +7,35 @@ class Person
   embeds_one :address
   embeds_one :profile
 
+  module Api
+    def for_json
+      {:name => name.for_json, :address => address.for_json}
+    end
+  end
+  include Api
+
   def full_name
     name.full_name
   end
 
-  def for_json
-    {:name => name.for_json, :address => address.for_json}
+  def to_s
+%Q{
+name: #{name}
+address:
+#{address}
+profile:
+#{profile}
+}    
   end
 
   class << self   
-    
-    def create_from city = :munich  
+    include ::OptionExtractor
+        
+    def create_for options = {}
       person = Person.new 
-      person.name = Person::Name.create_from city
-      person.address = Address.create_from city
-      person
-    end    
-    
-    def create_with options = {}
-      person = Person.new 
-      p.address = options[:address]
-      person.name = Person::Name.new :first_name => options[:first_name], :last_name => options[:last_name]
+      options = get_options(options)
+      person.address  = extract_address options
+      person.name     = extract_person_name options
       person
     end
   end

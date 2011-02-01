@@ -4,7 +4,7 @@ describe Courier::Individual do
   describe 'Create random courier' do
     context 'A random courier from Munich' do
       before do
-        @courier = Courier::Individual.create_from :munich
+        @courier = Courier::Individual.create_for :address => {:city => 'munich', :random => true}, :person => {:first_name => 'Michael'}
       end
 
       it "should be valid and should be able to save it" do    
@@ -24,10 +24,6 @@ describe Courier::Individual do
         @courier.travel_mode.should match /\S+/
       end
       
-      it "should not be available" do
-        @courier.available?.should be_false
-      end
-
       it "should have a person" do    
         @courier.person.should_not be_nil
       end

@@ -1,38 +1,38 @@
 class Company
   include Mongoid::Document
 
-  field :name, :type => String
+  field       :name, :type => String
   
-  embeds_one :address
-  embeds_one :contact
-  embeds_one :profile
+  embeds_one  :address
+  embeds_one  :contact
+  embeds_one  :profile
 
-  embeds_one :channel, :class_name => 'Contact::Channel'
+  embeds_one  :channel, :class_name => 'Contact::Channel'
 
-  def for_json
-    {:name => name, :address => address.for_json, :contact => contact.for_json }
+  module Api
+    def for_json
+      {:name => name, :address => address.for_json, :contact => contact.for_json }
+    end
   end
+  include Api
 
   validates :name, :presence => true, :length => {:within => 2..40}, :company_name => true  
 
   after_initialize :strip_name
 
   class << self
+    include ::OptionExtractor
 
     def names
-      {
-        :munich => ['messenger', 'twister', 'courier AG']
-      }
+      ['messenger', 'twister', 'courier AG']
     end
-
-    include ::AddressHelper
     
-    def create_from options = {}
-      city = extract_city options
-      co = Company.new :name => names[city.to_sym].pick_one
-      co.contact = Contact.create_from city
-      co.address = Address.create_from city
-      co
+    def create_for options = {}
+      company = Company.new 
+      company.name    = names.pick_one
+      company.contact = extract_contact options
+      company.address = extract_address options
+      company
     end
   end
     

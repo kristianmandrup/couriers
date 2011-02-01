@@ -25,6 +25,10 @@ class Address::Usa < Address
   private 
 
   country 'USA'
+
+  def self.random_street
+    streets(:new_york).pick_one
+  end
               
   # http://www.funonrails.com/2010/08/zipcode-validation-using-geokit-in.html  
     

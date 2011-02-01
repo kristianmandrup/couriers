@@ -1,4 +1,9 @@
 class TimePeriod
+  include Mongoid::Document
+  
+  field :street,        :type => Time
+  field :city,          :type => Time
+  
   def self.to_s time_period
     out_str = ''
     interval_array = [ [:weeks, 604800], [:days, 86400], [:hours, 3600], [:mins, 60] ]
@@ -11,5 +16,5 @@ class TimePeriod
       end
     end
     return out_str 
-  end
+  end  
 end

@@ -51,10 +51,16 @@ module Order
     # }
     # --------------------------------------------------------------------------------
     def show
-      # sends delivery offer info without contact information to each courier
-      couriers_to_notify.each do |id|
-        p "sending deliver info to delivery channel for courier: #{id}"
-        courier_channel(id).publish :delivery_offer => delivery_offer.get_initial_info
+      begin
+        delivery_offer = Delivery::Offer.create_from :munich
+        delivery_offer.save
+        # sends delivery offer info without contact information to each courier
+        couriers_to_notify.each do |id|
+          p "sending deliver info to delivery channel for courier: #{id}"
+          courier_channel(id).publish :delivery_offer => delivery_offer.get_initial_info
+        end
+        rescue Exception => e
+          puts "delivery_offers#show: #{e}"
       end
     end    
 

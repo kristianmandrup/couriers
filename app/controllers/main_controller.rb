@@ -12,6 +12,7 @@ class MainController < InheritedResources::Base
   # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
   def index
     @quote = Order::Quote.new
+    @fields = [:pickup_point, :dropoff_point]
   end
 
   def init_user

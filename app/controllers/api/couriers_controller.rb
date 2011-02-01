@@ -33,6 +33,31 @@ module Api
 
     # before_filter :authenticate_user!
 
+    # --------------------------------------------------------------------------------
+    # Set current courier settings
+    # 
+    # couriers/:id/settings :put
+    # {
+    #   vehicle: 'bike',
+    #   working_hours: {
+    #     from: '9:30',
+    #     to:   '15:15'
+    #   }
+    # }  
+    def settings
+      begin 
+        @courier = current_courier
+        @courier.current_vehicle    = p_vehicle # see couriers_helper
+        @courier.working_hours.from = p_working_hours["from"] # see couriers_helper
+        @courier.working_hours.to   = p_working_hours["to"] # see couriers_helper
+        @courier.save!
+        reply_update(@courier, :settings)
+      rescue Exception => e
+        puts e
+        reply_update_error(@courier, :settings)
+      end      
+    end
+
     # Get current courier info
     # couriers/:id/info :get
     

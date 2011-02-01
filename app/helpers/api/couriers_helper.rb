@@ -23,6 +23,14 @@ module Api
       params[:work_state]
     end
 
+    def p_vehicle
+      params[:vehicle]
+    end
+
+    def p_working_hours
+      params[:working_hours]
+    end
+
     # for bounding rectangle calculation: nearby couriers
     def ne_longitude
       params[:ne_longitude].to_f

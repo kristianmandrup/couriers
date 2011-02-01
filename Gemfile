@@ -8,6 +8,8 @@ group :development, :test do
   gem "rspec", ">= 2.4.0"
   gem "rspec-rails", ">= 2.4.0"  
 
+  gem 'timecop'
+
   # cucumber-fm  
   gem "diff-lcs"
   gem "rest-client"
@@ -20,8 +22,16 @@ gem 'formtastic', '>= 1.1.0', :git => 'https://github.com/kristianmandrup/formta
 # gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 
+# Background job, see http://blog.redistogo.com/2010/07/26/resque-with-redis-to-go/
+gem 'resque'
+# gem 'SystemTimer'
+
+# JQuery Autocomplete
+gem 'rails3-jquery-autocomplete'
+
+
 # Geo libraries
-gem "geo_magic", ">= 0.2.4" # :path => '/Users/kristianconsult/ruby-gems/geo_magic' #, 
+gem "geo_magic", ">= 0.2.4.3" # :path => '/Users/kristianconsult/ruby-gems/geo_magic' #, 
 gem "graticule"
 gem "geocode"
 

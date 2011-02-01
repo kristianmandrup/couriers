@@ -22,23 +22,14 @@ class Person::Name
   end
 
   class << self
-    def first_names city = :munich
-      {
-        :munich     => ['Michael', 'Florian', 'Martin', 'Mathias', 'Julia', 'Lena'],
-        :vancouver  => ['Mike', 'David', 'John', 'Sandy', 'Rick', 'Tracy'],
-      }
-    end 
+    include ::OptionExtractor
 
-    def last_names city = :munich
-      {
-        :munich     => ['Loehr', 'Walz', 'Blau', 'Schwarz'],
-        :vancouver  => ['Jackson', 'Smith', 'Johnson', 'Meeker', 'Donovan', 'Gray'],
-      }
-    end 
-
-    def create_from city = :munich
-      city ||= :munich
-      Person::Name.new :first_name => first_names[city.to_sym].pick_one , :last_name => last_names[city.to_sym].pick_one
+    def create_for options
+      city = extract_city options
+      name = Person::Name.new 
+      name.first_name = extract_first_name options
+      name.last_name  = extract_last_name options
+      name
     end
   end
     

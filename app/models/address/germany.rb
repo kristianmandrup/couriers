@@ -8,7 +8,7 @@ class Address::Germany < Address
 
   # validates_presence_of     :postnr   
 
-  validates :postnr, :german_postnr => true
+  # validates :postnr, :german_postnr => true
   
   # validates_length_of       :postnr,    :within => 5..5
   # validates_numericality_of :postnr,    :greater_than_or_equal_to => 1, :less_than => 999999
@@ -40,6 +40,10 @@ class Address::Germany < Address
   private 
 
   country 'Germany'
+
+  def self.random_street
+    streets(:munich).pick_one
+  end  
               
   # http://www.funonrails.com/2010/08/zipcode-validation-using-geokit-in.html  
     

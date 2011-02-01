@@ -7,4 +7,12 @@ class Profile
   field :avatar,      :type => String # file upload of profile picture
   
   embedded_in :courier, :inverse_of => :profile
+  
+  def to_s
+%Q{
+description: #{description}
+webpage: #{webpage_url}
+avatar: #{avatar}
+}
+  end
 end

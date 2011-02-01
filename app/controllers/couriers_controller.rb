@@ -3,7 +3,6 @@ class CouriersController < ActionController::Base
   
   def select
     p "companies selected: #{companies_selected}"
-    p "individual couriers selected: #{individuals_selected}"
-    
+    p "individual couriers selected: #{individuals_selected}"    
   end
 end

@@ -8,18 +8,6 @@ class Address
 
   embeds_one  :location
 
-  # API method
-
-  def for_json
-    {:street => street, :city => city, :country => country}
-  end
-  
-  def get_street
-    {:street => street}
-  end
-
-  # conv. method
-
   #  returns the string representing the address / the address
   def to_s
     %Q{#{street}
@@ -29,38 +17,41 @@ class Address
   end
 
   def as_string
-    "#{street}, #{city}, #{country}"
+    [street, city, country].compact.join(', ')
   end
 
   def locate! point_string = nil
-    point_string ||= as_string
+    point_string ||= as_string 
     raise "Address can't be located without a street" if point_string.blank?
     begin             
       loc = TiramizooApp.geocoder.geocode(point_string)
-
-      status = loc.data["Status"]
-      if status
-        if status["code"] == '620'
-          p "Location #{point_string} couldn't be found"
-          return
-        end
-      end
-
-      self.location = Location.new :latitude => loc.latitude, :longitude => loc.longitude
+      self.street         = loc.street if loc.street
+      self.country        = loc.country if loc.country
+      self.country_code   = loc.country_code if loc.country_code
+      self.zip            = loc.zip if loc.zip      
+      self.location       = Location.new :latitude => loc.latitude, :longitude => loc.longitude
+    rescue GeoMagic::GeoCodeError => gle
+      p "Geocode error: #{gle}"      
     rescue Exception => e
-      p "Locate exception from #{point_string}: #{e}"
-      p "geocoder: #{GeoMap.geo_coder.instance}"
+      p "Locate exception from #{point_string}: #{e}"      
     end
     self
   end
-  
-  validates_presence_of :street, :city, :country
 
-  class << self
+  validates_presence_of :street
+  validates_presence_of :city, :country
+
+  class << self 
+    include ::OptionExtractor
+    
     def country name
       define_method :get_country do
         name
       end
+    end
+
+    def cities_available
+      [:munich, :berlin]
     end
 
     def countries_available
@@ -72,16 +63,11 @@ class Address
       if !point_string.blank?        
         begin             
           loc = TiramizooApp.geocoder.geocode point_string
-          status = loc.data["Status"]
-          if status
-            if status["code"] == '620'
-              p "Location #{point_string} couldn't be found"
-              return create_empty
-            end
-          end
           address = create_address loc.address_hash
           address.location = Location.new loc.location_hash
           return address
+        rescue GeoMagic::GeoCodeError => gle
+          p "Geocode error: #{gle}"
         rescue Exception => e
           p "Locate exception from #{point_string}: #{e}"
           p "geocode location: #{loc.inspect}"
@@ -95,18 +81,15 @@ class Address
     end
 
     # city => :munich
-    def create_address address_options = {}
-      case get_city address_options[:city] 
+    def create_for options = {}
+      options = get_options(options)
+      city = extract_city options
+      case city.to_sym
       when :munich
-        create_germany address_options
+        create_germany options
       else
-        create_canada address_options
+        create_canada options
       end
-    end
-
-    def get_city city
-      return :munich if city.downcase =~ /m.*ch.*/
-      :vancouver
     end
 
     def create_from city = :munich
@@ -127,11 +110,13 @@ class Address
   countries_available.map(&:to_s).each do |country|
     class_eval %{
       def self.create_#{country} *args
-        Address::#{country.to_s.classify}.new *args
+        clazz = Address::#{country.to_s.classify}
+        address = clazz.new *args
+        address.street = clazz.random_street if args.first.delete(:random) || address.street.blank?
+        address.locate!        
       end
     }
   end
-
 
   protected
   

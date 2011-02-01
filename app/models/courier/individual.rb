@@ -1,21 +1,22 @@
 class Courier::Individual < Courier
   include Mongoid::Document
 
-  field :courier_number, :type => Integer
-  embeds_one :person 
+  field       :courier_number, :type => Integer
+  embeds_one  :person 
 
   # API methods
 
-  def for_json
-    {:email => email, :person => person.for_json}.merge super
+  module Api
+    def for_json
+      {:email => email, :person => person.for_json}.merge super
+    end
+    
+    def get_location
+      {:location => address.location.for_json}
+    end    
   end
-
-  def get_location
-    {:location => address.location.for_json}
-  end
-
-  # convenience methods
-
+  include Api
+  
   def address
     person.address
   end
@@ -49,28 +50,37 @@ class Courier::Individual < Courier
   end
   alias_method :name, :full_name
 
+  def to_s
+    %Q{
+number: #{courier_number}
+type: #{type}
+person: #{person}
+}
+  end
+
   protected
 
+  def counter
+    Courier::Counter::Individual
+  end
+
   def set_number    
-    self.courier_number = Courier::Counter.inc_courier
+    self.courier_number = counter.next
     super
     save
   end
   
   class << self
-    include ::AddressHelper
+    include ::OptionExtractor
     
-    def all_from city = :munich
-      where :city => city
-    end
-
-    def create_from options = {}
-      city = extract_city options
-      co = Courier::Individual.new
-      co.random_user
-      co.person = Person.create_from city
-      co 
-    end
+    def create_for options = {}   
+      courier = Courier::Individual.new
+      courier.random_user
+      courier.person      = Person.create_for options
+      courier.delivery    = Delivery.create_for options
+      courier.work_state  = extract_work_state options
+      courier
+    end    
   end
 end
 

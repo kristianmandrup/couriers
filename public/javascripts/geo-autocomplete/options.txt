@@ -1,0 +1,11 @@
+Option | 	Description
+===================
+delay	    - The delay in milliseconds the Autocomplete waits after a keystroke to activate itself. Default is 300, so that the Geocoding Service is not hammered too often.
+minLength -	The minimum number of characters a user has to type before the Autocomplete activates. Default is 3, so that the Geocoding Service is not hammered too often.
+mapwidth 	- Static map width in pixels. Default is 100.
+mapheight -	Static map height in pixels. Default is 100.
+maptype 	- Defines the type of map. Default is 'terrain'. More options.
+
+geocoder_region  - Filter suggested locations to a specific region, e.g. 'Europe'
+geocoder_types 	 - Filter suggested locations to particular location types. Default is 'locality,political,sublocality,neighborhood,country'.
+geocoder_address - true = use the full formatted address, false = use only the segment that matches the search term. Default is false.

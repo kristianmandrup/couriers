@@ -1,11 +1,11 @@
 class Delivery::Request
   include Mongoid::Document
 
-  field :time_notified, :type => Time
   field :state,         :type => String
-  references_one        :courier, :class_name => 'Courier'  
+  field :time_notified, :type => Time
   
-  embedded_in :delivery_offer, :inverse_of => :delivery_request
+  references_one  :courier #,         :class_name => 'Courier'
+  embedded_in     :delivery_offer,  :inverse_of => :delivery_request
 
   validates :state, :delivery_request_state => true
   
@@ -19,26 +19,7 @@ courier: #{courier.full_name}
   end
 
   def set_state new_state
-    puts "Request #set_state with: #{new_state}"
-    raise DeliveryAlreadyTakenError, "Customer accepted delivery response of another courier" if locked? new_state
-    raise DeliveryTimeOutError, "Your response was too late" if time_out? new_state
     @state = new_state
-  end
-
-  def locked? new_state 
-    case new_state.to_sym
-    when :accepted
-      return  @state != 'notified'
-    end
-    false
-  end
-
-  def time_out? new_state
-    case new_state.to_sym    
-    when :accepted
-      @time_notified - Time.now > 20.seconds
-    end
-    false
   end
 
   class << self      
