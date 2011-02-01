@@ -49,13 +49,13 @@ $().ready(function() {
   
   def courier_location_script loc, text = ''
     ""
-#     s = "jQuery(function(){
-#     TIRAMIZOO.map.setCourierLocation({
-#       latitude: #{loc.lat}, 
-#       longitude: #{loc.lng}, 
-#       text: '#{text}'
-#   });
-# });"    
+    s = "jQuery(function(){
+    TIRAMIZOO.map.setCourierLocation({
+      latitude: #{loc.lat}, 
+      longitude: #{loc.lng}, 
+      text: '#{text}'
+  });
+});"    
   end
 
   # TIRAMIZOO.map.setMapCenter({
@@ -64,8 +64,7 @@ $().ready(function() {
   #   text: '#{text}'
   # });
   def your_location_script # loc, text = ''
-    s = "jQuery(function(){ 
-    console.log('map defined?', TIRAMIZOO.map); 
+    s = "jQuery(function(){
     TIRAMIZOO.map.init();
     TIRAMIZOO.mapAuto.init();
 });"    

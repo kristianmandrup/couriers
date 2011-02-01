@@ -175,7 +175,7 @@ TIRAMIZOO.map = (function (app, $) {
     g = google.maps,
     map,
     mapOptions = {
-        zoom: 15,
+        zoom: 14,
         center: new g.LatLng(48.1359717, 11.572207),
         mapTypeId: g.MapTypeId.ROADMAP,
         mapTypeControl: false,
@@ -192,18 +192,37 @@ TIRAMIZOO.map = (function (app, $) {
     currentLocationMarker,
     nearbyCourierMarkers,
     directionsRenderer,
+    courierLocations = [],
+    courierLocationMarkers = [],
     currentRoute;
 
     function init() {
-        console.log("Center:", mapOptions.center);
         canvas = document.getElementById("map-canvas")
-        console.log("mapOptions:", mapOptions);
-        console.log("canvas:", canvas);
         map = new g.Map(canvas, mapOptions);
-        // currentLocationMarker = new g.Marker({map: map, position: mapOptions.center, title: "YOU!"});
-        // updatePosition({latitude: mapOptions.center.lat(), longitude: mapOptions.center.lng()});
-        // events.add("geolocationUpdated", getlocationUpdated);
+        currentLocationMarker = new g.Marker({map: map, position: mapOptions.center, title: "YOU!"});
+        updatePosition({latitude: mapOptions.center.lat(), longitude: mapOptions.center.lng()});
+        events.add("geolocationUpdated", getlocationUpdated);
     }
+
+    function setCourierLocation(position) {
+        text = position.text || "A Courier";
+        // console.log("setCourierLocation: lat:" + position.latitude + ", long:" + position.longitude + " text:" + text);
+        courierLocation = new google.maps.LatLng(position.latitude, position.longitude);
+
+        var icon = '/images/bike32.png';                
+
+        courierLocationMarker = new google.maps.Marker({
+            map: map,
+            title: text,
+            icon: icon
+        });
+        
+        courierLocationMarker.setPosition(courierLocation);
+
+        courierLocations.push(courierLocation);
+        courierLocationMarkers.push(courierLocation);
+    }
+
 
     function getlocationUpdated(event, position) {
         updatePosition(position);
@@ -358,6 +377,7 @@ TIRAMIZOO.map = (function (app, $) {
     return  { 
         fitBounds: fitBounds,
         init: init,
+        setCourierLocation: setCourierLocation,
         showMyLocation: showMyLocation,
         toggleNearbyCouriers: toggleNearbyCouriers,
         hideNearbyCouriers: hideNearbyCouriers,

@@ -5,7 +5,10 @@
   = javascript_include_tag  'geo-autocomplete/jquery-ui-1.8.5.custom.min.js', 'autocomplete-rails.js'
   = stylesheet_link_tag     'jquery-ui-1.8.5.custom.css', "jquery.autocomplete.css"  
   = geo_autocomplete_for :order_booking_pickup_address_street, :order_booking_dropoff_address_street
-  = center_map_on_your_location
+  = center_map_on_your_location 
+  - @available_couriers.each do |courier|
+    = draw_courier_location(courier.location)  
+  
 
 %h2 Booking
 
