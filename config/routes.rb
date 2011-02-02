@@ -70,30 +70,30 @@ Tiramizoo::Application.routes.draw do
 
   resources :guests
 
-  devise_for :users, :admins
+  devise_for :admins # :users
 
   devise_for :individual_couriers, :class_name => 'Courier::Individual'
   as :individual_courier do
-    match "/individual_couriers/sign_up" => "registrations#new", :as => :courier_signup
-    match "/individual_couriers/sign_in" => "main#index", :as => :courier_signin
+    get   "/sign_up" => "registrations#new",  :as => :courier_signup
+    get   "/sign_in" => "main#index",         :as => :courier_signin
   end
 
   devise_for :courier_companies, :class_name => 'Courier::Company'
   as :courier_company do
-    match "/courier_companies/sign_up" => "registrations#new", :as => :courier_company_signup
-    match "/courier_companies/sign_in" => "main#index", :as => :courier_company_signin    
+    get   "sign_up" => "registrations#new",   :as => :courier_company_signup
+    get   "/sign_in" => "main#index",         :as => :courier_company_signin    
   end
 
   devise_for :privates_customers, :class_name => 'Customer::Private'
   as :private_customer do
-    match "/private_customers/sign_up" => "devise/registrations#new", :as => :private_customer_signup
-    match "/private_customers/sign_in" => "main#index", :as => :private_customer_signin        
+    get   "/sign_up" => "registrations#new",  :as => :private_customer_signup
+    get   "/sign_in" => "main#index",         :as => :private_customer_signin        
   end
 
   devise_for :professional_customers, :class_name => 'Customer::Professional'
   as :professional_customer do
-    match "/professional_customers/sign_up" => "devise/registrations#new", :as => :professional_customer_signup
-    match "/professional_customers/sign_in" => "main#index", :as => :professional_customer_signin            
+    get   "/sign_up" => "registrations#new",  :as => :professional_customer_signup
+    get   "/sign_in" => "main#index",         :as => :professional_customer_signin            
   end
 
   # namespace :admin do
