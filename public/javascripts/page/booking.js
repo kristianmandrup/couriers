@@ -15,12 +15,18 @@ jQuery(function ($) {
     var maxCouriers = 3;    
     var couriersSelected = $('form#new_order_booking input[type=checkbox]:checked').length;
 
+    classesSelected = [];
+
     function clickCourierItem() {
-      number = $(this).find('td.number').text().trim();
+      elem = $(this);
+      number = elem.find('td.number').text().trim();
       checkbox = $('form#new_order_booking').find('input[type=checkbox][value=' + number + ']');
       if (!checkbox.is(':checked')) {
-        if (couriersSelected < maxCouriers) {
-          couriersSelected += 1;
+        if (couriersSelected < maxCouriers) {          
+          couriersSelected += 1; 
+          clsName = firstClassNotSelected(classesSelected);
+          classesSelected.push(clsName);
+          elem.addClass(clsName);          
           checkbox.attr('checked', true);
           displaySelected(couriersSelected);
         } else {
@@ -30,6 +36,9 @@ jQuery(function ($) {
       else {
         if (checkbox.is(':checked')) {
           if (couriersSelected > 0) {
+            clsName = whichClass(elem);
+            removeSelectedClass(clsName)
+            elem.removeClass(clsName);
             couriersSelected -= 1;
           }
           checkbox.attr('checked', false);
@@ -39,6 +48,28 @@ jQuery(function ($) {
     }
     
     displaySelected(couriersSelected);
+
+    function firstClassNotSelected(list) {
+      found = [1, 2, 3].filter(function(elem, i) {
+        return list.indexOf("selected_" + elem) < 0;
+      });
+      return "selected_" + found[0];
+    }
+
+    function removeSelectedClass(clsName) {
+      $.each([1, 2, 3], function(i, val) {
+        if (classesSelected[i] == clsName) {
+          classesSelected.splice(i, 1);
+        }
+      });
+    }
+
+    function whichClass(obj) {
+      found = [1, 2, 3].filter(function(elem, i) {
+        return obj.hasClass("selected_" + elem);
+      });
+      return "selected_" + found[0];
+    }
 
     function warnMaxSelected() {
       $('#couriers_msg .warning').text('You can only select up to ' + maxCouriers + ' couriers ');      

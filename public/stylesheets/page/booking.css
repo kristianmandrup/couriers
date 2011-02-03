@@ -10,4 +10,15 @@
   color: red;
 }
   
+
+.courier_item.selected_3 td {
+  background: #bba !important;
+}
   
+.courier_item.selected_2 td {
+  background: #ccb !important;
+}
+
+.courier_item.selected_1 td {
+  background: #ddc !important;
+}
