@@ -140,6 +140,17 @@ TIRAMIZOO.geolocation = (function (app, $) {
 
 }(TIRAMIZOO, jQuery));
 
+/**
+ * Courier
+ */
+
+TIRAMIZOO.courier = {
+    AVAILABLE: "available",
+    NOT_AVAILABLE: "not_available",
+    BIKING: "biking",
+    DRIVING: "driving"
+};
+
 TIRAMIZOO.namespace("mapAuto");
 TIRAMIZOO.mapAuto = (function (app, $) {
     var events = app.events,
@@ -189,11 +200,20 @@ TIRAMIZOO.map = (function (app, $) {
             position: g.ControlPosition.LEFT_CENTER
         }
     },
+    directionsRenderer,
     currentLocationMarker,
     nearbyCourierMarkers,
-    directionsRenderer,
+    // couriers    
     courierLocations = [],
     courierLocationMarkers = [],
+    // dropoff    
+    dropoffLocationMarker,
+    dropoffLocations = [],
+    dropoffLocationMarkers = [],
+    // pickup
+    pickupLocationMarker,
+    pickupLocations = [],
+    pickupLocationMarkers = [],
     currentRoute;
 
     function init() {
@@ -206,23 +226,47 @@ TIRAMIZOO.map = (function (app, $) {
 
     function setCourierLocation(position) {
         text = position.text || "A Courier";
-        // console.log("setCourierLocation: lat:" + position.latitude + ", long:" + position.longitude + " text:" + text);
-        courierLocation = new google.maps.LatLng(position.latitude, position.longitude);
+        courierLocation = new g.LatLng(position.latitude, position.longitude);
 
-        var icon = '/images/bike32.png';                
-
-        courierLocationMarker = new google.maps.Marker({
+        courierLocationMarker = new g.Marker({
             map: map,
             title: text,
-            icon: icon
+            icon: '/images/bike32.png',
+            position: courierLocation
         });
         
-        courierLocationMarker.setPosition(courierLocation);
-
         courierLocations.push(courierLocation);
         courierLocationMarkers.push(courierLocation);
     }
 
+    function setPickupLocation(position) {
+        text = position.text || "Pickup";
+        pickupLocation = new g.LatLng(position.latitude, position.longitude);
+
+        pickupLocationMarker = new g.Marker({
+          map: map, 
+          position: pickupLocation, 
+          title: text,
+          icon: '/images/green_MarkerA.png'
+        });
+                            
+        pickupLocations.push(pickupLocation);
+        pickupLocationMarkers.push(pickupLocation);
+    }
+
+    function setDropoffLocation(position) {
+        text = position.text || "Dropoff";
+        dropoffLocation = new g.LatLng(position.latitude, position.longitude);
+
+        dropoffLocationMarker = new g.Marker({
+            map: map,
+            position: dropoffLocation, 
+            title: text,
+            icon: '/images/blue_MarkerB.png'
+        });
+        dropoffLocations.push(dropoffLocation);
+        dropoffLocationMarkers.push(dropoffLocation);
+    }
 
     function getlocationUpdated(event, position) {
         updatePosition(position);
@@ -294,7 +338,20 @@ TIRAMIZOO.map = (function (app, $) {
         }
     }
 
-    function showRoute(route) {
+    function getTravelMode(mode) {
+      switch (mode) {
+          case courier.BIKING:
+              travelMode = g.DirectionsTravelMode.BICYCLING;
+              break;
+          case courier.DRIVING:
+          default:
+              travelMode = g.DirectionsTravelMode.DRIVING;
+              break;
+      }
+      return travelMode;
+    }
+
+    function showRoute(route, argTravelMode) {
         if (route.equals(currentRoute)) {
             return;
         } else {
@@ -308,20 +365,10 @@ TIRAMIZOO.map = (function (app, $) {
         directionsRenderer = new g.DirectionsRenderer();
         directionsRenderer.setMap(map);
 
-        switch (courier.getTravelMode()) {
-            case courier.BIKING:
-                travelMode = g.DirectionsTravelMode.BICYCLING;
-                break;
-            case courier.DRIVING:
-            default:
-                travelMode = g.DirectionsTravelMode.DRIVING;
-                break;
-        }
+        travelMode = getTravelMode(argTravelMode || courier.DRIVING);
 
         directionsRequest = {
-            origin: currentLocationMarker.getPosition(),
-            waypoints: [{location: new g.LatLng(route.getFrom().latitude, route.getFrom().longitude)}],
-            optimizeWaypoints: true,
+            origin: new g.LatLng(route.getFrom().latitude, route.getFrom().longitude),
             destination: new g.LatLng(route.getTo().latitude, route.getTo().longitude),
             travelMode: travelMode,
             unitSystem: g.DirectionsUnitSystem.METRIC
@@ -375,17 +422,140 @@ TIRAMIZOO.map = (function (app, $) {
     }
 
     return  { 
-        fitBounds: fitBounds,
-        init: init,
+        init: init, 
+        getTravelMode: getTravelMode,
         setCourierLocation: setCourierLocation,
+        setPickupLocation: setPickupLocation,
+        setDropoffLocation: setDropoffLocation,
         showMyLocation: showMyLocation,
         toggleNearbyCouriers: toggleNearbyCouriers,
         hideNearbyCouriers: hideNearbyCouriers,
         showRoute: showRoute,
         fitToPositions: fitToPositions,
+        fitBounds: fitBounds,
         showDefaultState: showDefaultState
     }
 }(TIRAMIZOO, jQuery));
+
+
+TIRAMIZOO.namespace("workflow");
+TIRAMIZOO.workflow = (function (app, $) {
+    var ajax = app.ajax,
+    courier = app.courier,
+    map = app.map,
+    route = app.route,
+    stateMapping = {
+        delivery_offer: "deliveryOfferState",
+        accepted: "acceptedState",
+        picked_up: "pickedUpState",
+        delivered: "deliveredState",
+        billed: "defaultState",
+        cancelled: "defaultState"
+    },
+    workflow = app.workflow,
+    currentDelivery,
+    currentState;
+
+    function init(info) {
+        currentDelivery = info.currentDelivery;
+        if (currentDelivery) {
+            setState(currentDelivery.state, currentDelivery);
+        }
+    }
+
+    function setState(state, data) {
+        var stateClassName = stateMapping[state] || "defaultState";
+        currentState = $.extend(
+                workflow.state(app, $),
+                workflow[stateClassName](app, $));
+        currentState.init(data);
+    }
+
+    function acceptDelivery() {
+        currentState.acceptDelivery();
+    }
+
+    function declineDelivery() {
+        currentState.declineDelivery();
+    }
+
+    function pickedUp() {
+        currentState.pickedUp();
+    }
+
+    function delivered() {
+        currentState.delivered();
+    }
+
+    function bill() {
+        currentState.bill();
+    }
+
+    function cancel() {
+        currentState.cancel();
+    }
+
+    function setDefaultState() {
+        setState("default");
+    }
+
+    function setRemoteDeliveryState(state, callback) {
+        ajax.postJSON({
+            action:"couriers/" + courier.getID() + "/deliveries/" + currentDelivery.id + "/state",
+            params: {state: state, position: courier.getPosition()},
+            callback: function(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function showDeliveryRoute(delivery) {
+        map.showRoute(route(delivery.pop.position, delivery.pod.position));
+    }
+
+    function getCurrentDelivery() {
+        return currentDelivery;
+    }
+
+    function setCurrentDelivery(newCurrentDelivery) {
+        currentDelivery = newCurrentDelivery;
+    }
+
+    return {
+        init: init,
+        getCurrentDelivery: getCurrentDelivery,
+        setCurrentDelivery: setCurrentDelivery,
+        setRemoteDeliveryState: setRemoteDeliveryState,
+        showDeliveryRoute: showDeliveryRoute,
+        setState: setState,
+        setDefaultState: setDefaultState,
+        acceptDelivery: acceptDelivery,
+        declineDelivery: declineDelivery,
+        pickedUp: pickedUp,
+        delivered: delivered,
+        bill: bill,
+        cancel: cancel
+    }
+}(TIRAMIZOO, jQuery));
+
+
+TIRAMIZOO.namespace("workflow.deliveryOfferState");
+TIRAMIZOO.workflow.deliveryOfferState = function (app, $) {
+    var ajax = app.ajax,
+    courier = app.courier,
+    navigation = app.navigation,
+    notifications = app.workflowNotifications,
+    workflow = app.workflow;
+
+    function init(deliveryOffer) {
+      workflow.setCurrentDelivery(deliveryOffer);
+      workflow.showDeliveryRoute(deliveryOffer);
+    }
+    return {
+      init: init
+    }
+};
+
 
 /**
  * Object to encapsulate from/to route information

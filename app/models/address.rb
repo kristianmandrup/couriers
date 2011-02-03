@@ -8,11 +8,15 @@ class Address
 
   embeds_one  :location
 
+  include Api
+
   #  returns the string representing the address / the address
   def to_s
     %Q{#{street}
 #{city}
-#{country}
+#{country} 
+
+location: #{location}
 }
   end
 

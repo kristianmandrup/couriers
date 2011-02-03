@@ -1,0 +1,43 @@
+- content_for :meta do
+  = javascript_include_tag "page/booking.js"
+  = stylesheet_link_tag "page/booking.css"
+
+%h3 List of couriers available
+
+#couriers_msg
+  .notify
+  .warning
+
+%table#courier_list
+  %tr.table_header
+    %th 
+      Number
+    %th 
+      Name    
+    %th
+      Type
+    %th 
+      ETA              
+    %th
+      Rating
+    %th
+      Position
+    %th
+      Price
+    
+    - couriers.each do |courier|
+      %tr{:class => "courier_item #{cycle("even", "odd")}"}
+        %td.number
+          = courier.number
+        %td 
+          = courier.name
+        %td 
+          = courier.type
+        %td 
+          = courier.eta
+        %td 
+          = courier.rating
+        %td 
+          = courier.location
+        %td 
+          = courier.price 

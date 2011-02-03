@@ -1,6 +1,0 @@
-  #, :label => 'To'
-  #,  :label => 'From'
-  / = f.input :vehicles, :as => :radio, :collection => Vehicle.available_types
-  
-/ - f.buttons do
-/   = f.commit_button :quote

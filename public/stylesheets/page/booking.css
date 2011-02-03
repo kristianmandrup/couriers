@@ -1,0 +1,13 @@
+.courier_item {
+  cursor: pointer;
+} 
+
+#couriers_msg .notify {
+  color: green;
+}
+
+#couriers_msg .warning {
+  color: red;
+}
+  
+  

@@ -16,8 +16,11 @@ module Order
     # https://github.com/ncr/background-fu    
     def new
       @booking = session[:booking]
+      
+      puts "Pickup: #{@booking.pickup}"
+      puts "Dropoff: #{@booking.dropoff}"      
+      
       @available_couriers = Courier.available    
-      p @available_couriers
       @your_location = Location.create_from session[:location]
     end   
 

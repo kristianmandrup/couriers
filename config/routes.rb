@@ -70,7 +70,7 @@ Tiramizoo::Application.routes.draw do
 
   resources :guests
 
-  devise_for :admins # :users
+  devise_for :admins, :users
 
   devise_for :individual_couriers, :class_name => 'Courier::Individual'
   as :individual_courier do

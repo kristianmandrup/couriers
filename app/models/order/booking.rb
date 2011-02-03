@@ -16,10 +16,6 @@ class Order::Booking
     {:pop => pickup.for_json, :pod => dropoff.for_json, :description => description }
   end
 
-  def into_json
-    for_json.to_json
-  end
-
   def to_s
     %Q{#{number}
 desc: #{package_description}

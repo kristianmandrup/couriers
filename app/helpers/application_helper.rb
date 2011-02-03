@@ -48,7 +48,6 @@ $().ready(function() {
   end
   
   def courier_location_script loc, text = ''
-    ""
     s = "jQuery(function(){
     TIRAMIZOO.map.setCourierLocation({
       latitude: #{loc.lat}, 
@@ -58,11 +57,57 @@ $().ready(function() {
 });"    
   end
 
-  # TIRAMIZOO.map.setMapCenter({
-  #   latitude: #{loc.lat}, 
-  #   longitude: #{loc.lng}, 
-  #   text: '#{text}'
-  # });
+  def showDeliveryRoute booking
+    javascript_tag showDeliveryRoute_script booking
+  end
+  
+  def js_encode(obj)
+    ActiveSupport::JSON.encode(obj)
+  end
+
+  def showDeliveryRoute_script booking
+    return if !booking.pickup || !booking.dropoff
+    # booking_obj = js_encode(booking.for_json)
+    popPosition = js_encode(booking.pickup.location.for_json)
+    podPosition = js_encode(booking.dropoff.location.for_json)
+    s = "jQuery(function(){
+    TIRAMIZOO.map.showRoute(TIRAMIZOO.route(#{popPosition}, #{podPosition}))
+});"    
+  end
+
+  def set_pickup_location location
+    return if !location
+    javascript_tag pickup_location_script(location, 'Pickup')
+  end
+
+  def pickup_location_script loc, text = ''
+    return if !loc || !loc.lat || !loc.lng
+    s = "jQuery(function(){
+    TIRAMIZOO.map.setPickupLocation({
+      latitude: #{loc.lat}, 
+      longitude: #{loc.lng}, 
+      text: '#{text}'
+  });
+});"    
+  end
+
+  def set_dropoff_location location
+    return if !location
+    javascript_tag dropoff_location_script(location, 'Dropoff')
+  end
+
+  def dropoff_location_script loc, text = ''
+    return if !loc
+    s = "jQuery(function(){
+    TIRAMIZOO.map.setDropoffLocation({
+      latitude: #{loc.lat}, 
+      longitude: #{loc.lng}, 
+      text: '#{text}'
+  });
+});"    
+  end
+
+
   def your_location_script # loc, text = ''
     s = "jQuery(function(){
     TIRAMIZOO.map.init();

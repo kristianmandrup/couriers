@@ -6,43 +6,47 @@
   = stylesheet_link_tag     'jquery-ui-1.8.5.custom.css', "jquery.autocomplete.css"  
   = geo_autocomplete_for :order_booking_pickup_address_street, :order_booking_dropoff_address_street
   = center_map_on_your_location 
-  - @available_couriers.each do |courier|
-    = draw_courier_location(courier.location)  
   
+  = set_pickup_location @booking.pickup.location
+  = set_dropoff_location @booking.dropoff.location
+  = showDeliveryRoute @booking
+  
+  - @available_couriers.each do |courier|
+    = draw_courier_location(courier.location)    
 
 %h2 Booking
 
 #map-canvas-auto
 
 #booking_form.left
-  = semantic_form_for @booking do |booking_form|
+  = semantic_form_for @booking do |bf|
+    = bf.input :couriers, :as => :check_boxes, :collection => @available_couriers.map(&:number)
     %fieldset 
       %b Pick-up
-      = booking_form.semantic_fields_for :pickup_address do |pickup_form| 
-        = pickup_form.inputs do
-          = pickup_form.input :street
-          = pickup_form.semantic_fields_for :name do |name_form| 
-            = name_form.input :first_name
-            = name_form.input :last_name 
-          = pickup_form.semantic_fields_for :contact_info do |contact_form| 
-            = contact_form.input :phone
-            = contact_form.input :email
+      = bf.semantic_fields_for :pickup do |pf| 
+        = pf.inputs do
+          = pf.input :street
+          = pf.semantic_fields_for :name do |nf| 
+            = nf.input :first_name
+            = nf.input :last_name 
+          = pf.semantic_fields_for :contact_info do |cf| 
+            = cf.input :phone
+            = cf.input :email
           
     %fieldset 
       %b Dropoff
-      = booking_form.semantic_fields_for :dropoff_address do |dropoff_form| 
-        = dropoff_form.inputs do
-          = dropoff_form.input :street
-          = dropoff_form.semantic_fields_for :name do |name_form| 
-            = name_form.input :first_name
-            = name_form.input :last_name
-          = dropoff_form.semantic_fields_for :contact_info do |contact_form| 
-            = contact_form.input :phone
-            = contact_form.input :email
+      = bf.semantic_fields_for :dropoff do |df| 
+        = df.inputs do
+          = df.input :street
+          = df.semantic_fields_for :name do |nf| 
+            = nf.input :first_name
+            = nf.input :last_name
+          = df.semantic_fields_for :contact_info do |cf| 
+            = cf.input :phone
+            = cf.input :email
+    = bf.buttons do
+      = bf.commit_button :booking
 
 #courier_map.right     
-  %h3 
-    Map of courier locations
-  #couriers
-    #map-canvas
-  = render :partial => 'order/bookings/couriers/available', :locals => {:couriers => @available_couriers}
+  = render :partial => 'map/couriers' 
+  = render :partial => 'order/bookings/courier_list', :locals => {:couriers => @available_couriers}

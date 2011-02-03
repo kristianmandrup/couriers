@@ -95,8 +95,9 @@ module OptionExtractor
   end
 
   def get_city city
-    return :munich if city.to_s.downcase =~ /m.*ch.*/
-    :vancouver
+    :munich
+    # return :munich if city.to_s.downcase =~ /m.*ch.*/
+    # :vancouver
   end
 
   def extract_person_name options

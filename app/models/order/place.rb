@@ -16,6 +16,23 @@ class Order::Place
     end
   end  
   include Api
+
+  def street
+    address.street
+  end
+
+  def street= street
+    address.street = street
+  end
+
+  def city
+    address.city
+  end
+
+  def city= city
+    address.city = city
+  end
+
   
   def location
     address.location

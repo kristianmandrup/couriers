@@ -1,9 +1,0 @@
-  / = render :partial => :detail_inputs, :locals => {:f => f, :booking => @booking, :type => :pickup}
-  / = render :partial => :detail_inputs, :locals => {:f => f, :booking => @booking, :type => :dropoff}
-      
-/ = render :partial => 'bookings/couriers/available'
-/ = render :partial => 'bookings/couriers/filter'
-
- / do    
- /  = pickup_form.input :street
- /  = pickup_form.input :city
