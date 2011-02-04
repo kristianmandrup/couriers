@@ -118,71 +118,71 @@ TIRAMIZOO.geocodeConfig = function ($, app, opts) {
 	podPoint = null, // will be filled out on successful geocoding!
 	popPoint = null;
 
-  //   function updateMap(geocoded_location, geocode_marker) {
-  //     // display the map centered on a latitude and longitude (Google zoom levels)
-  //     mapstraction.setCenterAndZoom(geocoded_location.point, 15);
-  // 
-  //     var address = geocoded_location.locality + ", " + geocoded_location.region;
-  //     geocode_marker.setInfoBubble(address);
-  //     
-  //     // display marker
-  //     mapstraction.addMarker(geocode_marker);
-  //    
-  //     // open the marker
-  //     geocode_marker.openBubble();    
-  //   }
-  // 
-  //   function geocodeField(fieldId, geoCoder) {
-  //  var address = {};
-  //  address.address = $(fieldId).value;
-  //  geoCoder.geocode(address);
-  //   }
-  // 
-  // function bothPointsAreValid() {
-  //     return popAutoComplete.isValid() && podAutoComplete.isValid();
-  // }
-  // 
-  // function popIsValid() {
-  //     return popAutoComplete.isValid();
-  // }
-  // 
-  // 
-  //   function podIsValid() {
-  //     return podAutoComplete.isValid();    
-  //   }
-  // 
-  //   function updateNearbyCouriers() {
-  //     map.getNearbyCouriers(function () {
-  //       console.log("nearby couriers updated!");
-  //     });
-  //   } 
-  // 
-  // app.events.add("validPop", function() {
-  //   geocodeField(popFieldId, popGeocoder);
-  //   updateNearbyCouriers();    
-  //   });
-  // 
-  // app.events.add("validPod", function() {
-  //   geocodeField(podFieldId, podGeocoder);   
-  //   });
-  // 
-  // app.events.add("validPopAndPod", function() {
-  //     map.showRoute(route(podPoint, popPoint))
-  //   });
-  // 
-  // app.events.add("geoAutocompleteFieldChange", function() {
-  //     if (popIsValid()) {
-  //       events.dispatch("validPop");
-  //     }
-  // 
-  //     if (podIsValid()) {
-  //       events.dispatch("validPod");
-  //     }
-  // 
-  //  if (bothPointsAreValid()) {
-  //       events.dispatch("validPopAndPod");
-  //  }
-  // });
+    function updateMap(geocoded_location, geocode_marker) {
+      // display the map centered on a latitude and longitude (Google zoom levels)
+      mapstraction.setCenterAndZoom(geocoded_location.point, 15);
+  
+      var address = geocoded_location.locality + ", " + geocoded_location.region;
+      geocode_marker.setInfoBubble(address);
+      
+      // display marker
+      mapstraction.addMarker(geocode_marker);
+     
+      // open the marker
+      geocode_marker.openBubble();    
+    }
+  
+    function geocodeField(fieldId, geoCoder) {
+   var address = {};
+   address.address = $(fieldId).value;
+   geoCoder.geocode(address);
+    }
+  
+  function bothPointsAreValid() {
+      return popAutoComplete.isValid() && podAutoComplete.isValid();
+  }
+  
+  function popIsValid() {
+      return popAutoComplete.isValid();
+  }
+  
+  
+    function podIsValid() {
+      return podAutoComplete.isValid();    
+    }
+  
+    function updateNearbyCouriers() {
+      map.getNearbyCouriers(function () {
+        console.log("nearby couriers updated!");
+      });
+    } 
+  
+  app.events.add("validPop", function() {
+    geocodeField(popFieldId, popGeocoder);
+    updateNearbyCouriers();    
+    });
+  
+  app.events.add("validPod", function() {
+    geocodeField(podFieldId, podGeocoder);   
+    });
+  
+  app.events.add("validPopAndPod", function() {
+      map.showRoute(route(podPoint, popPoint))
+    });
+  
+  app.events.add("geoAutocompleteFieldChange", function() {
+      if (popIsValid()) {
+        events.dispatch("validPop");
+      }
+  
+      if (podIsValid()) {
+        events.dispatch("validPod");
+      }
+  
+   if (bothPointsAreValid()) {
+        events.dispatch("validPopAndPod");
+   }
+  });
 };
 
 TIRAMIZOO.geocodeScreenConfigs = {};
