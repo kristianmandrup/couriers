@@ -1,9 +1,11 @@
 - content_for :meta do
   = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=true"
   = javascript_include_tag "application"  
-  = javascript_include_tag  "geo-autocomplete/geo_autocomplete.js", "geo-autocomplete/jquery.autocomplete_geomod.js"
-  = javascript_include_tag  'geo-autocomplete/jquery-ui-1.8.5.custom.min.js', 'autocomplete-rails.js'
-  = stylesheet_link_tag     'jquery-ui-1.8.5.custom.css', "jquery.autocomplete.css"  
+  = javascript_include_tag  'geo-autocomplete/jquery-ui-1.8.5.custom.min', 'geocode'  # 'autocomplete-rails'
+  = javascript_include_tag  "ui.geo_autocomplete" #, "geo-autocomplete/jquery.autocomplete_geomod"
+  = stylesheet_link_tag     'jquery-ui-1.8.5.custom' #, "jquery.autocomplete"  
+  = javascript_include_tag  "mapstraction/mxn.js?(googlev3,[geocoder])"
+
   = geo_autocomplete_for :order_booking_pickup_address_street, :order_booking_dropoff_address_street
   = center_map_on_your_location 
   

@@ -4,6 +4,12 @@ module ApplicationHelper
   #   super
   # end
 
+  def get_class 
+    # controller.controller_name
+    # controller.action_name
+    'default' # : 'one_col'    
+  end
+
   def map_key
     TiramizooApp.google_key
   end
@@ -29,22 +35,9 @@ $().ready(function() {
   	  res << geo_autocomplete_js(field)
     end
   end
-
-  def geo_autocomplete_js field
-    %Q{$('##{field}').geo_autocomplete(new google.maps.Geocoder, {
-	mapkey: '#{map_key}', 
-	selectFirst: false,
-	minChars: 3,
-	cacheLength: 50,
-	width: 300,
-	scroll: true,
-	scrollHeight: 330
-}).result(function(_event, _data) {
-	if (_data) {
-	  TIRAMIZOO.mapAuto.fitBounds(_data.geometry.viewport);
-	}
-});
-}
+      
+  def geo_autocomplete_js field        
+    s = "geo_autocompletion_for('#{field}', '#{map_key}');\n  " 
   end
   
   def courier_location_script loc, text = ''

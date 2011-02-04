@@ -1,0 +1,18 @@
+//colors
+$color_highlight: #85bf00;
+$color_highlight_alpha: rgba(133,191,5,0.6);
+
+//defaults
+$default-border-radius: 4px;
+
+$default-box-shadow-color: #333;
+$default-box-shadow-h-offset: 2px;
+$default-box-shadow-v-offset: 2px;
+
+$font-color:#000;
+
+@mixin content-border {
+  border:5px solid $color_highlight;
+  @include border-radius;
+  background:$color_highlight;
+}

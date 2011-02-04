@@ -1,0 +1,63 @@
+#tabform ul.tabs {
+  width:270px;
+  margin:0;
+  padding:0;
+  li {
+    display:block;
+    float:left;
+    padding:0;
+    a {
+      @include border-top-radius;
+      @include span(3.5);
+      display:block;
+      float:left;
+      padding:5px 0 5px 5px;
+      font-size:15px;
+      background:$color_highlight;
+      background:$color_highlight_alpha;
+      color:#000;
+      text-decoration:none;
+      &.defaulttab {
+        @include span(3.5);
+        padding-right:0px;
+      }
+    }
+  }
+  .selected {
+    background:$color_highlight;
+    font-weight:normal;
+  }
+}
+.tab-content {
+  clear:both;
+  .steps {
+    background: $color_highlight;
+    @include border-bottom-radius;
+    padding:10px;
+  }
+  form {
+    margin:10px 0 0 0!important;
+    .inputs {
+      width:250px;
+      padding:10px!important;
+      background: $color_highlight;
+      @include border-radius;
+    }
+    .buttons {
+      margin:10px 0 0 0!important;
+      li.commit {
+        float:right!important;
+        padding-right:0!important;
+        input {
+          color:#fff;
+          font-size:13px;
+          @include border-radius;
+          border:0;
+          padding:7px 40px 7px 10px;
+          background:$color_highlight url(/images/bg_button.png) no-repeat center right;
+        }
+      }
+    }
+  }
+}
+

@@ -1,14 +1,17 @@
 #logo {
   position:absolute;
-  top:100px;
+  top:60px;
   left:0;
 }
 
 body.bp {
-  background-color:#000;
+  background:#000 url(/images/grain.png);
+
   #container-top {
+    background:#fff url(/images/bg_photo.jpg) no-repeat center top;
+    @include background-size(cover);
     text-align:left;
-    background-color:#fff;
+    border-bottom:1px solid #fff;
   }
 
   #container-bottom {
@@ -19,10 +22,9 @@ body.bp {
     @include container;
 /*    @include showgrid;*/
   }
-  
+
   #maincontent {
-    padding-bottom:20px;
-    
+    padding-bottom:60px;
     position:relative;
     
     div.left {
@@ -31,9 +33,23 @@ body.bp {
     }
     div.right {
       @include column(14, true);
+      > div {
+        padding:5px;
+        margin:10px 0;
+        @include content-border;
+      }
+    }
+    &.one_col {
+      div.full {
+        @include prepend(0.5);
+        @include append(0.5);
+        @include push(3);
+        @include column(20,true);
+        background:$color_highlight;
+        @include border-radius;
+      }
     }
   }
-  
   #footer {
     padding-top:20px;
     color:#fff;

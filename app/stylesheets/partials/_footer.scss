@@ -4,12 +4,17 @@
   font-weight:bold;
   li {
     @include no-bullet;
+    
     font-weight:normal;
+    a {
+      text-decoration:none;
+    }
   }
 }  
 
 #footer > ul {
   @include prepend(3);
+  font-size:11px;
 }
 
 #footer > ul ul {

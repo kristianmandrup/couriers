@@ -1,57 +1,124 @@
 #header {
-  padding-top:10px;
+  padding-bottom:30px!important;
   .benefits_nav {
     display:none;
   }
+  .notification {
+    @include column(19);
+    @include push(3);
+    margin:30px 0 0 0;
+    background:#fff;
+    @include border-radius;
+    @include prepend(1);
+    @include append(1);
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+  .navigation {
+    padding-top:5px;
+    @include prepend(3);
+    @include column(11);
+    font-size:10px;
+    ul {
+      @include horizontal-list;
+      li {
+        color:#fff;
+        @include no-bullet;
+        @include horizontal-list-item(0);
+        &:after {
+          content: "|";
+        }
+        &:last-child {
+          &:after {
+            content: "";
+          } 
+        }
+        a {
+          color:#fff;
+          text-decoration:none;
+          padding:0 4px 0  5px;
+        }
+      }
+    }
+  }
   .login_small {
-    @include prepend(14);
+    color:#fff;
+    font-size:10px;
+    padding-top:5px;
+    background: rgb(0,0,0);
+    background: rgba(0,0,0, 0.6);
+    @include border-bottom-radius;
     @include column(10);
     @include last;
+
+    a {
+      color:#fff;
+      text-decoration:none;
+    }
     label {
       display:none;
     }
+    h4 {
+      font-weight:normal;
+      font-size:10px;
+      line-height:15px;
+      @include column(2);
+      text-indent:10px;
+      color:#fff;
+    }
+    
     form#new_guest {
       @include clearfix;
-      @include column(10);
+      @include column(6);
       fieldset.buttons {
-        padding:0;
+        border-right:1px solid #fff;
+        padding:0 9px 0 7px;
+        @include float-left;
+/*        @include column(1);*/
+/*        @include last;*/
         li {
           margin:0!important;
           padding:0!important;
           overflow:hidden;
         }
         input[type=submit] {
-          @include column(2);
           margin:0;
+          border:0;
+          background:transparent url(/images/button_login.png) no-repeat 0 0;
+          width:15px;
+          height:15px;
+          text-indent:-1000px;
         }
       }
       fieldset.inputs {
-        @include float-left;
+          @include float-left;
+/*        @include column(5);*/
+/*        @include prepend(1);*/
         ol {
           @include horizontal-list-container;
           li {
             @include horizontal-list-item();
             padding-left:10px;
+            margin-bottom:0;
             input[type=text],input[type=password] {
-              @include column(3);
+              width:90px;
+              height:13px!important;
+              border:1px solid $color_highlight;
+            }
+            input[type=password] {
             }
           }
         }
       }
-
-
     }
-    
     ul {
-      @include horizontal-list-container;
-      text-align:right;
-      clear:both;
+      @include column(2);
+      @include last;
+      margin:0;
+      padding:0;
       li {
-        @include horizontal-list-item(false, right);
         @include no-bullet;
-        padding-left:10px;
       }
     }
   }
-  
 }

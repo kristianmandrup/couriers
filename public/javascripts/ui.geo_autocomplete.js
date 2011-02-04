@@ -43,6 +43,8 @@ $.widget( "ui.geo_autocomplete", {
 			} else {
 				var self = this;
 				var _address = _request.term + (this.options.geocoder_region ? ', ' + this.options.geocoder_region : '');
+				console.log('region', this.options.geocoder_region);
+				console.log('address', _address);
 				this.options._geocoder.geocode({'address': _address}, function(_results, _status) {
 					var _parsed = [];
 					if (_results && _status && _status == 'OK') {

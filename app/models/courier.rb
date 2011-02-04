@@ -1,6 +1,9 @@
 class Courier < User
   include Mongoid::Document
 
+  # field :location, :type => Array
+  # index [[ :location, Mongo::GEO2D ]], :min => -180, :max => 180
+
   field       :number,            :type => Integer
   
   embeds_one  :working_hours,     :class_name => TimePeriod  
@@ -23,6 +26,10 @@ class Courier < User
 
   # API methods
   include Api
+
+  # def location= args
+  #   @location = args.kind_of?(String) ? args.split(",").map(&:to_f) : args
+  # end
 
   def current_delivery
     delivery

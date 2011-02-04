@@ -7,7 +7,7 @@
         = image_tag "logo.png"
     #container-top
       = render 'shared/header'
-      #maincontent
+      #maincontent{:class => get_class}
         = yield
     #container-bottom
       = render 'shared/footer'

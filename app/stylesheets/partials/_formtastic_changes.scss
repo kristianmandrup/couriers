@@ -26,9 +26,73 @@ form.formtastic fieldset.buttons {
   padding-left: 0; }*/
 
 #maincontent {
-  div.left {
-    input[type=text] {
-      @include column(4);
+/*    fieldset.inputs{
+      @include column(7);
+    }*/
+  input[type=text] {
+    @include column(4.6);
+    border:1px solid #000;
+    @include border-radius;
+  }
+  .steps {
+    ol {
+      @include horizontal-list;
+      padding:0;
+      @include no-bullet;
+      li {
+        color:$color_highlight;
+        border:1px solid #fff;
+        background:#c9e391;
+        text-align:center;
+        @include horizontal-list-item(0);
+        width:(220px / 3);
+        margin-left:10px;
+        &:first-child {
+          margin-left:0;
+        }
+        @include border-radius;
+        &.active {
+          color:#000;
+          border:1px solid #fff;
+          background:#fff;
+          
+        }
+      }
+    }
+  }
+}
+
+.left {
+  #new_quote {
+    li#quote_vehicle_input {
+      ol {
+        width:250px;
+        padding:0;
+      }
+      legend {
+        display:none!important;
+      }
+      li {
+        label {
+          width:(250px / 3)!important;
+          float:left!important;
+        }
+        width:(250px / 3)!important;
+        float:left!important;
+      }
+
+  /*    label[for=quote_vehicle_bicycle] {
+        border:1px solid #f00;
+      }
+      label[for=quote_vehicle_motorbike] {
+        border:1px solid #f00;
+      }
+      label[for=quote_vehicle_car] {
+        border:1px solid #f00;
+      }
+      label[for=quote_vehicle_van] {
+        border:1px solid #f00;
+      }*/
     }
   }
 }

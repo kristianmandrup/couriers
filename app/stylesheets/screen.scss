@@ -9,7 +9,11 @@
 
 //import some sass stuff
 @import "compass/utilities/lists/horizontal-list";
+@import "compass/css3";
+@import "compass/utilities";
 
+
+@import "partials/definitions";
 
 // Combine the partials into a single screen stylesheet.
 @import "partials/page";
@@ -17,8 +21,13 @@
 @import "partials/layout";
 @import "partials/header";
 @import "partials/footer";
+
 @import "partials/map";
+
+@import "partials/tabs";
 
 //adding formtastic partials
 @import "partials/formtastic.scss";
 @import "partials/formtastic_changes.scss";
+
+@import "partials/globals";

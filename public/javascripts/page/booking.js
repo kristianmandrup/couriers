@@ -89,3 +89,39 @@ jQuery(function ($) {
     }
 });
 
+
+
+// $().ready(function() {
+//  $('#order_booking_pickup_address_street').geo_autocomplete({
+//    mapkey: 'ABQIAAAAUzkItq4p7LYo2YIR_gtjpRTJQa0g3IQ9GZqIMmInSLzwtGDKaBSzEc8_FNxIfQLkpKOh9R4JB87Rig',
+//    geocoder_region: 'Munich',
+//    geocoder_types: 'street_address',
+//    selectFirst: false,
+//    minChars: 3,
+//    cacheLength: 30,
+//    width: 300,
+//    scroll: true,
+//    scrollHeight: 200,
+//    select: function(_event, _ui) {
+//      console.log('event', event);
+//      if (_ui.item.viewport) 
+//       TIRAMIZOO.mapAuto.fitBounds(_ui.item.viewport);
+//    }
+//  });
+//  
+//  $('#order_booking_dropoff_address_street').geo_autocomplete({
+//  mapkey: 'ABQIAAAAUzkItq4p7LYo2YIR_gtjpRTJQa0g3IQ9GZqIMmInSLzwtGDKaBSzEc8_FNxIfQLkpKOh9R4JB87Rig',
+//  geocoder_region: 'Munich',
+//  geocoder_types: 'street_address',
+//  selectFirst: false,
+//  minChars: 3,
+//  cacheLength: 30,
+//  width: 300,
+//  scroll: true,
+//  scrollHeight: 200,
+//  select: function(_event, _ui) {
+//  console.log('event', event);
+//  if (_ui.item.viewport) TIRAMIZOO.mapAuto.fitBounds(_ui.item.viewport);
+//  }
+//  });}
+//  });
