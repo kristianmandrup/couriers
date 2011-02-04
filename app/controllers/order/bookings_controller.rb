@@ -24,18 +24,13 @@ module Order
       @your_location = Location.create_from session[:location]
     end   
 
-    def wait_for_couriers_response
-      @couriers_to_wait_for = Courier.find(:number => session[:couriers_selected])
-      render :wait_for_couriers_response
-    end
-
     # submit - :create complete booking put it in a delivery_offer#create
     # Create new delivery offer and pushes it to the selected couriers 
     # Also use the zip of the pickup to find Companies who subscribe to that zip and send offer to those companies
     def create
       session[:couriers_selected] = couriers_selected # list of courier ids
       @delivery_offer = Delivery::Offer.create_for(current_booking, couriers_selected)
-
+      session[:delivery_offer] = @delivery_offer
       redirect_to [:new, @delivery_offer]
     end
   

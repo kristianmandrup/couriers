@@ -12,6 +12,21 @@ module TiramizooApp
       @geocoder_context ||= GeoMagic.geo_coder(:env => :rails).configure
     end   
 
+    def pubnub_keys
+      @pubnub_keys ||= PubNubKeys.new(YAML.load_file("#{Rails.root}/config/pubnub_keys.yml")[Rails.env])
+    end
+
+    class PubNubKeys
+      attr_reader :publish, :subscribe, :secret, :ssl_on
+      
+      def initialize(hash)          
+        @publish    = hash["publish"]
+        @subscribe  = hash["subscribe"]
+        @secret     = hash["secret"]        
+        @ssl_on     = hash["ssl_on"]        
+      end
+    end
+
     def google_key
       geocoder_context.google_key
     end

@@ -51,6 +51,15 @@ class Delivery::Offer
     self.save
   end
 
+  def with_dropoff
+    yield dropoff
+  end
+
+  def with_pickup
+    yield pickup
+  end
+
+
   class << self
     def status event
       Rails.logger.error "Unknown offer event: #{event}" and return if !event_msg[event]

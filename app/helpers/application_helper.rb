@@ -4,6 +4,19 @@ module ApplicationHelper
   #   super
   # end
 
+  def courier_channel(id)
+    keys = TiramizooApp.pubnub_keys   
+    TiramizooApp.pubsub.new(keys.publish, keys.subscribe, keys.secret, keys.ssl_on)
+  end
+
+  def current_booking
+    session[:booking]
+  end
+
+  def current_delivery_offer
+    session[:delivery_offer]
+  end
+
   def get_class 
     # controller.controller_name
     # controller.action_name

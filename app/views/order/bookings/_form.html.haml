@@ -1,0 +1,29 @@
+- content_for :form do
+  #map-canvas-auto
+  = semantic_form_for @booking do |bf|
+    = bf.input :couriers, :as => :check_boxes, :collection => @available_couriers.map(&:number)
+    %fieldset 
+      .title Pick-up
+      = bf.semantic_fields_for :pickup do |pf| 
+        = pf.inputs do
+          = pf.input :street
+          = pf.semantic_fields_for :name do |nf| 
+            = nf.input :first_name
+            = nf.input :last_name 
+          = pf.semantic_fields_for :contact_info do |cf| 
+            = cf.input :phone
+            = cf.input :email
+          
+    %fieldset 
+      .title Dropoff
+      = bf.semantic_fields_for :dropoff do |df| 
+        = df.inputs do
+          = df.input :street
+          = df.semantic_fields_for :name do |nf| 
+            = nf.input :first_name
+            = nf.input :last_name
+          = df.semantic_fields_for :contact_info do |cf| 
+            = cf.input :phone
+            = cf.input :email
+    = bf.buttons do
+      = bf.commit_button :booking

@@ -20,8 +20,7 @@ TIRAMIZOO.geoAutocompleteField = function ($, app, opts) {
 		autoCompleteField.geo_autocomplete(ui_geocode_options);  
 	}
 
-  function ui_geocode_options {
-    return {
+  var ui_geocode_options = {
     	geocoder_region:  'Munich',
     	geocoder_types:   'street_address',
       geocoder_address: false, // true = use the full formatted address, false = use only the segment that matches the search term
@@ -34,9 +33,8 @@ TIRAMIZOO.geoAutocompleteField = function ($, app, opts) {
       minLength: 3, // see http://jqueryui.com/demos/autocomplete/#option-minLength
       delay: 300, // see http://jqueryui.com/demos/autocomplete/#option-delay
 
-  		select: onSelect
-    }
-  }  
+  		select: this.onSelect
+  };  
 
 	// this is your select change handler which is attached to the autocomplete field
 	function onSelect(_event, _ui) {
@@ -57,15 +55,13 @@ TIRAMIZOO.geoAutocompleteField = function ($, app, opts) {
 	// return the functions you want to make public here
   return  {
     isValid: isValid,
-    init : init,
-    onDropoffUpdated,
-    onPickupUpdated    
+    init : init
   }
 };
 
 
 TIRAMIZOO.namespace("geocoder");
-TIRAMIZOO.geocoder = function ($, app, options) {
+TIRAMIZOO.geocoder = function ($, app, opts) {
 
   var mapstraction,
   options = opts,
@@ -98,153 +94,95 @@ TIRAMIZOO.geocoder = function ($, app, options) {
   	mapstraction = new mxn.Mapstraction('map-canvas', apis);
   	geocoder = new mxn.Geocoder(apis, geocode_return);		
   }
-}(jQuery, TIRAMIZOO, {});
+}
 
-// then somewhere in your code instantiate the objects here with all your custom options
-(function($, app) {
+TIRAMIZOO.namespace("geocodeConfig");
+TIRAMIZOO.geocodeConfig = function ($, app, opts) {
+  // then somewhere in your code instantiate the objects here with all your custom options
 
-	var popFieldId  = "order_quote_pickup_point",
-	podFieldId      = "order_quote_dropoff_point",
+	var options = opts,
+	popFieldId  = options.popId,
+	podFieldId      = options.podId,
+
 	popAutoComplete = app.geoAutocompleteField($, app, {fieldID: popFieldId}),
 	podAutoComplete = app.geoAutocompleteField($, app, {fieldID: podFieldId}),
+
 	map = app.map, 
 	geocoder = app.geocoder,
 	mapstraction = geocoder.mapstraction,
 	route = app.route,
 
-	popGeocoder = geocoder, // init here? should each have a seperate instance!
-	podGeocoder = geocoder,
+	popGeocoder = geocoder($, app, {callback: options.callbacks.popGeocoded}), // init here? should each have a separate instance!
+	podGeocoder = geocoder($, app, {callback: options.callbacks.podGeocoded}),
 
-	podPoint = null,
+	podPoint = null, // will be filled out on successful geocoding!
 	popPoint = null;
 
-  // customize how to handle geocode return for pod
-  popGeocoder.geocode_return = function (geocoded_location) {
-    
-     // create a marker positioned at a lat/lon
-     // IMPORTANT: distinct marker icon here!
-     var geocode_marker = new mxn.Marker(geocoded_location.point);
-     popPoint = geocoded_location.point;
-     
-     updateMap(geocoded_location);
-  }
+  //   function updateMap(geocoded_location, geocode_marker) {
+  //     // display the map centered on a latitude and longitude (Google zoom levels)
+  //     mapstraction.setCenterAndZoom(geocoded_location.point, 15);
+  // 
+  //     var address = geocoded_location.locality + ", " + geocoded_location.region;
+  //     geocode_marker.setInfoBubble(address);
+  //     
+  //     // display marker
+  //     mapstraction.addMarker(geocode_marker);
+  //    
+  //     // open the marker
+  //     geocode_marker.openBubble();    
+  //   }
+  // 
+  //   function geocodeField(fieldId, geoCoder) {
+  //  var address = {};
+  //  address.address = $(fieldId).value;
+  //  geoCoder.geocode(address);
+  //   }
+  // 
+  // function bothPointsAreValid() {
+  //     return popAutoComplete.isValid() && podAutoComplete.isValid();
+  // }
+  // 
+  // function popIsValid() {
+  //     return popAutoComplete.isValid();
+  // }
+  // 
+  // 
+  //   function podIsValid() {
+  //     return podAutoComplete.isValid();    
+  //   }
+  // 
+  //   function updateNearbyCouriers() {
+  //     map.getNearbyCouriers(function () {
+  //       console.log("nearby couriers updated!");
+  //     });
+  //   } 
+  // 
+  // app.events.add("validPop", function() {
+  //   geocodeField(popFieldId, popGeocoder);
+  //   updateNearbyCouriers();    
+  //   });
+  // 
+  // app.events.add("validPod", function() {
+  //   geocodeField(podFieldId, podGeocoder);   
+  //   });
+  // 
+  // app.events.add("validPopAndPod", function() {
+  //     map.showRoute(route(podPoint, popPoint))
+  //   });
+  // 
+  // app.events.add("geoAutocompleteFieldChange", function() {
+  //     if (popIsValid()) {
+  //       events.dispatch("validPop");
+  //     }
+  // 
+  //     if (podIsValid()) {
+  //       events.dispatch("validPod");
+  //     }
+  // 
+  //  if (bothPointsAreValid()) {
+  //       events.dispatch("validPopAndPod");
+  //  }
+  // });
+};
 
-  // customize how to handle geocode return for pod
-  podGeocoder.geocode_return = function (geocoded_location) {    
-     // create a marker positioned at a lat/lon
-     // IMPORTANT: distinct marker icon here!
-     var geocode_marker = new mxn.Marker(geocoded_location.point);
-     podPoint = geocoded_location.point;
-     
-     updateMap(geocoded_location, geocode_marker);    
-  }
-
-  function updateMap(geocoded_location, geocode_marker) {
-    // display the map centered on a latitude and longitude (Google zoom levels)
-    mapstraction.setCenterAndZoom(geocoded_location.point, 15);
-
-    var address = geocoded_location.locality + ", " + geocoded_location.region;
-    geocode_marker.setInfoBubble(address);
-    
-    // display marker
-    mapstraction.addMarker(geocode_marker);
-   
-    // open the marker
-    geocode_marker.openBubble();    
-  }
-
-  function geocodeField(fieldId, geoCoder) {
-		var address = {};
-		address.address = $(fieldId).value;
-		geoCoder.geocode(address);
-  }
-	
-	function bothPointsAreValid() {
-    return popAutoComplete.isValid() && podAutoComplete.isValid();
-	}
-
-	function popIsValid() {
-    return popAutoComplete.isValid();
-	}
-
-
-  function podIsValid() {
-    return podAutoComplete.isValid();    
-  }
-
-  function updateNearbyCouriers() {
-    map.getNearbyCouriers(function () {
-      console.log("nearby couriers updated!");
-    });
-  } 
-
-	app.events.add("validPop", function() {
-	  geocodeField(popFieldId, popGeocoder);
-	  updateNearbyCouriers();	  
-  });
-
-	app.events.add("validPod", function() {
-	  geocodeField(podFieldId, , podGeocoder);	  
-  });
-
-	app.events.add("validPopAndPod", function() {
-    map.showRoute(route(podPoint, popPoint))
-  });
-
-	app.events.add("geoAutocompleteFieldChange", function() {
-    if popIsValid() {
-      events.dispatch("validPop");
-    }
-
-    if podIsValid() {
-      events.dispatch("validPod");
-    }
-
-		if (bothPointsAreValid()) {
-      events.dispatch("validPopAndPod");
-		}
-	})
-})(jQuery, TIRAMIZOO);
-
-// FOR REFERENCE:
-
-// geocode_callback: function(results, status){
-//  var return_location = {};
-// 
-//  if (status != google.maps.GeocoderStatus.OK) {
-//    this.error_callback(status);
-//  } 
-//  else {
-//    return_location.street = '';
-//    return_location.locality = '';
-//    return_location.region = '';
-//    return_location.country = '';
-// 
-//    var place = results[0];
-//    
-//    for (var i = 0; i < place.address_components.length; i++) {
-//      var addressComponent = place.address_components[i];
-//      for (var j = 0; j < addressComponent.types.length; j++) {
-//        var componentType = addressComponent.types[j];
-//        switch (componentType) {
-//          case 'country':
-//            return_location.country = addressComponent.long_name;
-//            break;
-//          case 'administrative_area_level_1':
-//            return_location.region = addressComponent.long_name;
-//            break;
-//          case 'locality':
-//            return_location.locality = addressComponent.long_name;
-//            break;
-//          case 'street_address':
-//            return_location.street = addressComponent.long_name;
-//            break;
-//        }
-//      }
-//    }
-//    
-//    return_location.point = new mxn.LatLonPoint(place.geometry.location.lat(), place.geometry.location.lng());
-//    
-//    this.callback(return_location);
-//  }
-// }
+TIRAMIZOO.geocodeScreenConfigs = {};

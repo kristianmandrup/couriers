@@ -5,9 +5,10 @@
     #logo
       %a{:href => '/'}
         = image_tag "logo.png"
-    #container-top
-      = render 'shared/header'
-      #maincontent{:class => get_class}
-        = yield
-    #container-bottom
-      = render 'shared/footer'
+    #container-wrapper    
+      #container-top
+        = render 'shared/header'
+        #maincontent{:class => get_class}
+          = yield
+      #container-bottom
+        = render 'shared/footer'

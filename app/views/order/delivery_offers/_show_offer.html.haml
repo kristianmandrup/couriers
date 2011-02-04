@@ -1,0 +1,12 @@
+#offer
+  Your offfer ...
+
+  Pickup
+  - @delivery_offer.with_pickup do |pop|
+    = pop.street
+    = pop.full_name
+  
+  Dropoff
+  - @delivery_offer.with_dropoff do |pod|
+    = pod.street
+    = pod.full_name

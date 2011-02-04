@@ -1,0 +1,32 @@
+.left
+  #tabform
+    %ul.tabs
+      %li
+        %a{:href => "#", :rel => "tab-content-1", :class => "defaulttab" }
+          Book a courier
+      %li
+        %a{:href => "#", :rel => "tab-content-2" }
+          Track a delivery
+
+    / book a courier
+    #tab-content-1.tab-content
+      .steps
+        %ol
+          %li#step_1.active
+            Search
+          %li#step_2
+            Compare
+          %li#step_3
+            Book
+
+       = yield :form
+
+    / tracking
+    #tab-content-2.tab-content
+      .steps
+        %ol
+          %li#step_1.active
+            Track it!
+            
+.right
+  = yield :right

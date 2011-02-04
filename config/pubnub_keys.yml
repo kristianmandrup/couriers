@@ -1,0 +1,14 @@
+development: &non_production_settings
+    publish:    pub-a58c084c-85aa-43ae-a017-c9422996ef4c
+    subscribe:  sub-6b3c469c-3052-11e0-b530-e169b0c94f51
+    secret:     sec-145fa3bd-783f-4744-ba1a-d95ac6e833c5
+    ssl_on:     false
+
+test:
+    <<: *non_production_settings
+
+staging:
+    <<: *non_production_settings
+
+production:
+    <<: *non_production_settings

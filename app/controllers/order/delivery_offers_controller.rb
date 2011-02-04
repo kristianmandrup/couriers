@@ -50,24 +50,22 @@ module Order
     #             }
     # }
     # --------------------------------------------------------------------------------
-    def show
+    def new
       begin
-        delivery_offer = Delivery::Offer.create_from :munich
-        delivery_offer.save
         # sends delivery offer info without contact information to each courier
         couriers_to_notify.each do |id|
           p "sending deliver info to delivery channel for courier: #{id}"
-          courier_channel(id).publish :delivery_offer => delivery_offer.get_initial_info
+          courier_channel(id).publish :delivery_offer => current_delivery_offer.get_initial_info
         end
         rescue Exception => e
-          puts "delivery_offers#show: #{e}"
+          puts "delivery_offers#new: #{e}"
       end
     end    
 
     protected
     
     def couriers_to_notify
-      couriers_to_notify = couriers_selected + courier_companies_subscribing_to_zip(current_booking.zip)
+      couriers_to_notify = couriers_selected # + courier_companies_subscribing_to_zip(current_booking.zip)
     end  
   end
 end
