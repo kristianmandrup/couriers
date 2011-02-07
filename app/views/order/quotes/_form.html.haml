@@ -1,9 +1,0 @@
-= content_for :tab_content do
-  #map-canvas-auto
-  = semantic_form_for @quote do |f|
-    = f.inputs do
-      = f.input :pickup_point, :label => 'From'
-      = f.input :dropoff_point, :label => 'To'    
-      = f.input :vehicle, :as => :radio, :collection => Courier::Vehicle.available_types
-    = f.buttons do
-      = f.commit_button :quote

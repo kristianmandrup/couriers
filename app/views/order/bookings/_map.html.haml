@@ -1,3 +1,3 @@
-.right  
+- content_for :right do
   #map-canvas 
-  = render :partial => 'order/bookings/courier_list', :locals => {:couriers => @available_couriers}
+  = render 'courier_list'

@@ -23,7 +23,7 @@
     %th
       Price
     
-    - couriers.each do |courier|
+    - Courier.available.each do |courier|
       %tr{:class => "courier_item #{cycle("even", "odd")}"}
         %td.number
           = courier.number

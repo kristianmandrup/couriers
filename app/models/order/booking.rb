@@ -18,7 +18,7 @@ class Order::Booking
 
   def to_s
     %Q{#{number}
-desc: #{package_description}
+desc: #{description}
 pickup: #{pickup}
 dropoff: #{dropoff}
 }

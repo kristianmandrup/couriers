@@ -1,7 +1,7 @@
-- content_for :form do
+- content_for :tab_content do
   #map-canvas-auto
   = semantic_form_for @booking do |bf|
-    = bf.input :couriers, :as => :check_boxes, :collection => @available_couriers.map(&:number)
+    = bf.input :couriers, :as => :check_boxes, :collection => Courier.available.map(&:number)
     %fieldset 
       .title Pick-up
       = bf.semantic_fields_for :pickup do |pf| 

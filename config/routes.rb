@@ -45,7 +45,7 @@ Tiramizoo::Application.routes.draw do
     # :new an initial booking filled out with GPS
     # fill out booking form and select couriers
     # submit - :create complete booking, and redirect to delivery_offer#new
-    resources :bookings, :only => [:new, :create, :show] # updates booking session?
+    resources :bookings #, :only => [:new, :create, :show, :edit] # updates booking session?
 
     # waiting screen (awaiting biddings)
     # :create - creates the new delivery offer and pushes offer to couriers
@@ -102,7 +102,8 @@ Tiramizoo::Application.routes.draw do
   #   resources :products
   # end
 
-  root :to => "main#index"
+  root :to => 'main#index'
+  # root :to => 'order/bookings#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

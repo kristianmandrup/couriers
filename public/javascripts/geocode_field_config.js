@@ -1,6 +1,10 @@
+TIRAMIZOO.geocodeScreenConfig = {};
+
 TIRAMIZOO.namespace("geocodeFieldConfig");
 TIRAMIZOO.geocodeFieldConfig = function ($, app, opts) {
   // then somewhere in your code instantiate the objects here with all your custom options
+  console.log('app', app);
+  console.log('options', opts);
 
 	var options = opts,
 	popFieldId  = options.popId,
@@ -79,4 +83,3 @@ TIRAMIZOO.geocodeFieldConfig = function ($, app, opts) {
   });
 };
 
-TIRAMIZOO.geocodeScreenConfigs = {};

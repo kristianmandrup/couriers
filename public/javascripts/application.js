@@ -151,33 +151,6 @@ TIRAMIZOO.courier = {
     DRIVING: "driving"
 };
 
-TIRAMIZOO.namespace("mapAuto");
-TIRAMIZOO.mapAuto = (function (app, $) {
-    var events = app.events,
-    geolocation = app.geolocation,
-    g = google.maps,
-    map,
-    mapOptions = {
-        zoom: 10,
-        center: new g.LatLng(48.1359717, 11.572207),
-        mapTypeId: g.MapTypeId.ROADMAP,
-        mapTypeControl: false
-    };
-    
-    function init() {
-        map = new g.Map(document.getElementById("map-canvas-auto"), mapOptions);
-    } 
-    
-    function fitBounds(bounds) {
-      map.fitBounds(bounds);
-    }
-           
-    return  { 
-        fitBounds: fitBounds,
-        init: init
-    }
-}(TIRAMIZOO, jQuery));
-
 TIRAMIZOO.namespace("map");
 TIRAMIZOO.map = (function (app, $) {
     var courier = app.courier,

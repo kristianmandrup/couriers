@@ -8,20 +8,11 @@ module Order
 
     # InheritedResources::Base
 
-
-    # TODO
-    # Save session in DB and clean it up!
     # http://asciicasts.com/episodes/243-beanstalkd-and-stalker    
     # http://railscasts.com/episodes/119-session-based-model
     # https://github.com/ncr/background-fu    
     def new
-      @booking = session[:booking]
-      
-      puts "Pickup: #{@booking.pickup}"
-      puts "Dropoff: #{@booking.dropoff}"      
-      
-      @available_couriers = Courier.available    
-      @your_location = Location.create_from session[:location]
+      @booking            = Order::Booking.new
     end   
 
     # submit - :create complete booking put it in a delivery_offer#create

@@ -1,9 +1,13 @@
+# encoding: UTF-8
+
 module CucumberFM
   module FeatureElement
     class ScenarioOutline < Struct.new(:feature, :raw)
 
+      I18N_WORDS = "Scenario Outline:|Esquema do Cenário:|Esquema do Cenario:"
+
       # TODO requires more specs and some improvements
-      PATTERN = /((^.*#+.*\n)+\n?)?(^.*@+.*\n)?^[ \t]*Scenario Outline:.*\n?((^.*\S+.*\n?)*\n?)?(^[ \t]*Examples:.*\n(^.*\S+.*\n?)*)?/
+      PATTERN = /((^.*#+.*\n)+\n?)?(^.*@+.*\n)?^[ \t]*(#{I18N_WORDS}).*\n?((^.*\S+.*\n?)*\n?)?(^[ \t]*Examples:.*\n(^.*\S+.*\n?)*)?/
 
       include CucumberFM::FeatureElement::Component::Tags
       include CucumberFM::FeatureElement::Component::Title
