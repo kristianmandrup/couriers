@@ -35,6 +35,25 @@ You will need to have a database user set up on the database that you want to co
   MongoMapper.database.authenticate('admin', 'sekret')  
 </pre>
 
+*Mongo HQ connection*
+
+"MongoHQ for Heroku users":http://support.mongohq.com/discussions/community-tips/2-logging-in-to-mongohq-for-heroku-users
+
+<pre>
+  $ heroku addons:remove mongohq:free --app tiramizoo-beta
+  $ heroku addons:add mongohq:free --app tiramizoo-beta  
+</pre>
+
+_Add remote connection_ on Mongo HQ
+
+<pre>
+  $ heroku config --long --app tiramizoo-beta
+  MONGOHQ_URL         => mongodb://heroku:0oymh4rkyqotfle3uuo4sw@flame.mongohq.com:27077/app399236  
+</pre>
+
+Open Mongo HQ account and add a remote connection. Paste in the MongoHQ_URL from heroku log, and choose any database (that you already created on Mongo HQ)
+Then the Web app on Heroku should be working!
+
 h2. Geocode
 
 "Geokit and Rails":http://railsmagazin.de/geokit-rails-und-google-maps-teil-1-552

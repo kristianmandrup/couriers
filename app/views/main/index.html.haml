@@ -1,7 +1,7 @@
 - content_for :meta do
   = javascript_include_tag  "http://maps.google.com/maps/api/js?sensor=true"
   = javascript_include_tag  "application"
-  = javascript_include_tag  'geo-autocomplete/jquery-ui-1.8.5.custom.min', 'geocode'  # 'autocomplete-rails'
+  = javascript_include_tag  'geo-autocomplete/jquery-ui-1.8.5.custom.min', 'geocode', 'geocode_field_config'  # 'autocomplete-rails'
   = javascript_include_tag  "ui.geo_autocomplete" #, "geo-autocomplete/jquery.autocomplete_geomod"
   = javascript_include_tag  "mapstraction/mxn.js?(googlev3,[geocoder])"    
   = javascript_include_tag  "page/quote"
@@ -10,6 +10,6 @@
   / = geo_autocomplete_for :order_quote_pickup_point, :order_quote_dropoff_point                
   = center_map_on_your_location
 
-= render 'page/default'
 = render 'order/quotes/form'
 = render 'order/quotes/map'
+= render 'page/default'

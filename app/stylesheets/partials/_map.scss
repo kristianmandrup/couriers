@@ -1,4 +1,37 @@
-iframe {
-  margin-top:32px;
+#map-canvas {
+  margin-top:32px!important;
   @include content-border;
+  width:530px;
+  height:340px;
+  z-index:1;
+}
+
+#where-i-am {
+  z-index:10;
+  position:absolute;
+  right:8px;
+  top:30px;
+  width:170px;
+  background:$color_highlight!important;
+/*  background:$color_highlight_alpha!important;*/
+  border:0!important;
+  font-weight:bold;
+  legend {
+    position:relative!important;
+    > label {
+    width:100%!important;
+    font-size:13px;
+    }
+  }
+  ol {
+    margin:0!important;
+    padding:0!important;
+    > li {
+      padding-bottom:0;
+      margin-bottom:0!important;
+    }
+    ol {
+      padding-top:20px!important;
+    }
+  }
 }

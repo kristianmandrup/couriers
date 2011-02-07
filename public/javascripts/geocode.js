@@ -63,126 +63,15 @@ TIRAMIZOO.geoAutocompleteField = function ($, app, opts) {
 TIRAMIZOO.namespace("geocoder");
 TIRAMIZOO.geocoder = function ($, app, opts) {
 
-  var mapstraction,
-  options = opts,
-  geocoder;
-
-  // SAMPLE
-  // function geocode_return(geocoded_location) {
-  //  
-  //  // display the map centered on a latitude and longitude (Google zoom levels)
-  //  mapstraction.setCenterAndZoom(geocoded_location.point, 15);
-  // 
-  //  // create a marker positioned at a lat/lon
-  //  var geocode_marker = new mxn.Marker(geocoded_location.point);
-  // 
-  //  var address = geocoded_location.locality + ", " + geocoded_location.region;
-  //  geocode_marker.setInfoBubble(address);
-  //  
-  //  // display marker
-  //  mapstraction.addMarker(geocode_marker);
-  // 
-  //  // open the marker
-  //  geocode_marker.openBubble();
-  // }
+  var options = opts, 
+  instance;
 
   init(options);
 
   function init(options) {
-  	// create mxn object                              
-  	apis = options.apis || 'googlev3'
-  	mapstraction = new mxn.Mapstraction('map-canvas', apis);
-  	geocoder = new mxn.Geocoder(apis, geocode_return);		
+    callback = options.callback;
+  	instance = options.gc;
   }
 }
 
-TIRAMIZOO.namespace("geocodeConfig");
-TIRAMIZOO.geocodeConfig = function ($, app, opts) {
-  // then somewhere in your code instantiate the objects here with all your custom options
 
-	var options = opts,
-	popFieldId  = options.popId,
-	podFieldId      = options.podId,
-
-	popAutoComplete = app.geoAutocompleteField($, app, {fieldID: popFieldId}),
-	podAutoComplete = app.geoAutocompleteField($, app, {fieldID: podFieldId}),
-
-	map = app.map, 
-	geocoder = app.geocoder,
-	mapstraction = geocoder.mapstraction,
-	route = app.route,
-
-	popGeocoder = geocoder($, app, {callback: options.callbacks.popGeocoded}), // init here? should each have a separate instance!
-	podGeocoder = geocoder($, app, {callback: options.callbacks.podGeocoded}),
-
-	podPoint = null, // will be filled out on successful geocoding!
-	popPoint = null;
-
-    function updateMap(geocoded_location, geocode_marker) {
-      // display the map centered on a latitude and longitude (Google zoom levels)
-      mapstraction.setCenterAndZoom(geocoded_location.point, 15);
-  
-      var address = geocoded_location.locality + ", " + geocoded_location.region;
-      geocode_marker.setInfoBubble(address);
-      
-      // display marker
-      mapstraction.addMarker(geocode_marker);
-     
-      // open the marker
-      geocode_marker.openBubble();    
-    }
-  
-    function geocodeField(fieldId, geoCoder) {
-   var address = {};
-   address.address = $(fieldId).value;
-   geoCoder.geocode(address);
-    }
-  
-  function bothPointsAreValid() {
-      return popAutoComplete.isValid() && podAutoComplete.isValid();
-  }
-  
-  function popIsValid() {
-      return popAutoComplete.isValid();
-  }
-  
-  
-    function podIsValid() {
-      return podAutoComplete.isValid();    
-    }
-  
-    function updateNearbyCouriers() {
-      map.getNearbyCouriers(function () {
-        console.log("nearby couriers updated!");
-      });
-    } 
-  
-  app.events.add("validPop", function() {
-    geocodeField(popFieldId, popGeocoder);
-    updateNearbyCouriers();    
-    });
-  
-  app.events.add("validPod", function() {
-    geocodeField(podFieldId, podGeocoder);   
-    });
-  
-  app.events.add("validPopAndPod", function() {
-      map.showRoute(route(podPoint, popPoint))
-    });
-  
-  app.events.add("geoAutocompleteFieldChange", function() {
-      if (popIsValid()) {
-        events.dispatch("validPop");
-      }
-  
-      if (podIsValid()) {
-        events.dispatch("validPod");
-      }
-  
-   if (bothPointsAreValid()) {
-        events.dispatch("validPopAndPod");
-   }
-  });
-};
-
-TIRAMIZOO.geocodeScreenConfigs = {};

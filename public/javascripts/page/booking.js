@@ -32,7 +32,7 @@ TIRAMIZOO.geocodeScreenConfigs.booking = {
 TIRAMIZOO.namespace("booking");
 TIRAMIZOO.booking = (function (app, $) {
     // configure geocoding for the booking page!
-    app.geocodeConfig($, app, app.geocodeScreenConfigs.booking);
+    app.geocodeFieldConfig($, app, app.geocodeScreenConfigs.booking);
 
     $('tr.courier_item').click(clickCourierItem);    
 

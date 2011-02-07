@@ -1,3 +1,7 @@
+Mongo HQ:
+
+mongodb://tiramizoo:hello@flame.mongohq.com:27047/tiramizoo-beta 
+
 $ irb
 
 > require 'rest-client'
