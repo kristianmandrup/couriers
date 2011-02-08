@@ -1,0 +1,26 @@
+- content_for :meta do
+  / = javascript_tag "json2.js"
+  = javascript_tag       "page/delivery_offer.js"
+  = stylesheet_link_tag  'page/delivery' #, "jquery.autocomplete"
+
+#new-delivery
+  %h1 Waiting for the following couriers to respond
+
+  = render 'show_offer', :locals => {:delivery => @delivery}
+
+  %table
+    %tr
+      %th 
+        Number
+      %th 
+        Name
+      %th 
+        Status    
+      - @couriers_notified.each do |courier|
+        %tr{:id => "courier_#{courier.number}"}
+          %td
+            = courier.number
+          %td
+            = courier.full_name
+          %td.status 
+            = courier.accepted_delivery?

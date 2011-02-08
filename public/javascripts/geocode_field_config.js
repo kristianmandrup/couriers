@@ -10,15 +10,15 @@ TIRAMIZOO.geocodeFieldConfig = function ($, app, opts) {
 	popFieldId  = options.popId,
 	podFieldId  = options.podId,
 
-	popAutoComplete = app.geoAutocompleteField($, app, {fieldID: popFieldId}),
-	podAutoComplete = app.geoAutocompleteField($, app, {fieldID: podFieldId}),
+	popAutoComplete = app.geoAutocompleteField($, app).init({fieldID: popFieldId}),
+	podAutoComplete = app.geoAutocompleteField($, app).init({fieldID: podFieldId}),
 
 	map             = app.map, 
 	gc              = new google.maps.Geocoder(),
 	route           = app.route,
 
-	popGeocoder = geocodeConfig($, app, {geocoder: gc});
-	podGeocoder = geocodeConfig($, app, {geocoder: gc});
+	popGeocoder = geocodeConfig($, app).init({geocoder: gc}),
+	podGeocoder = geocodeConfig($, app).init({geocoder: gc}),
 
   popGeocoder.callback = options.callbacks.podGeocoded,
   podGeocoder.callback = options.callbacks.popGeocoded,

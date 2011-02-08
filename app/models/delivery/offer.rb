@@ -3,10 +3,10 @@
 class Delivery::Offer
   include Mongoid::Document
 
-  field :number,        :type => String
-  field :max,           :type => Integer
-  field :time_notified, :type => Time
-  field :state,         :type => String
+  field :number,          :type => String
+  field :max_couriers,    :type => Integer, :default => 3
+  field :time_notified,   :type => Time
+  field :state,           :type => String
 
   references_one  :accepted_courier,  :class_name => 'Courier'
   embeds_one      :booking,           :class_name => 'Order::Booking'
@@ -35,6 +35,10 @@ class Delivery::Offer
     set_state new_state
   end
 
+  def location
+    booking.pickup.location
+  end
+
   def pickup
     booking.pickup
   end
@@ -59,11 +63,16 @@ class Delivery::Offer
     yield pickup
   end
 
-
   class << self
+    include ::OptionExtractor
+        
     def status event
       Rails.logger.error "Unknown offer event: #{event}" and return if !event_msg[event]
       status_msg event, event_msg[event]
+    end
+
+    def create_empty
+      self.new
     end
 
     def create_request courier
@@ -71,9 +80,9 @@ class Delivery::Offer
     end
 
     def create_for options = {:max => 3}
-      delivery_offer = self.new
-      delivery_offer.max_couriers = extract_max options      
-      delivery_offer.booking = extract_booking options
+      delivery_offer = create_empty
+      delivery_offer.max_couriers = extract_max_couriers options
+      delivery_offer.booking      = extract_booking options
       delivery_offer.for_couriers extract_couriers options
       delivery_offer
     end

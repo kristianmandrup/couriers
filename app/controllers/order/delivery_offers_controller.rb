@@ -52,6 +52,14 @@ module Order
     # --------------------------------------------------------------------------------
     def new
       begin
+        puts "new delivery offer"
+        puts "booking: #{current_booking}"
+        puts "couriers_selected: #{couriers_selected}"
+
+        @delivery_offer = Delivery::Offer.create_for :booking => current_booking, :couriers => couriers_selected        
+
+        puts "delivery_offer: #{@delivery_offer}"
+        
         # sends delivery offer info without contact information to each courier
         couriers_to_notify.each do |id|
           p "sending deliver info to delivery channel for courier: #{id}"

@@ -15,7 +15,10 @@ module OptionExtractor
     type = options[:type]
     type ||= [:individual, :company].pick_one
   end
-    
+
+  def extract_max_couriers options
+    options[:max] || 3
+  end
   
   def extract_booking options
     booking = options[:booking]
@@ -94,18 +97,23 @@ module OptionExtractor
     get_city city    
   end
 
+  # {:couriers => [1,2,3]}
+  # return list of Courier instances with matching number from database
   def extract_couriers  options = {}
-    couriers = case options
+    case options
     when Array
-      options
+      Courier.where(:number.in => options[:couriers].map(&:to_i))
     else
-      random_courier_ids
+      random_couriers
     end
-    create_couriers couriers
+  end
+
+  def random_couriers
+    Courier.available.pick_some.flat_uniq
   end
 
   def random_courier_ids
-    Courier.available.map(&:number).pick_some.flat_uniq
+    random_couriers.map(&:number)
   end
 
   def get_city city

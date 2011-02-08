@@ -19,11 +19,10 @@ module Order
     # Create new delivery offer and pushes it to the selected couriers 
     # Also use the zip of the pickup to find Companies who subscribe to that zip and send offer to those companies
     def create
-      # session[:couriers_selected] = couriers_selected # list of courier ids
-      # @couriers_selected = couriers_selected
-      @delivery_offer = Delivery::Offer.create_for current_booking, couriers_selected
-      # session[:delivery_offer] = @delivery_offer
-      redirect_to [:new, @delivery_offer]
+      current_booking.save     
+      puts "couriers_selected: #{couriers_selected}"
+      session[:booking] = {:number => current_booking.number, :courier_numbers => couriers_selected}
+      redirect_to new_delivery_path
     end
   
     protected
@@ -55,7 +54,7 @@ module Order
     end
 
     def couriers_selected 
-      get_selected order_booking[:couriers]
+      order_booking[:couriers].reject{|i| i.blank?}.map(&:to_i)
     end
 
     def companies_selected 

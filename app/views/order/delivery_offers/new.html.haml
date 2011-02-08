@@ -1,6 +1,6 @@
 - content_for :header do
-  = javascript_tag "json2.js"
-  = javascript_tag "delivery_offer.js"
+  / = javascript_tag "json2.js"
+  = javascript_tag "page/delivery_offer.js"
 
 %h1 Waiting for the following couriers to respond
 
@@ -14,11 +14,11 @@
       Name
     %th 
       Status    
-    - @couriers_to_wait_for.each do |courier|
-    %tr{:id => "courier_#{courier.number}"}
-      %td
-        = courier.number
-      %td
-        = courier.full_name
-      %td.status 
-        = courier.accepted_delivery?
+    - @couriers_notified.each do |courier|
+      %tr{:id => "courier_#{courier.number}"}
+        %td
+          = courier.number
+        %td
+          = courier.full_name
+        %td.status 
+          = courier.accepted_delivery?

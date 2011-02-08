@@ -40,7 +40,11 @@ class Person::Name
   protected
   
   def strip_names
-    self.first_name.strip!
-    self.last_name.strip!
+    strip_it! self.first_name
+    strip_it! self.last_name
   end  
+  
+  def strip_it! field
+    field.strip! if !field.blank?    
+  end    
 end

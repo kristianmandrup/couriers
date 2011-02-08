@@ -17,6 +17,10 @@ class Order::Place
   end  
   include Api
 
+  def full_name
+    contact.full_name
+  end
+
   def street
     address.street
   end

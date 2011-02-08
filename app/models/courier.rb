@@ -3,15 +3,15 @@ class Courier < User
 
   # field :location, :type => Array
   # index [[ :location, Mongo::GEO2D ]], :min => -180, :max => 180
-
-  field       :number,            :type => Integer
+  field       :number,            :type => Integer, :default => 1
   
   embeds_one  :working_hours,     :class_name => TimePeriod  
   embeds_one  :bank_account
   embeds_one  :price_structure
   
-  embeds_many :vehicles,  :class_name => 'Courier::Vehicle'
-  embeds_one  :delivery
+  embeds_many :vehicles,          :class_name => 'Courier::Vehicle'
+
+  references_one :delivery
   
   field       :current_vehicle,   :type => String
   field       :work_state,        :type => String

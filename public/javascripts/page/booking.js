@@ -1,9 +1,11 @@
 jQuery(function(){
-  TIRAMIZOO.map.init();
-  // TIRAMIZOO.mapAuto.init();
-});
+    TIRAMIZOO.map.init();
+    TIRAMIZOO.mapAuto.init();
 
-$(function() {
+    function notification(msg) {
+      $('.notification').text(msg);
+    }
+
     $('tr.courier_item').click(clickCourierItem);    
     var form = $('form#new_order_booking');
     var checkboxes = form.find('input[type=checkbox]');

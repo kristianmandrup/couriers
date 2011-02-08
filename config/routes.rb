@@ -37,6 +37,8 @@ Tiramizoo::Application.routes.draw do
     end
   end
 
+  resources :deliveries, :only => [:new]
+
   namespace :order do
     # new quote is handled by main#index (quote form is on main page)
     # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
