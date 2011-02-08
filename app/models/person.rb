@@ -30,6 +30,13 @@ profile:
 
   class << self   
     include ::OptionExtractor
+
+    def create_empty
+      Person.new
+      person.address  = Address.create_empty
+      person.name     = Person::Name.create_empty
+      person
+    end
         
     def create_for options = {}
       person = Person.new 

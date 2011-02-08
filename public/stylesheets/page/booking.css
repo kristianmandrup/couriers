@@ -1,3 +1,33 @@
+.title {
+  color: white;
+  background: #85bf00;
+  font-weight: bold;
+}
+
+tr.even {
+  background: gray;  
+}
+
+tr.odd {
+  background: white;  
+}
+
+
+table#courier_list {
+  -moz-border-radius: 4px 4px 4px 4px;  
+  background: #85bf00;
+  padding: 0.5em;
+}
+
+
+fieldset#dropoff {
+  padding-top: 0.5em;
+}
+
+.hidden {
+  display:none;
+}
+
 .courier_item {
   cursor: pointer;
 } 

@@ -1,29 +1,27 @@
-TIRAMIZOO.namespace("booking");
-TIRAMIZOO.booking = (function (app, $) {
-    // configure geocoding for the booking page!
-    app.geocodeFieldConfig($, app, app.geocodeScreenConfigs.booking);
+jQuery(function(){
+  TIRAMIZOO.map.init();
+  // TIRAMIZOO.mapAuto.init();
+});
 
+$(function() {
     $('tr.courier_item').click(clickCourierItem);    
+    var form = $('form#new_order_booking');
+    var checkboxes = form.find('input[type=checkbox]');
+    console.log('checkboxes', checkboxes);
 
-    $('form#new_order_booking input[type=checkbox]').each(function() {
+    checkboxes.each(function() {
       $(this).attr('checked', false);
     });    
 
-    // html body.bp div#container-top div#maincontent div#booking_form.left form#new_order_booking.formtastic li#order_booking_couriers_input.check_boxes
-
-    $('form#new_order_booking #order_booking_couriers_input').each(function() {
-      $(this).hide();
-    });    
-
     var maxCouriers = 3;    
-    var couriersSelected = $('form#new_order_booking input[type=checkbox]:checked').length;
+    var couriersSelected = form.find('input[type=checkbox]:checked').length;
 
     classesSelected = [];
 
     function clickCourierItem() {
       elem = $(this);
       number = elem.find('td.number').text().trim();
-      checkbox = $('form#new_order_booking').find('input[type=checkbox][value=' + number + ']');
+      checkbox = form.find('input[type=checkbox][value=' + number + ']');
       if (!checkbox.is(':checked')) {
         if (couriersSelected < maxCouriers) {          
           couriersSelected += 1; 
@@ -90,6 +88,6 @@ TIRAMIZOO.booking = (function (app, $) {
         return n + ' couriers';        
       }
     }
-}(TIRAMIZOO, jQuery));
+});
 
 

@@ -17,6 +17,15 @@ describe Order::Booking do
     it "should have an empty dropoff" do
       @booking.dropoff.should_not be_nil
     end
+    
+    it "should have an empty pickup street" do
+      puts @booking.pickup
+      @booking.pickup.street.should be_nil
+    end           
+
+    it "should have an empty dropoff street" do
+      @booking.dropoff.street.should be_nil
+    end
   end
   
   context "Random booking from munich" do

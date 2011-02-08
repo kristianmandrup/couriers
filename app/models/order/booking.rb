@@ -30,13 +30,19 @@ dropoff: #{dropoff}
     def create_empty options = {}
       booking = self.new options
 
-      # booking.description = extract_desc options
-
-      booking.pickup  = Order::Pickup.new
-      booking.dropoff = Order::Dropoff.new
-
+      booking.pickup  = Order::Pickup.create_empty
+      booking.dropoff = Order::Dropoff.create_empty
       booking
     end
+
+    # "order_booking"=>{"couriers"=>[""], "pickup_attributes"=>{"street"=>"sdf", "name"=>{"first_name"=>"", "last_name"=>""}, "contact_info"=>{"phone"=>"", "email"=>""}}, "dropoff_attributes"=>{"street"=>"", "name"=>{"first_name"=>"", "last_name"=>""}, "contact_info"=>{"phone"=>"", "email"=>""}}}, "commit"=>"Create Booking", "locale"=>"en"}
+    def  create_from_params params
+      new_booking = Order::Booking.create_empty 
+      new_booking.pickup = Order::Pickup.create_from_params params[:pickup_attributes]
+      new_booking.pickup = Order::Dropoff.create_from_params params[:dropoff_attributes]
+      new_booking            
+    end
+      
 
     def create_for options = {}
       booking = self.new

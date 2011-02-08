@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe Order::Dropoff do 
+  context 'an empty dropoff' do
+    before do
+      @dropoff = Order::Dropoff.new
+    end
+
+    it "should have an empty street" do
+      @dropoff.street
+    end
+  end
+end
+
+describe Order::Dropoff do 
   context 'a dropoff' do
     before do
       @dropoff = Order::Dropoff.create_for  

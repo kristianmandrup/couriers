@@ -94,6 +94,20 @@ module OptionExtractor
     get_city city    
   end
 
+  def extract_couriers  options = {}
+    couriers = case options
+    when Array
+      options
+    else
+      random_courier_ids
+    end
+    create_couriers couriers
+  end
+
+  def random_courier_ids
+    Courier.available.map(&:number).pick_some.flat_uniq
+  end
+
   def get_city city
     :munich
     # return :munich if city.to_s.downcase =~ /m.*ch.*/

@@ -9,10 +9,6 @@ module ApplicationHelper
     TiramizooApp.pubsub.new(keys.publish, keys.subscribe, keys.secret, keys.ssl_on)
   end
 
-  def current_booking
-    session[:booking]
-  end
-
   def current_delivery_offer
     session[:delivery_offer]
   end

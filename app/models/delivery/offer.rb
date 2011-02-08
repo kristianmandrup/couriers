@@ -74,7 +74,7 @@ class Delivery::Offer
       delivery_offer = self.new
       delivery_offer.max_couriers = extract_max options      
       delivery_offer.booking = extract_booking options
-      delivery_offer.for_couriers couriers
+      delivery_offer.for_couriers extract_couriers options
       delivery_offer
     end
     

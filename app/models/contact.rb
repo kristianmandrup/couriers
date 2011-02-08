@@ -35,6 +35,13 @@ class Contact
   class << self
     include ::OptionExtractor    
 
+    def create_empty
+      contact           = Contact.new
+      contact.name      = Person::Name.create_empty
+      contact.channel   = Contact::Channel.create_empty
+      contact      
+    end
+
     def create_for options = {}
       contact           = Contact.new
       contact.name      = extract_person_name options

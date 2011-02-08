@@ -23,6 +23,9 @@ TIRAMIZOO.geocodeScreenConfigs.booking = {
 };
 
 (function ($) {
+  // configure geocoding for the booking page!
+  app.geocodeFieldConfig($, app, app.geocodeScreenConfig.booking);
+  
   booking_step = $('#tab-content-1.tab-content').find('%li#step_2');
   switch_tabs(booking_step);  
 }(jQuery));

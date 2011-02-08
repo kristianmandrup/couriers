@@ -58,12 +58,19 @@ notes: #{notes}
   module ClassMethods    
     include ::OptionExtractor
 
+    def create_empty
+      place = self.new
+      place.address  = Address.create_empty
+      place.contact  = Contact.create_empty
+      place
+    end
+
     def create_from_params params
-      place = self.new 
-      place.notes    = params[:notes]
-      place.contact  = Contact.create_from_params params[:contact]
-      place.address  = Address.create_from_params params[:address]
-      place      
+      place = create_empty
+      place.notes   = params[:notes]
+      place.address = Address.create_for :street => params[:street] # use geocode
+      place.contact = Contact.create_for :channel => params[:contact_info], :name => params[:name]
+      place
     end
 
     def create_for options = {}

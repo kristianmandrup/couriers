@@ -28,9 +28,13 @@ email: #{email}
       { :munich => ['blip@mail.de', 'blap.blop@mail.de', 'zander@telekom.de', 'jurgen@flashcom.de'] }
     end
 
+    def create_empty
+      Contact::Channel.new
+    end
+
     def create_for options = {}
       city = extract_city options
-      channel = Contact::Channel.new 
+      channel = create_empty
       channel.phone = phones[city.to_sym].pick_one
       channel.email = emails[city.to_sym].pick_one
       channel
