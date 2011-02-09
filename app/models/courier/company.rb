@@ -4,12 +4,26 @@ class Courier::Company < Courier
   field       :company_number,  :type => Integer  
   embeds_one  :company,         :class_name => 'Company'
 
+  references_and_referenced_in_many :employees, :class_name => 'Courier'
+
   module Api
     def for_json
       {:email => email, :company => company.for_json}.merge super
     end
   end
   include Api
+
+  def company_name
+    company.name
+  end
+
+  def full_name
+    company.full_name
+  end
+
+  def full_name= full_name
+    company.full_name = full_name
+  end
 
   def address
     company.address

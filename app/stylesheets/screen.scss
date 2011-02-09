@@ -31,3 +31,14 @@
 @import "partials/formtastic_changes.scss";
 
 @import "partials/globals";
+
+#form, #registrations {
+  background: #85bf00;
+}             
+
+.title {
+  color: white;
+  background: #85bf00;  
+  font-weight: bold;
+}
+

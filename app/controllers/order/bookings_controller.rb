@@ -18,11 +18,18 @@ module Order
     # submit - :create complete booking put it in a delivery_offer#create
     # Create new delivery offer and pushes it to the selected couriers 
     # Also use the zip of the pickup to find Companies who subscribe to that zip and send offer to those companies
-    def create
-      current_booking.save     
-      puts "couriers_selected: #{couriers_selected}"
-      session[:booking] = {:number => current_booking.number, :courier_numbers => couriers_selected}
-      redirect_to new_delivery_path
+    def create            
+      puts 'BookingsController#create'
+      begin
+        puts "current_booking being saved: #{current_booking.inspect}"
+        current_booking.save!     
+        puts "couriers_selected: #{couriers_selected}"
+        session[:booking] = {:number => current_booking.number}
+        redirect_to new_delivery_path
+      rescue Exception => e
+        puts "Booking could not be saved: #{e}"
+        render current_booking # new_order_booking_path
+      end
     end
   
     protected

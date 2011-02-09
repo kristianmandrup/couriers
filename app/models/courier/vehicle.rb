@@ -8,7 +8,18 @@ class Courier::Vehicle
     count == 1 ? "a #{name.to_s.humanize}" : "#{count} #{name.to_s.pluralize.humanize}"    
   end
   
-  class << self    
+  class << self
+    class << self
+      def max_weight_kg type
+      end
+
+      def max_dimensions_cm type
+      end
+
+      def max_km type
+      end
+    end    
+        
     def available_types
       [:bike, :cargobike, :motorbike, :car, :van]
     end
@@ -33,7 +44,7 @@ class Courier::Vehicle
     end      
 
     def biking_modes
-      ['bike', 'bicycle']
+      ['bike', 'bicycle', 'cargobike']
     end
     
     def travel_modes

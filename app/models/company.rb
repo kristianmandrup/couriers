@@ -20,6 +20,14 @@ class Company
 
   after_initialize :strip_name
 
+  def full_name
+    contact.full_name
+  end
+
+  def full_name= full_name
+    contact.full_name = full_name
+  end
+
   class << self
     include ::OptionExtractor
 

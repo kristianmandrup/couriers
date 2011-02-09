@@ -1,0 +1,82 @@
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |rf|
+  = devise_error_messages!
+  = rf.inputs do
+    %fieldset 
+      .title
+        User
+      = rf.semantic_fields_for :user do |uf|
+        = uf.inputs do
+          = uf.input :username
+          = uf.input :password
+
+    %fieldset 
+      .title
+        Contact
+      = rf.semantic_fields_for :contact do |cf| 
+        = cf.inputs do
+          = cf.input :first_name
+          = cf.input :last_name
+          = cf.input :email
+          = cf.input :phone
+
+    = rf.input :company_name
+
+    %fieldset 
+      .title
+        Price structure
+    = rf.semantic_fields_for :price_structure do |psf| 
+      = psf.inputs do
+        = psf.input :base_price
+        = psf.input :assistance_price
+        = psf.input :currency
+
+        = psf.semantic_fields_for :beyond_time do |btf|
+          = psf.input :price
+          = psf.input :time_limit
+        = psf.semantic_fields_for :beyond_city do |btf|
+          = psf.input :price
+          = psf.input :zip_codes, :as => :check_boxes, :collection => City.zip_codes_from(:munich)
+          
+        = psf.semantic_fields_for :beyond_distance do |btf|
+          = psf.input :price
+          = psf.input :distance_limit
+
+        = psf.semantic_fields_for :beyond_hours do |bhf|
+          = bhf.input :price
+          = bhf.input :business_hours_start
+          = bhf.input :business_hours_end
+    
+    = rf.semantic_fields_for :vehicles do |vf| 
+      = vf.inputs do
+        = vf.input :bikes
+        = vf.input :cargobikes
+        = vf.input :motorbikes
+        = vf.input :cars
+        = vf.input :vans
+
+    %fieldset 
+      .title
+        Working hours
+      = rf.semantic_fields_for :working_hours do |whf|
+        = whf.inputs do
+          = whf.input :from
+          = whf.input :to
+
+    %fieldset 
+      .title
+        Bank account
+      = rf.semantic_fields_for :bank_account do |baf| 
+        = baf.inputs do
+          = baf.input :bank_name
+          = baf.input :account_number
+          = baf.input :bank_id
+
+    = rf.input :tax_number
+    = rf.input :insurance_number
+
+    = rf.input :heard_from, :as => :select, :collection => Courier.heard_from, :label => 'Heard about tiramizoo from'
+
+  = rf.buttons do
+    = rf.commit_button :register
+
+

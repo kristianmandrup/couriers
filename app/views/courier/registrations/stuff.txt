@@ -1,0 +1,25 @@
+= rf.input :location, :as => select, :collection => Location.available_cities
+= rf.input :company_name
+
+# user stuff
+
+# gps
+# zip_codes
+
+field       :tax_number,        :type => String
+field       :insurance_number,  :type => String
+
+field       :heard_from,        :type => String # where the courier heard about tiramizoo
+
+embeds_one  :working_hours,     :class_name => TimePeriod  
+embeds_one  :bank_account
+embeds_one  :price_structure
+
+embeds_many :vehicles,          :class_name => 'Courier::Vehicle'
+
+references_one :delivery
+
+field       :account_state,     :type => String
+
+field       :current_vehicle,   :type => String
+field       :work_state,        :type => String

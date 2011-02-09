@@ -1,0 +1,29 @@
+= semantic_form_for @customer do |cf|
+  = cf.inputs do
+    / User
+    = cf.semantic_fields_for :user do |uf| 
+      = uf.input :username
+      = uf.input :password 
+    / Name
+    = cf.semantic_fields_for :name do |nf| 
+      = nf.input :first_name
+      = nf.input :last_name 
+    / Address
+    = cf.semantic_fields_for :addres do |af| 
+      = af.input :street
+      = af.input :zip
+      = af.input :city
+    / Contact
+    = cf.semantic_fields_for :contact_info do |cif| 
+      = cif.input :phone
+      = cif.input :email
+    / Company
+    = cf.input :company_name
+
+    / Address Book
+    / = cf.semantic_fields_for :address_book do |ab| 
+    /   = ab.semantic_fields_for :main_pickup do |pop| 
+    /     = pop.input :street
+
+    = cf.buttons do
+      = cf.commit_button :register

@@ -10,6 +10,8 @@ class Order::Booking
   embedded_in :waybill,         :inverse_of => :booking
   embedded_in :delivery_state,  :inverse_of => :booking
 
+  field       :selected_couriers,         :type => Array
+
   after_initialize :setup
   
   def for_json
@@ -24,6 +26,11 @@ dropoff: #{dropoff}
 }
   end
 
+  def selected_couriers= courier_ids
+    value = courier_ids.reject{|i| i.blank?}.map(&:to_i)
+    write_attribute(:selected_couriers, value)
+  end
+
   class << self
     include ::OptionExtractor
     
@@ -35,11 +42,20 @@ dropoff: #{dropoff}
       booking
     end
 
-    # "order_booking"=>{"couriers"=>[""], "pickup_attributes"=>{"street"=>"sdf", "name"=>{"first_name"=>"", "last_name"=>""}, "contact_info"=>{"phone"=>"", "email"=>""}}, "dropoff_attributes"=>{"street"=>"", "name"=>{"first_name"=>"", "last_name"=>""}, "contact_info"=>{"phone"=>"", "email"=>""}}}, "commit"=>"Create Booking", "locale"=>"en"}
+    # {
+    #   "couriers"=>[""], 
+    #   "pickup_attributes"=>{"street"=>"sdf", 
+    #     "name"=>{"first_name"=>"", "last_name"=>""}, 
+    #     "contact_info"=>{"phone"=>"", "email"=>""}}, 
+
+    #   "dropoff_attributes"=>{"street"=>"", 
+    #     "name"=>{"first_name"=>"", "last_name"=>""}, 
+    #     "contact_info"=>{"phone"=>"", "email"=>""}}}, "commit"=>"Create Booking", "locale"=>"en"}    
     def  create_from_params params
       new_booking = Order::Booking.create_empty 
       new_booking.pickup = Order::Pickup.create_from_params params[:pickup_attributes]
       new_booking.pickup = Order::Dropoff.create_from_params params[:dropoff_attributes]
+      new_booking.selected_couriers = params[:couriers]
       new_booking            
     end
       

@@ -1,8 +1,10 @@
 class TimePeriod
   include Mongoid::Document
   
-  field :street,        :type => Time
-  field :city,          :type => Time
+  field :from,        :type => Time
+  field :to,          :type => Time
+
+  referenced_in :courier, :inverse_of => :working_hours
   
   def self.to_s time_period
     out_str = ''

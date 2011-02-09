@@ -4,14 +4,24 @@ class Courier < User
   # field :location, :type => Array
   # index [[ :location, Mongo::GEO2D ]], :min => -180, :max => 180
   field       :number,            :type => Integer, :default => 1
+
+  field       :tax_number,        :type => String
+  field       :insurance_number,  :type => String
+
+  field       :heard_from,        :type => String # where the courier heard about tiramizoo
   
   embeds_one  :working_hours,     :class_name => TimePeriod  
   embeds_one  :bank_account
   embeds_one  :price_structure
   
-  embeds_many :vehicles,          :class_name => 'Courier::Vehicle'
+  embeds_many     :vehicles,          :class_name => 'Courier::Vehicle'
 
-  references_one :delivery
+  field       :zip_codes,       :type => Array
+  field       :gps,             :type => Boolean,   :default => false 
+
+  references_one  :delivery
+
+  field       :account_state,     :type => String
   
   field       :current_vehicle,   :type => String
   field       :work_state,        :type => String
@@ -20,7 +30,7 @@ class Courier < User
   referenced_in :offer,   :inverse_of => :courier, :class_name => "Delivery::Offer"  
   referenced_in :request, :inverse_of => :courier, :class_name => "Delivery::Request"  
   
-  validates :work_state, :work_state => true
+  validates :work_state,  :work_state => true
   
   after_initialize :set_work_state, :set_number
 
@@ -83,13 +93,32 @@ class Courier < User
     self.number = Courier::Counter.current_number
     save
   end 
+
+  # For the backend, retrieves all accounts that are pending
+  scope :pending, :where => {:account_state => 'pending'}
   
   class << self
     include ::OptionExtractor
+
+    def valid_account_states
+      [:active, :inactive, :pending]
+    end
+
+    def valid_account_state? state
+      state.blank? || valid_account_states.include?(state.to_sym) 
+    end
+
+    def heard_from
+      ['Facebook', 'Twitter', 'My courier company', 'Courier colleagues', 'Customers', 'Press']
+    end
     
     def valid_work_states
       [:available, :not_available]
     end    
+
+    def valid_work_state? state
+      valid_work_states.include?(state.to_sym) 
+    end
           
     def available
       in_db = Courier.all.to_a

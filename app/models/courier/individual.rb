@@ -1,8 +1,10 @@
 class Courier::Individual < Courier
   include Mongoid::Document
 
-  field       :courier_number, :type => Integer
-  embeds_one  :person 
+  field       :courier_number,  :type => Integer
+  field       :company_name,    :type => String
+
+  embeds_one  :person
 
   # API methods
 
