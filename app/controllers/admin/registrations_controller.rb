@@ -1,4 +1,4 @@
-module Admin
+class Admin
   class RegistrationsController < ApplicationController
     # before_filter :authenticate_user!, :except => [:new]  
 
