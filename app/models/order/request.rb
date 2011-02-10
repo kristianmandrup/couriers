@@ -1,13 +1,13 @@
-class Delivery::Request
+class Order::Request
   include Mongoid::Document
 
   field :state,         :type => String
   field :time_notified, :type => Time
   
-  references_one  :courier #,         :class_name => 'Courier'
-  embedded_in     :delivery_offer,  :inverse_of => :delivery_request
+  references_one  :courier
+  embedded_in     :offer,  :class_name => 'Order::Offer', :inverse_of => :order_request
 
-  validates :state, :delivery_request_state => true
+  validates :state, :order_request_state => true
   
   after_initialize :setup
 
@@ -26,6 +26,10 @@ courier: #{courier.full_name}
     def valid_states
       [:notified, :accepted, :declined]
     end    
+
+    def valid_state? state
+      valid_states.include? state.to_sym
+    end      
         
     def create_for courier
       delivery_request = self.create

@@ -1,9 +1,9 @@
 class Order::Counter
   include Mongoid::Document
   
+  field :order_number,    :type => Integer
   field :booking_number,  :type => Integer
   field :offer_number,    :type => Integer
-  field :delivery_number, :type => Integer
 
   def self.instance
     if !Order::Counter.first
@@ -18,15 +18,7 @@ class Order::Counter
     end
   end
 
-  module Delivery
-    extend Order::Counter::Abstract
-    
-    def self.next
-      counter.inc_delivery
-    end
-  end
-
-  module DeliveryOffer
+  module Offer
     extend Order::Counter::Abstract
     
     def self.next
@@ -50,14 +42,14 @@ class Order::Counter
     instance.offer_number
   end
 
-  def current_delivery_number
-    instance.delivery_number
+  def current_order_number
+    instance.order_number
   end
 
   def self.reset_numbers
     instance.offer_number = 0
     instance.booking_number = 0
-    instance.delivery_number = 0    
+    instance.order_number = 0    
     instance.save
     instance    
   end
@@ -74,9 +66,9 @@ class Order::Counter
     instance.offer_number    
   end  
 
-  def self.inc_delivery
-    instance.inc(:delivery_number, 1)
+  def self.inc_order
+    instance.inc(:order_number, 1)
     instance.save
-    instance.delivery_number
+    instance.order_number
   end  
 end

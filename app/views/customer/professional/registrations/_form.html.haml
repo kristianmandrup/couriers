@@ -1,1 +1,30 @@
-Proffesional customer form 
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |cf|
+  = devise_error_messages!
+  = cf.inputs do
+    / User
+    = cf.semantic_fields_for :user do |uf| 
+      = uf.input :username
+      = uf.input :password 
+
+    / Company
+    = cf.semantic_fields_for :company do |pf|
+      = pf.input :name
+
+      / Address
+      = pf.semantic_fields_for :addres do |af|
+        = af.input :street
+        = af.input :zip
+        = af.input :city
+
+      / Channel
+      = pf.semantic_fields_for :contact_info do |cif| 
+        = cif.input :phone
+        = cif.input :email
+
+    / Address Book
+    / = cf.semantic_fields_for :address_book do |ab| 
+    /   = ab.semantic_fields_for :main_pickup do |pop| 
+    /     = pop.input :street
+
+    = cf.buttons do
+      = cf.commit_button :register

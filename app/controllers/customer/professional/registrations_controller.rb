@@ -1,5 +1,5 @@
 class Customer
-  class Proffesional
+  class Professional
     class RegistrationsController < Devise::RegistrationsController
     end
   end

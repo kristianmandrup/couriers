@@ -1,4 +1,4 @@
-class Delivery::Offer
+class Order::Offer
   module Api
     def for_json    
       # number.to_s

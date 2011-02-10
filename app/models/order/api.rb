@@ -1,4 +1,4 @@
-class Delivery
+class Order
   module Api
     def for_json
       if [:cancelled, :delivered].include? state.to_sym

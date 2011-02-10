@@ -28,24 +28,7 @@ profile:
 }    
   end
 
-  class << self   
-    include ::OptionExtractor
-
-    def create_empty
-      Person.new
-      person.address  = Address.create_empty
-      person.name     = Person::Name.create_empty
-      person
-    end
-        
-    def create_for options = {}
-      person = Person.new 
-      options = get_options(options)
-      person.address  = extract_address options
-      person.name     = extract_person_name options
-      person
-    end
-  end
+  extend ClassMethods
 
   # validates_associated :address
   # validates :address, :presence => true  

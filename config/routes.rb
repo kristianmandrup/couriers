@@ -36,23 +36,23 @@ Tiramizoo::Application.routes.draw do
     end
   end
 
-  namespace :courier do   
-    namespace :individual do
-      resources :registrations
-    end
-    namespace :company do
-      resources :registrations
-    end    
-  end
-
-  namespace :customer do
-    namespace :private do
-      resources :registrations
-    end
-    namespace :professional do
-      resources :registrations
-    end
-  end
+  # namespace :courier do   
+  #   namespace :individual do
+  #     resources :registrations, :only => [:new]
+  #   end
+  #   namespace :company do
+  #     resources :registrations, :only => [:new]
+  #   end    
+  # end
+  # 
+  # namespace :customer do
+  #   namespace :private do
+  #     resources :registrations, :only => [:new]
+  #   end
+  #   namespace :professional do
+  #     resources :registrations, :only => [:new]
+  #   end
+  # end
 
   resources :registrations, :only => [:index]
 
@@ -94,28 +94,25 @@ Tiramizoo::Application.routes.draw do
 
   devise_for :admins, :users
 
-  devise_for :individual_couriers, :class_name => 'Courier::Individual'
-  as :individual_courier do
-    get   "/sign_up" => "courier/individual/registrations#new",       :as => :individual_courier_signup
-    get   "/sign_in" => "main#index",                                 :as => :individual_courier_signin
+
+  devise_for :individual_couriers, :class_name => 'Courier::Individual', :controllers => {:registrations => "courier/individual/registrations", :sessions => 'main' } do
+    get   "individual_courier/sign_up"  => "courier/individual/registrations#new",   :as => :individual_courier_signup
+    get   "individual_courier/sign_in"                    => "main#index",                             :as => :individual_courier_signin
   end
 
-  devise_for :courier_companies, :class_name => 'Courier::Company'
-  as :courier_company do
-    get   "/sign_up" => "courier/company/registrations#new",          :as => :courier_company_signup
-    get   "/sign_in" => "main#index",                                 :as => :courier_company_signin    
+  devise_for :courier_companies, :class_name => 'Courier::Individual', :controllers => {:registrations => "courier/company/registrations", :sessions => 'main' } do
+    get   "courier_company/sign_up"     => "courier/company/registrations#new",   :as => :courier_company_signup
+    get   "courier_company/sign_in"                    => "main#index",                          :as => :individual_courier_signin
+  end
+  
+  devise_for :private_customers, :class_name => 'Customer::Private', :controllers => {:registrations => "customer/private/registrations", :sessions => 'main' } do
+    get   "private_customer/sign_up" => "customer/private/registrations#new",         :as => :private_customer_signup
+    get   "private_customer/sign_in" => "main#index",                                 :as => :private_customer_signin        
   end
 
-  devise_for :privates_customers, :class_name => 'Customer::Private'
-  as :private_customer do
-    get   "/sign_up" => "customer/private/registrations#new",         :as => :private_customer_signup
-    get   "/sign_in" => "main#index",                                 :as => :private_customer_signin        
-  end
-
-  devise_for :professional_customers, :class_name => 'Customer::Professional'
-  as :professional_customer do
-    get   "/sign_up" => "customer/professional/registrations#new",    :as => :professional_customer_signup
-    get   "/sign_in" => "main#index",                                 :as => :professional_customer_signin            
+  devise_for :professional_customers, :class_name => 'Customer::Professional', :controllers => {:registrations => "customer/professional/registrations", :sessions => 'main' } do
+    get   "professional_customer/sign_up" => "customer/professional/registrations#new",   :as => :professional_customer_signup
+    get   "professional_customer/sign_in" => "main#index",                                :as => :professional_customer_signin            
   end
 
   namespace :admin do
