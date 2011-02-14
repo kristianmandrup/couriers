@@ -41,6 +41,10 @@ module Factory
     Contact::Channel.create_for options
   end
 
+  def create_profile options = {}
+    Profile.create_for options
+  end
+
   def create_company options = {}
     Company::Channel.create_for options
   end

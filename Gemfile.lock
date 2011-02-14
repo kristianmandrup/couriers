@@ -61,6 +61,12 @@ GIT
       rails (>= 2.3.5)
       rails (>= 2.3.5)
 
+GIT
+  remote: https://github.com/kristianmandrup/proxy_party.git
+  revision: 184b65ed52d0079eb5d73c366e355d8d7805d792
+  specs:
+    proxy_party (0.2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -392,6 +398,7 @@ DEPENDENCIES
   localized_language_select!
   mongoid (>= 2.0.0.rc.3)
   pickle
+  proxy_party (>= 0.2.0)!
   rails (= 3.0.3)
   rails3-jquery-autocomplete
   resque

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Delivery do 
+describe Order do 
   before do
-    @delivery = Delivery.create_for
+    @delivery = Order.create_for
   end
 
-  it 'should create a new valid delivery' do
+  it 'should create a new valid order' do
     if !@delivery.valid?
       puts "errors: #{@delivery.errors}"
     end

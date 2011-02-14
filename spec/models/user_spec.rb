@@ -4,7 +4,7 @@ describe User do
   it 'should create a user' do
     user = User.create email: "courier#{rand(1000)}@abc.dk", password: '123456', password_confirmation: '123456', role: 'guest'
     puts user.inspect
-    user.save!
+    expects{ user.save!}.not_to raise_error
   end
 
   # it 'should create a random user' do

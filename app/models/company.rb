@@ -47,6 +47,6 @@ class Company
   protected 
   
   def strip_name
-    self.name = self.name.strip
+    self.name = self.name.strip if self.name && !self.name.blank?
   end
 end

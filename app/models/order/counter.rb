@@ -46,6 +46,10 @@ class Order::Counter
     instance.order_number
   end
 
+  def self.next
+    inc_order
+  end
+
   def self.reset_numbers
     instance.offer_number = 0
     instance.booking_number = 0

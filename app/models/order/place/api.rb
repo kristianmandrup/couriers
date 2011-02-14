@@ -7,6 +7,5 @@ class Order::Place
     def get_overview
       {:position => location.for_json, :address => address.get_street, :notes => notes }
     end
-  end  
-  include Api
+  end
 end

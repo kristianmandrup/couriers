@@ -1,45 +1,48 @@
-class Courier::Individual < Courier
-  include Mongoid::Document
+require 'courier/individual/class_methods'
+require 'courier/individual/api'
+require 'courier/individual/proxies'
 
-  field       :courier_number,  :type => Integer
-  field       :company_name,    :type => String
+class Courier
+  class Individual < ::Courier
+    include Mongoid::Document
 
-  embeds_one  :person
+    field       :courier_number,  :type => Integer
+    field       :company_name,    :type => String
 
-  # after_initialize :set_number
+    embeds_one  :person
 
-  extend ClassMethods
+    # after_initialize :set_number
 
-  # API methods
-  include Api
-  include Proxies
+    extend ClassMethods
+    include Api
+    include Proxies
     
-  def available?
-    work_state == 'available'
-  end
+    def available?
+      work_state == 'available'
+    end
   
-  def type
-    'individual'
-  end  
+    def type
+      'individual'
+    end  
 
-  def to_s
-    %Q{
-number: #{courier_number}
-type: #{type}
-person: #{person}
-}
+    def to_s
+      %Q{
+  number: #{courier_number}
+  type: #{type}
+  person: #{person}
+  }
+    end
+
+    protected
+
+    def counter
+      Courier::Counter::Individual
+    end
+
+    def set_number    
+      self.courier_number = counter.next
+      super
+      save
+    end  
   end
-
-  protected
-
-  def counter
-    Courier::Counter::Individual
-  end
-
-  def set_number    
-    self.courier_number = counter.next
-    super
-    save
-  end  
 end
-

@@ -1,9 +1,5 @@
 class Courier::Vehicle
-  module ClassMethods      
-    def available_types
-      [:bike, :cargobike, :motorbike, :car, :van]
-    end
-  
+  module ClassMethods        
     def create_one name
       raise ArgumentError, "Not a valid vehicle type - must be one of #{available_types}" if !available_types.include? name
       Courier::Vehicle.new :name => name.to_s, :count => 1

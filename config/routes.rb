@@ -59,36 +59,38 @@ Tiramizoo::Application.routes.draw do
   resources :orders
   resources :deliveries, :only => [:new]
 
-  namespace :order do
-    # new quote is handled by main#index (quote form is on main page)
-    # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
-    resources :quotes, :only => [:create] 
+  namespace :customer do
+    namespace :order do
+      # new quote is handled by main#index (quote form is on main page)
+      # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
+      resources :quotes, :only => [:create] 
 
-    # :new an initial booking filled out with GPS
-    # fill out booking form and select couriers
-    # submit - :create complete booking, and redirect to delivery_offer#new
-    resources :bookings #, :only => [:new, :create, :show, :edit] # updates booking session?
+      # :new an initial booking filled out with GPS
+      # fill out booking form and select couriers
+      # submit - :create complete booking, and redirect to delivery_offer#new
+      resources :bookings #, :only => [:new, :create, :show, :edit] # updates booking session?
 
-    # waiting screen (awaiting biddings)
-    # :create - creates the new delivery offer and pushes offer to couriers
-    # then redirect to delivery_offer#show to display the created delivery offer and the 'empty' delivery requests (waiting responses)    
+      # waiting screen (awaiting biddings)
+      # :create - creates the new delivery offer and pushes offer to couriers
+      # then redirect to delivery_offer#show to display the created delivery offer and the 'empty' delivery requests (waiting responses)    
 
-    # :show - display delivery offer and real time status of delivery responses from couriers
+      # :show - display delivery offer and real time status of delivery responses from couriers
 
-    # when delivery offer accepted, a delivery is created and then redirect to payment#new (new payment)
-    # if not accepted redirect to booking#new
-    resources :delivery_offers, :only => [:new]
+      # when delivery offer accepted, a delivery is created and then redirect to payment#new (new payment)
+      # if not accepted redirect to booking#new
+      resources :delivery_offers, :only => [:new]
 
-    # :new - new payment form
-    # :create store the payment info and execute the payment with the provider!
-    resources :payments,   :only => [:new, :create]
+      # :new - new payment form
+      # :create store the payment info and execute the payment with the provider!
+      resources :payments,   :only => [:new, :create]
 
-    # :show - track delivery using existing delivery number
-    # :index - show status list of all deliveries of customer    
-    # resources :tracking,  :only => [:show, :index]
+      # :show - track delivery using existing delivery number
+      # :index - show status list of all deliveries of customer    
+      # resources :tracking,  :only => [:show, :index]
     
-    # resources :schedule,  :only => [:new, :create]    
-  end    
+      # resources :schedule,  :only => [:new, :create]    
+    end    
+  end
 
   resources :guests
 

@@ -59,9 +59,18 @@ module OptionExtractor
     end        
   end
 
+  def extract_url options
+    options[:url] || options[:url] || random_url
+  end
+
   def extract_desc options
     options[:description] || random_desc
   end
+
+  def random_url
+    ['www.couriers.com', 'messengers.com'].pick_one      
+  end
+
 
   def random_desc
     descriptions.pick_one      
@@ -69,6 +78,40 @@ module OptionExtractor
   
   def descriptions
     ["Big box", "Small box", "Large cylinder", "Heavy box", "Box with wineglasses - be careful!"]
+  end
+
+  def extract_profile options
+    profile = options[:profile]
+    case profile
+    when Hash
+      create_profile(profile)
+    when Profile
+      profile        
+    else
+      create_profile
+      # raise ArgumentError, "Dropoff options is not valid: #{dropoff.inspect}"
+    end        
+  end
+
+  def extract_description options
+    options[:description] || random_profile_desc
+  end
+
+  def random_profile_desc
+    profile_descriptions.pick_one      
+  end
+  
+  def profile_descriptions
+    ["My profile", "Nice profile", "I'm cool"]
+  end
+
+
+  def extract_avatar options
+    options[:avatar] || random_avatar
+  end
+
+  def random_avatar
+    ['pic1.jpg', 'my_avatar.png'].pick_one      
   end
 
   def extract_notes options
@@ -79,12 +122,12 @@ module OptionExtractor
     ['Drop it!', 'Beware of dog', 'Knock 3 times on door', 'Break the window to enter'].pick_one
   end
 
-  def extract_delivery_state options
-    options[:state] || random_delivery_state
+  def extract_order_state options
+    options[:state] || random_order_state
   end
 
-  def random_delivery_state
-    Delivery.valid_states.pick_one
+  def random_order_state
+    Order.valid_states.pick_one
   end
 
   def extract_city options = {}

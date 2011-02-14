@@ -1,3 +1,5 @@
+require 'order/waybill/counter'
+
 class Order
   class Waybill
     include Mongoid::Document

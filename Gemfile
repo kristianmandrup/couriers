@@ -15,6 +15,8 @@ group :development, :test do
   gem "rest-client"
 end  
 
+gem 'proxy_party', '>= 0.2.0', :git => 'https://github.com/kristianmandrup/proxy_party.git'
+
 # gem "mongrel", '>= 1.2.0.pre2'
 
 gem 'formtastic', '>= 1.1.0', :git => 'https://github.com/kristianmandrup/formtastic.git' # :path => '/Users/kristianconsult/ruby-gems/formtastic'

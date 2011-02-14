@@ -1,5 +1,5 @@
 class Customer
-  module Order
+  class Order
     # :new an initial booking filled out with GPS
     # fill out booking form and select couriers
     # submit - :create complete booking, and create delivery offer (pushes offer to couriers)
@@ -13,7 +13,10 @@ class Customer
       # http://railscasts.com/episodes/119-session-based-model
       # https://github.com/ncr/background-fu    
       def new
-        @booking = Order::Booking.create_empty
+        # puts "BookingsController:new"
+        puts Customer::Order::Booking.methods.sort
+        @booking = Customer::Order::Booking.create_empty
+        render :new
       end   
 
       # submit - :create complete booking put it in a delivery_offer#create
@@ -26,7 +29,7 @@ class Customer
           current_booking.save!     
           puts "couriers_selected: #{couriers_selected}"
           session[:booking] = {:number => current_booking.number}
-          redirect_to new_delivery_path
+          redirect_to new_customer_order_path
         rescue Exception => e
           puts "Booking could not be saved: #{e}"
           render current_booking # new_order_booking_path

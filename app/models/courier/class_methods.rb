@@ -1,4 +1,4 @@
-class Courier < User
+class Courier < ::User
   module ClassMethods
     include ::OptionExtractor
 
@@ -10,10 +10,6 @@ class Courier < User
       state.blank? || valid_account_states.include?(state.to_sym) 
     end
 
-    def heard_from
-      ['Facebook', 'Twitter', 'My courier company', 'Courier colleagues', 'Customers', 'Press']
-    end
-  
     def valid_work_states
       [:available, :not_available]
     end    
@@ -21,6 +17,10 @@ class Courier < User
     def valid_work_state? state
       valid_work_states.include?(state.to_sym) 
     end
+
+    def heard_from
+      ['Facebook', 'Twitter', 'My courier company', 'Courier colleagues', 'Customers', 'Press']
+    end  
         
     def available
       in_db = Courier.all.to_a

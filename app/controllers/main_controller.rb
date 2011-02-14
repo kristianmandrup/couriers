@@ -6,7 +6,7 @@ class MainController < InheritedResources::Base
   # :index creates an empty quote for the Quote form on the main page
   # submit - quote#create fills out quote, and then redirects to booking#new which uses GPS to fill out inital booking  
   def index
-    redirect_to new_order_booking_path
+    redirect_to new_customer_order_booking_path
   end
 
   # def init_user

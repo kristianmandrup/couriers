@@ -1,4 +1,4 @@
-class Courier
+class Courier < ::User
   module Api
     def for_json
       {:eta => eta, :rating => rating, :price => price}

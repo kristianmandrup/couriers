@@ -1,3 +1,5 @@
+require 'person/name/class_methods'
+
 class Person::Name
   include Mongoid::Document
 
@@ -8,6 +10,8 @@ class Person::Name
 
   validates_with FullNameValidator  
   before_validation :strip_names
+
+  extend ClassMethods
 
   # API
   def for_json

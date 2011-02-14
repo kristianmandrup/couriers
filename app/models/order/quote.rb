@@ -1,23 +1,26 @@
-class Order::Quote
-  include Mongoid::Document
-    
-  field :pickup_point,    :type => String
-  field :dropoff_point,   :type => String
-  field :vehicle,         :type => String
+require 'order/quote/class_methods'
 
-  def to_s
-    %Q{
-from: #{contact}
-to: #{address}
-vehicle: #{vehicle}
-}
-  end
+class Order
+  class Quote
+    include Mongoid::Document
     
-  module Api
-    def for_json
-      {:pickup_point => pickup_point, :dropoff_point => dropoff_point}
+    field :pickup_point,    :type => String
+    field :dropoff_point,   :type => String
+    field :vehicle,         :type => String
+
+    module Api
+      def for_json
+        {:pickup_point => pickup_point, :dropoff_point => dropoff_point}
+      end
     end
-  end
-  include Api  
-end  
-  
+    include Api  
+
+    def to_s
+      %Q{
+  from: #{contact}
+  to: #{address}
+  vehicle: #{vehicle}
+  }
+    end    
+  end  
+end

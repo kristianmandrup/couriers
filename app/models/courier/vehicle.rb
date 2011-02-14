@@ -1,34 +1,42 @@
-class Courier::Vehicle
-  include Mongoid::Document
+require 'courier/vehicle/class_methods'
 
-  field :name,  :type => String  
-  field :count, :type => Integer, :default => 1
+class Courier
+  class Vehicle
+    include Mongoid::Document
 
-  extend ClassMethods
+    field :name,  :type => String  
+    field :count, :type => Integer, :default => 1
 
-  def to_s
-    count == 1 ? "a #{name.to_s.humanize}" : "#{count} #{name.to_s.pluralize.humanize}"    
-  end
+    extend ClassMethods
+
+    def self.available_types
+      [:bike, :cargobike, :motorbike, :car, :van]
+    end
+
+    def to_s
+      count == 1 ? "a #{name.to_s.humanize}" : "#{count} #{name.to_s.pluralize.humanize}"    
+    end
     
-  # create_car, create_van etc.
-  available_types.each do |type|
-    class_eval %{
-      def #{type}?
-        name == #{type}
-      end        
+    # create_car, create_van etc.
+    available_types.each do |type|
+      class_eval %{
+        def #{type}?
+          name == #{type}
+        end        
 
-      def self.create_#{type}
-        create_one :#{type}
-      end        
-    }
-  end  
+        def self.create_#{type}
+          create_one :#{type}
+        end        
+      }
+    end  
 
-  # create_car, create_van etc.
-  available_types.each do |type|
-    class_eval %{
-      def self.create_#{type.to_s.pluralize} number
-        create number, :#{type}
-      end        
-    }
-  end  
+    # create_car, create_van etc.
+    available_types.each do |type|
+      class_eval %{
+        def self.create_#{type.to_s.pluralize} number
+          create number, :#{type}
+        end        
+      }
+    end  
+  end
 end

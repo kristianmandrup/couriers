@@ -1,3 +1,6 @@
+require 'person/class_methods'
+require 'person/api'
+
 class Person
   include Mongoid::Document
 
@@ -7,12 +10,8 @@ class Person
   embeds_one :address
   embeds_one :profile
 
-  module Api
-    def for_json
-      {:name => name.for_json, :address => address.for_json}
-    end
-  end
   include Api
+  extend ClassMethods
 
   def full_name
     name.full_name
@@ -27,8 +26,6 @@ profile:
 #{profile}
 }    
   end
-
-  extend ClassMethods
 
   # validates_associated :address
   # validates :address, :presence => true  

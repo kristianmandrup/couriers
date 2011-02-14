@@ -1,17 +1,10 @@
 class Order::Place
+  def self.inherited(base)
+    base.extend ClassMethods
+  end
+
   module ClassMethods    
     include ::OptionExtractor
-
-    def inherited(base)
-      base.extend ClassMethods
-    end
-
-    def create_empty
-      place = self.new
-      place.address  = Address.create_empty
-      place.contact  = Contact.create_empty
-      place
-    end
 
     def create_from_params params
       place = create_empty
@@ -22,11 +15,11 @@ class Order::Place
     end
 
     def create_for options = {}
-      place = self.new
+      place = create_empty
       place.notes   = extract_notes options
       place.contact = extract_contact options
       place.address = extract_address options
       place
-    end    
-  end    
+    end
+  end
 end

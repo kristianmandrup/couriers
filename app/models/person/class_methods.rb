@@ -1,19 +1,22 @@
 class Person
-  class Name
-    module ClassMethods
-      include ::OptionExtractor
+  module ClassMethods
+    include ::OptionExtractor
 
-      def create_empty
-        Person::Name.new 
-      end
+    def create_empty
+      Person.new 
+    end
 
-      def create_for options
-        city = extract_city options
-        name = create_empty
-        name.first_name = extract_first_name options
-        name.last_name  = extract_last_name options
-        name
-      end
+    def create_from city = :munich
+      create_for :address => {:city => city}
+    end      
+
+    def create_for options
+      # city            = extract_city options
+      person          = create_empty
+      person.name     = extract_person_name options
+      person.address  = extract_address options
+      person.profile  = extract_profile options
+      person
     end
   end
 end

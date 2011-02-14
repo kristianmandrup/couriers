@@ -1,3 +1,7 @@
+require 'order/api'
+require 'order/class_methods'
+require 'order/proxies'
+
 class Order
   include Mongoid::Document
   
@@ -10,11 +14,13 @@ class Order
   field :number,      :type => Integer
   field :state,       :type => String
   
-  validates :state, :delivery_state => true
+  validates :state, :order_state => true
 
   after_initialize :setup
   
   include Api
+  include Proxies
+  extend ClassMethods
   # convenience methods
   
   def to_s
@@ -26,28 +32,6 @@ waybill:
 #{waybill}
 }
   end
-
-  def travel_mode
-    courier.travel_mode
-  end
-  
-  def pickup
-    waybill.pickup
-  end
-
-  def dropoff
-    waybill.dropoff
-  end 
-
-  def with_dropoff
-    yield dropoff
-  end
-
-  def with_pickup
-    yield pickup
-  end
-  
-  extend Order::ClassMethods
   
   protected
 

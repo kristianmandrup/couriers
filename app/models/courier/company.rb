@@ -1,38 +1,52 @@
-class Courier::Company < Courier
-  include Mongoid::Document
+require 'courier/company/class_methods'
+# require 'courier/company/api'
+# require 'courier/company/proxies'
 
-  field       :company_number,  :type => Integer  
-  embeds_one  :company,         :class_name => 'Company'
+class Courier
+  class Company < ::Courier
+    include Mongoid::Document
 
-  references_and_referenced_in_many :employees, :class_name => 'Courier'
+    field       :company_number,  :type => Integer  
+    embeds_one  :company,         :class_name => 'Company'
 
-  # after_initialize :set_number
+    references_and_referenced_in_many :employees, :class_name => 'Courier'
 
-  extend ClassMethods
-  include Api
-  include Proxies
-  
-  def type
-    'company'
+    # after_initialize :set_number
+
+    extend ClassMethods
+    # include Api
+    # include Proxies
+
+    def type
+      'company'
+    end
+
+    def delivery= delivery
+      self.order = delivery
+    end
+
+    def delivery
+      self.order
+    end
+
+    def available?
+      true
+    end
+
+    def to_s
+      %Q{
+  number: #{company_number}
+  type: #{type}
+  company: #{company}
+  }
+    end
+
+    protected
+
+    def set_number    
+      self.company_number = Courier::Counter.inc_company
+      super
+      save    
+    end  
   end
-
-  def available?
-    true
-  end
-
-  def to_s
-    %Q{
-number: #{company_number}
-type: #{type}
-company: #{company}
-}
-  end
-
-  protected
-  
-  def set_number    
-    self.company_number = Courier::Counter.inc_company
-    super
-    save    
-  end  
 end
