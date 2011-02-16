@@ -1,8 +1,8 @@
-require 'customer/order/booking/api'
-require 'customer/order/booking/class_methods'
+require 'customer/order/booking_ext/api'
+require 'customer/order/booking_ext/class_methods'
 
 class Customer
-  class Order
+  module Order
     class Booking    
       include Mongoid::Document
 
@@ -19,15 +19,15 @@ class Customer
 
       after_initialize :setup
 
-      extend ClassMethods
-      include Api
+      extend  Customer::Order::BookingExt::ClassMethods
+      include Customer::Order::BookingExt::Api
 
       def to_s
-        %Q{#{number}
-    desc: #{description}
-    pickup: #{pickup}
-    dropoff: #{dropoff}
-    }
+    %Q{#{number}
+desc: #{description}
+pickup: #{pickup}
+dropoff: #{dropoff}
+}
       end
 
       def selected_couriers= courier_ids

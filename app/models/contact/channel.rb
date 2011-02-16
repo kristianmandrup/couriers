@@ -1,26 +1,25 @@
-require 'contact/channel/class_methods'
+require 'contact/channel_ext/class_methods'
 
-class Contact::Channel
-  include Mongoid::Document
+class Contact
+  class Channel
+    include Mongoid::Document
   
-  field :phone, :type => String
-  field :email, :type => String
+    field :phone, :type => String
+    field :email, :type => String
 
-  embedded_in :contact, :inverse_of => :channel
-  embedded_in :company, :inverse_of => :channel
+    embedded_in :contact, :inverse_of => :channel
+    embedded_in :company, :inverse_of => :channel
 
-  # validates :phone, :presence => true
-  # validates :email, :presence => true
+    # validates :phone, :presence => true
+    # validates :email, :presence => true
 
-  extend ClassMethods
+    extend  Contact::ChannelExt::ClassMethods
+    include Contact::ChannelExt::Api
 
-  def for_json
-    {:phone => phone, :email => email}
-  end
-
-  def to_s
+    def to_s
     %Q{phone: #{phone}
 email: #{email}
 }
-  end  
+    end  
+  end
 end

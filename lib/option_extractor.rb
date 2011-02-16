@@ -25,7 +25,7 @@ module OptionExtractor
     case booking
     when Hash
       create_booking(booking)
-    when Order::Booking
+    when Customer::Order::Booking
       booking
     else            
       create_booking

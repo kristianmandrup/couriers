@@ -1,6 +1,6 @@
-require 'contact/class_methods'
-require 'contact/api'
-require 'contact/proxies'
+require 'contact_ext/class_methods'
+require 'contact_ext/api'
+require 'contact_ext/proxies'
 
 class Contact
   include Mongoid::Document
@@ -11,9 +11,9 @@ class Contact
   embedded_in :person,  :inverse_of => :contact
   embedded_in :company, :inverse_of => :contact
 
-  include Api
-  include Proxies
-  extend ClassMethods
+  extend  ContactExt::ClassMethods
+  include ContactExt::Api
+  include ContactExt::Proxies
 
   def to_s
     %Q{name: #{name}

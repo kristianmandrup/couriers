@@ -1,5 +1,5 @@
 class Customer
-  class Order
+  module Order
     class TrackingsController < InheritedResources::Base
       before_filter :authenticate_user!
 

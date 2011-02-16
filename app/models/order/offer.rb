@@ -1,7 +1,7 @@
-require 'order/offer/class_methods'
-require 'order/offer/api'
-require 'order/offer/places'
-require 'order/offer/state'
+require 'order/offer_ext/class_methods'
+require 'order/offer_ext/api'
+require 'order/offer_ext/places'
+require 'order/offer_ext/state'
 
 # Every delivery Order can be sent out as an offer to one or more couriers who will respond to that offer
 class Order
@@ -23,11 +23,11 @@ class Order
 
     after_initialize :setup
 
-    extend ClassMethods
-    include Api 
+    extend  Order::OfferExt::ClassMethods
+    include Order::OfferExt::Api 
 
-    include Places # dropoff, pickup, location 
-    include State 
+    include Order::OfferExt::Places # dropoff, pickup, location 
+    include Order::OfferExt::State 
 
     def to_s
       %Q{number: #{number}

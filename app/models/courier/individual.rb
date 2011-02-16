@@ -1,6 +1,6 @@
-require 'courier/individual/class_methods'
-require 'courier/individual/api'
-require 'courier/individual/proxies'
+require 'courier/individual_ext/class_methods'
+require 'courier/individual_ext/api'
+require 'courier/individual_ext/proxies'
 
 class Courier
   class Individual < ::Courier
@@ -13,9 +13,9 @@ class Courier
 
     # after_initialize :set_number
 
-    extend ClassMethods
-    include Api
-    include Proxies
+    extend  Courier::IndividualExt::ClassMethods
+    include Courier::IndividualExt::Api
+    include Courier::IndividualExt::Proxies
     
     def available?
       work_state == 'available'

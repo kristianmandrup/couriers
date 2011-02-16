@@ -2,7 +2,8 @@ require 'order/place'
 
 class Order
   class Pickup < Place
-    include Mongoid::Document  
+    include Mongoid::Document
+      
     embedded_in :booking, :inverse_of => :pickup
   
     def self.create_empty

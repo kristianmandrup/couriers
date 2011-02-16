@@ -1,5 +1,5 @@
-require 'person/class_methods'
-require 'person/api'
+require 'person_ext/class_methods'
+require 'person_ext/api'
 
 class Person
   include Mongoid::Document
@@ -10,12 +10,10 @@ class Person
   embeds_one :address
   embeds_one :profile
 
-  include Api
-  extend ClassMethods
+  include PersonExt::Api
+  extend  PersonExt::ClassMethods
 
-  def full_name
-    name.full_name
-  end
+  proxy_for :name, :full_name
 
   def to_s
 %Q{

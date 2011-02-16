@@ -1,5 +1,5 @@
 class Customer
-  class Order
+  module Order
     # :new an initial booking filled out with GPS
     # fill out booking form and select couriers
     # submit - :create complete booking, and create delivery offer (pushes offer to couriers)
@@ -14,7 +14,6 @@ class Customer
       # https://github.com/ncr/background-fu    
       def new
         # puts "BookingsController:new"
-        puts Customer::Order::Booking.methods.sort
         @booking = Customer::Order::Booking.create_empty
         render :new
       end   

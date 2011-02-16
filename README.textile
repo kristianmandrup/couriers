@@ -17,7 +17,10 @@ h2. Setup
 
 Rails Wizard (tiramizoo)
 
-"Rails project creation wizard":http://railswizard.org/f8c0bcd629a3378401cb
+"Rails project creation wizard":http://railswizard.org/f8c0bcd629a3378401cb    
+"Rails project":http://railswizard.org/f8c0bcd629a3378401cb
+
+@rails new APP_NAME -m http://railswizard.org/f8c0bcd629a3378401cb.rb -T -O -J@
 
 h2. Mongo HQ
 

@@ -1,5 +1,5 @@
 class Customer
-  class Order
+  module Order
     # :new - new payment form
     # :create store the payment info and execute the payment with the provider!
     # resources :payment,   :only => [:new, :create]  

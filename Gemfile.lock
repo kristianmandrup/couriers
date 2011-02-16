@@ -21,8 +21,8 @@ GIT
       colorize (>= 0.5.8)
       devise (>= 1.1.5)
       devise (>= 1.1.5)
-      devise-links (>= 0.2.0)
       devise-links (>= 0.2.1)
+      devise-links (>= 0.2.0)
       logging_assist (>= 0.2.0)
       logging_assist (>= 0.2.0)
       r3_plugin_toolbox (>= 0.4.0)
@@ -63,7 +63,7 @@ GIT
 
 GIT
   remote: https://github.com/kristianmandrup/proxy_party.git
-  revision: 184b65ed52d0079eb5d73c366e355d8d7805d792
+  revision: c559230adc1cf5005ca73ce4b58e9463a716f028
   specs:
     proxy_party (0.2.0)
 
@@ -126,8 +126,8 @@ GEM
     cancan-rest-links (0.2.2)
       cancan (>= 1.4.1)
       cancan (>= 1.4.1)
-      r3_plugin_toolbox (>= 0.4.0)
       r3_plugin_toolbox (~> 0.4.0)
+      r3_plugin_toolbox (>= 0.4.0)
       require_all (~> 1.2.0)
       require_all (~> 1.2.0)
       sugar-high (~> 0.3.1)

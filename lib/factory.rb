@@ -22,7 +22,7 @@ module Factory
   end
   
   def create_booking options = {}
-    Order::Booking.create_for options
+    Customer::Order::Booking.create_for options
   end
 
   def create_location options = {}

@@ -9,7 +9,7 @@ module Shared
     end
 
     def current_booking    
-      @current_booking ||= Order::Booking.by_number(booking[:number]).first
+      @current_booking ||= Customer::Order::Booking.by_number(booking[:number]).first
     end
 
     def couriers_selected

@@ -1,4 +1,4 @@
-require 'profile/class_methods'
+require 'profile_ext/class_methods'
 
 class Profile
   include Mongoid::Document
@@ -10,7 +10,7 @@ class Profile
   
   embedded_in :courier, :inverse_of => :profile
 
-  extend ClassMethods
+  extend ProfileExt::ClassMethods
   
   def to_s
 %Q{

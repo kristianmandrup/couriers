@@ -2,7 +2,7 @@ module Shared
   module BookingsHelper
     module Params
       def current_booking
-        Order::Booking.create_from_params order_booking
+        Customer::Order::Booking.create_from_params order_booking
       end
 
       def order_booking

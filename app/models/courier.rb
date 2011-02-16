@@ -1,8 +1,8 @@
-require 'courier/class_methods'
-require 'courier/api'
-# require 'courier/proxies'
-# require 'courier/vehicles'
-# require 'courier/derived'
+require 'courier_ext/class_methods'
+require 'courier_ext/api'
+require 'courier_ext/proxies'
+require 'courier_ext/vehicles'
+require 'courier_ext/derived'
 
 class Courier < ::User
   include Mongoid::Document
@@ -33,33 +33,18 @@ class Courier < ::User
 
   # a delivery offer can reference the courier of that offer
   referenced_in   :offer,             :class_name => "Order::Offer",    :inverse_of => :courier
-  referenced_in   :request,           :class_name => "Order::Request",  :inverse_of => :courier 
+  referenced_in   :request,           :class_name => "Order::Request",  :inverse_of => :courier
   
   validates       :work_state,        :work_state => true
   validates       :account_state,     :account_state => true
   
   after_initialize :set_states
 
-  extend ClassMethods
-  include Api
-  include Proxies
-  # include Vehicles
-  # include Derived
-
-  def eta
-    x = rand(3) > 1 ? rand(200) : rand(30)
-    TimePeriod.to_s rand(100) + 60 + x
-  end
-
-  def rating
-    rand(3) + rand(3) + 1    
-  end
-
-  def price  
-    p = rand(10) + rand(6) + 5
-    "#{p} euro"
-  end
-
+  extend  CourierExt::ClassMethods
+  include CourierExt::Api
+  include CourierExt::Proxies
+  include CourierExt::Vehicles
+  include CourierExt::Derived
 
   # SCOPES
   scope :by_number, lambda { |number| where(:number => number) }

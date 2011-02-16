@@ -1,15 +1,15 @@
-require 'courier/company/class_methods'
-# require 'courier/company/api'
-# require 'courier/company/proxies'
+require 'courier/company_ext/class_methods'
+require 'courier/company_ext/api'
+require 'courier/company_ext/proxies'
 
 class Courier
   class Company < ::Courier
     include Mongoid::Document
 
     field       :company_number,  :type => Integer  
-    embeds_one  :company,         :class_name => 'Company'
+    embeds_one  :company,         :class_name => '::Company'
 
-    references_and_referenced_in_many :employees, :class_name => 'Courier'
+    references_and_referenced_in_many :employees, :class_name => '::Courier'
 
     # after_initialize :set_number
 

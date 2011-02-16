@@ -1,5 +1,6 @@
-require 'order/place/api'
-require 'order/place/class_methods'
+require 'order/place_ext/api'
+require 'order/place_ext/class_methods'
+require 'order/place_ext/proxies'
 
 class Order
   class Place
@@ -10,44 +11,25 @@ class Order
     embeds_one  :contact
     embeds_one  :address
 
-    # extend ClassMethods
-    include Api
+    extend  Order::PlaceExt::ClassMethods
+    include Order::PlaceExt::Api
+    include Order::PlaceExt::Proxies
 
-    def full_name
-      contact.full_name
-    end
-
-    def street
-      address.street if address
-    end
-
-    def street= street
-      address.street = street if address
-    end
-
-    def city
-      address.city if address
-    end
-
-    def city= city
-      address.city = city if address
-    end
-
-  
-    def location
-      address.location if address
+    def self.inherited(base)
+      base.extend Order::PlaceExt::ClassMethods
+      base.send :include, Order::PlaceExt::Proxies
     end
 
     def to_s
-      %Q{
-  contact: 
-  #{contact}
+    %Q{
+contact: 
+#{contact}
 
-  address: 
-  #{address}
+address: 
+#{address}
 
-  notes: #{notes}
-  }
+notes: #{notes}
+}
     end
   end
 end

@@ -1,5 +1,5 @@
-require 'address/class_methods'
-require 'address/api'
+require 'address_ext/class_methods'
+require 'address_ext/api'
 
 class Address
   include Mongoid::Document
@@ -11,8 +11,8 @@ class Address
 
   embeds_one  :location
 
-  extend ClassMethods
-  include Api
+  extend  AddressExt::ClassMethods
+  include AddressExt::Api
 
   #  returns the string representing the address / the address
   def to_s

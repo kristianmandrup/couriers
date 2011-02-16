@@ -1,4 +1,4 @@
-require 'courier/vehicle/class_methods'
+require 'courier/vehicle_ext/class_methods'
 
 class Courier
   class Vehicle
@@ -7,14 +7,14 @@ class Courier
     field :name,  :type => String  
     field :count, :type => Integer, :default => 1
 
-    extend ClassMethods
-
-    def self.available_types
-      [:bike, :cargobike, :motorbike, :car, :van]
-    end
+    extend Courier::VehicleExt::ClassMethods
 
     def to_s
       count == 1 ? "a #{name.to_s.humanize}" : "#{count} #{name.to_s.pluralize.humanize}"    
+    end
+
+    def self.available_types
+      [:bike, :cargobike, :motorbike, :car, :van]
     end
     
     # create_car, create_van etc.

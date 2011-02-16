@@ -1,6 +1,6 @@
-require 'order/api'
-require 'order/class_methods'
-require 'order/proxies'
+require 'order_ext/api'
+require 'order_ext/class_methods'
+require 'order_ext/proxies'
 
 class Order
   include Mongoid::Document
@@ -18,10 +18,9 @@ class Order
 
   after_initialize :setup
   
-  include Api
-  include Proxies
-  extend ClassMethods
-  # convenience methods
+  include ::OrderExt::Api
+  include ::OrderExt::Proxies
+  extend  ::OrderExt::ClassMethods
   
   def to_s
     %Q{delivery: # #{number}

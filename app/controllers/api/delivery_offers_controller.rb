@@ -34,7 +34,7 @@ module Api
         puts "params: #{params}"
         puts "state: #{p_answer}, courier id: #{courier_id}"
 
-        booking = Order::Booking.create_from :munich
+        booking = Customer::Order::Booking.create_from :munich
 
         couriers = Courier.limit(3)
 
