@@ -1,6 +1,14 @@
+// init Main map and Autocomplete map
+
 jQuery(function(){
-    TIRAMIZOO.map.init();
-    TIRAMIZOO.mapAuto.init();
+  // console.log('TIRAMIZOO.map', TIRAMIZOO.map);
+  // console.log('TIRAMIZOO.mapAuto', TIRAMIZOO.mapAuto);
+
+  // TIRAMIZOO.map.init();
+});
+
+// init courier selection table
+jQuery(function(){
 
     function notification(msg) {
       $('.notification').text(msg);
@@ -21,9 +29,9 @@ jQuery(function(){
     classesSelected = [];
 
     function clickCourierItem() {
-      elem = $(this);
-      number = elem.find('td.number').text().trim();
-      checkbox = form.find('input[type=checkbox][value=' + number + ']');
+      elem      = $(this);
+      number    = elem.find('td.number').text().trim();
+      checkbox  = form.find('input[type=checkbox][value=' + number + ']');
       if (!checkbox.is(':checked')) {
         if (couriersSelected < maxCouriers) {          
           couriersSelected += 1; 

@@ -1,6 +1,6 @@
 TIRAMIZOO.geocodeScreenConfigs.booking = {
-  popId: "order_booking_pickup_address_street", 
-  podId: "order_booking_dropoff_address_street",
+  popId: "customer_order_booking_pickup_attributes_street", 
+  podId: "customer_order_booking_dropoff_attributes_street",
 
   callbacks: {
     popGeocoded : function (geocoded_location) {    

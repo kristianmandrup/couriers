@@ -1,0 +1,6 @@
+body.bp ul.ui-autocomplete {
+  padding: 0px;
+  border: 1px solid black;
+  list-style: none;
+}
+

@@ -90,10 +90,19 @@ $.widget( "ui.geo_autocomplete", {
 							}).length; 
 
               var notify = self.options.notify;
-              if (!len && notify) {                 
+              if (!len && notify) {
+                console.log('notify', notify);
                 console.log('You must write a full street address', _address);
                 if (notify.selector && notify.message) {
-                  $(notify.selector).text(notify.message);
+                  console.log('selector', notify.selector);
+                  var elem = $(notify.selector);
+                  console.log('elem', elem);
+                  if (elem)
+                    elem.text(notify.message);
+                  else
+                    console.log('notify element not found using selector', notify.selector);
+                } else {
+                  console.log('notify missing selector or message');                  
                 }
 							}
               if (len && notify) {

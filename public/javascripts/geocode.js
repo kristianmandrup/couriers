@@ -1,38 +1,11 @@
-TIRAMIZOO.namespace("mapAuto");
-TIRAMIZOO.mapAuto = (function (app, $) {
-    var events = app.events,
-    geolocation = app.geolocation,
-    g = google.maps,
-    map,
-    mapOptions = {
-        zoom: 10,
-        center: new g.LatLng(48.1359717, 11.572207),
-        mapTypeId: g.MapTypeId.ROADMAP,
-        mapTypeControl: false
-    };
-    
-    function init() {
-        map = new g.Map(document.getElementById("map-canvas-auto"), mapOptions);
-    } 
-    
-    function fitBounds(bounds) {
-      map.fitBounds(bounds);
-    }
-           
-    return  { 
-        fitBounds: fitBounds,
-        init: init
-    }
-}(TIRAMIZOO, jQuery));
-
-
 TIRAMIZOO.namespace("geoAutocompleteField");
-TIRAMIZOO.geoAutocompleteField = function ($, app) {
+TIRAMIZOO.geoAutocompleteField = (function ($, app) {
 	// initialize your private vars from the options object and app dependencies here
 	var events = app.events,
-	options = opts,
+	mapAuto = app.mapAuto,
 	autoCompleteField,
 	valid = false,
+
   ui_geocode_options = {
     	geocoder_region:  'Munich',
     	geocoder_types:   'street_address',
@@ -46,26 +19,48 @@ TIRAMIZOO.geoAutocompleteField = function ($, app) {
       minLength:  3, // see http://jqueryui.com/demos/autocomplete/#option-minLength
       delay:      300, // see http://jqueryui.com/demos/autocomplete/#option-delay
 
-  		select: this.onSelect
-  };
+  		select: onSelect
+  },
+  
+  otherOptions = {
+  	geocoder_region:  'Munich',
+  	geocoder_types:   'street_address',
+
+  	mapwidth: 75,
+  	mapheight: 75,
+  	geocoder_address: true,
+  	maptype: 'roadmap',
+		notify: {
+		  selector: '#notifier',
+		  message: 'You must write a full street address'
+	  },
+
+  	select: function (_event, _ui) { 
+  	  console.log('inside onSelect:', valid);
+    }  		
+  };  
 	
 	// call init here or remove this call, make init public and call it later
-	function init(newOptions) {
-	  options = newOptions;
-	  autoCompleteField = $("#" + options.fieldID);
+	function init(id) {
+	  console.log('geoAutocompleteField init:', id);
+	  autoCompleteField = $("#" + id);
 		// setup your autocomplete field here
-		autoCompleteField.geo_autocomplete(ui_geocode_options);  
+    console.log('ui_geocode_options:', ui_geocode_options);
+    if (!ui_geocode_options) {
+      // ui_geocode_options.select = onSelect;
+      console.log('ui_geocode_options:', ui_geocode_options);
+    }        
+    // console.log('map', mapAuto.getMap());
+		autoCompleteField.geo_autocomplete(otherOptions);  
 	}
 
 
 	// this is your select change handler which is attached to the autocomplete field
 	function onSelect(_event, _ui) {
 	  valid = true;
-  	if (_ui.item.viewport) {  	  
-  	  TIRAMIZOO.mapAuto.fitBounds(_ui.item.viewport);
-    }
+	  console.log('inside onSelect:', valid);
 		// do some stuff and dispatch an event
-		events.dispatch("geoAutocompleteFieldChange", valid);
+		events.dispatch("geoAutocompleteFieldChange", isValid);
 	}
 	
 	// create all your other internal functions
@@ -78,19 +73,48 @@ TIRAMIZOO.geoAutocompleteField = function ($, app) {
     isValid: isValid,
     init : init
   }
-};
+}(jQuery, TIRAMIZOO));
 
 
 TIRAMIZOO.namespace("geocoder");
-TIRAMIZOO.geocoder = function ($, app) {
-
-  var options = opts, 
-  instance;
-
+TIRAMIZOO.geocoder = function (options) {
+  var callback = options.callback;
+  
   function init(options) {
+	  console.log('geocoder init:', options);    
     callback = options.callback;
-  	instance = options.gc;
   }
 }
+
+TIRAMIZOO.geocoder.instance = new google.maps.Geocoder();
+
+TIRAMIZOO.main = (function (app, $) {
+    var courier = app.courier,
+    map = app.map,
+    mapAuto = app.mapAuto,
+    events = app.events,
+    geolocation = app.geolocation,
+    pubsub = app.pubsub;
+
+    function init() {
+        console.log('main init', map);
+        map.init(); 
+    }
+
+    return {
+        init: init
+    }
+
+}(TIRAMIZOO, jQuery));
+
+$(document).ready(function() {
+  TIRAMIZOO.main.init();    
+
+  TIRAMIZOO.geoAutocompleteField.init('customer_order_booking_pickup_attributes_street');
+  // TIRAMIZOO.geoAutocompleteField.init('customer_order_booking_dropoff_attributes_street');  
+  // $('#customer_order_booking_pickup_attributes_street').geo_autocomplete();    
+  $('#customer_order_booking_dropoff_attributes_street').geo_autocomplete();
+});
+
 
 

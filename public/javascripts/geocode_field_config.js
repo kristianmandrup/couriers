@@ -11,7 +11,7 @@ TIRAMIZOO.geocodeFieldConfig = function ($, app, opts) {
 	podFieldId  = options.podId,
 
 	popAutoComplete = app.geoAutocompleteField($, app).init({fieldID: popFieldId}),
-	podAutoComplete = app.geoAutocompleteField($, app).init({fieldID: podFieldId}),
+  podAutoComplete = app.geoAutocompleteField($, app).init({fieldID: podFieldId}),
 
 	map             = app.map, 
 	gc              = new google.maps.Geocoder(),

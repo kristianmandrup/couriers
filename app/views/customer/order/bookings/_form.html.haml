@@ -1,5 +1,4 @@
 - content_for :tab_content do
-  #map-canvas-auto
   = semantic_form_for @booking do |bf|
     #hidden_checkboxes{:class => 'hidden'}
       = bf.input :couriers, :as => :check_boxes, :collection => Courier.available.map(&:number)
@@ -7,7 +6,8 @@
       = bf.semantic_fields_for :pickup do |pf|
         = pf.inputs do
           .title Pickup
-          = pf.input :street, :label => 'From'
+          = pf.input :street, :label => 'From' 
+          #notifier
           = pf.semantic_fields_for :name do |nf| 
             = nf.input :first_name
             = nf.input :last_name 
@@ -20,6 +20,7 @@
         = df.inputs do
           .title Dropoff
           = df.input :street, :label => 'To'
+          #notifier
           = df.semantic_fields_for :name do |nf| 
             = nf.input :first_name
             = nf.input :last_name
